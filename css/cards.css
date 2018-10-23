@@ -1,0 +1,27 @@
+
+.row_card {
+    background-color: gray;
+    /* height: max-content; */
+    /* width: max-content; */
+    padding: 10px;
+    /* box-sizing: border-box; */
+     
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.row_card div{
+    margin: 20xp;
+    border: 10px solid black;
+}
+
+.card {
+
+    background-color: yellow;
+    width: 120px;
+    height: 150px;
+ 
+
+}
