@@ -1,0 +1,56 @@
+html, body {
+    height: 100%;
+    width: auto;
+    background-color: black;
+}
+.page_content {
+    display: flex;
+    justify-content: center;
+    align-content: space-between;
+    height: auto !important;
+    min-height: 100%;
+    width: 70%;
+    margin: 0 auto 0 auto;
+    background-color: white;  
+}
+header, footer {
+    width: inherit;
+    background-color: grey;
+}
+header{
+    height: 250px;
+    margin-top: 0;
+}
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 150px;
+    position: absolute;
+    bottom: -1%;
+}
+footer span {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+form {    
+    display: flex;
+    flex-direction: column;
+}
+form label, input {
+    padding: 1%;
+}
+.login_content {    
+    width: 200px;
+    height: 130px;
+    padding: 2%;
+    margin-top: 40%;
+    background-color: grey;
+}
+#links ul {
+    list-style-type: none;    
+}
+#links a {
+    text-decoration: none;
+    color: black;
+}
