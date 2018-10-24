@@ -1,0 +1,51 @@
+#mentors {
+    list-style-type: none;    
+    padding: 4% 0 2% 0;
+}
+#mentors li {
+    list-style-position:inside;
+    border-bottom: 1px solid grey;
+}
+#list_header {
+    background-color: grey;
+    color: white;
+}
+#mentors li span {
+    display: inline-block;
+    padding-left: 1%;
+    padding-right: -1%;
+}
+.mentor_name_label, .mentor_class_label, .mentor_e_mail_label, .edit_label {
+    padding-top: 1%;
+}
+.mentor_name, .mentor_name_label {
+    width: 150px;    
+}
+.mentor_class, .mentor_class_label {
+    width: 100px;
+}
+.mentor_e_mail, .mentor_e_mail_label {
+    width: 200px;
+}
+.edit_label, .edit_mentor {
+    width: 65px;
+}
+#shade_background {
+    display: none;
+    position: absolute;
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: black;
+}
+#edit_window {
+    display: none;
+    position: absolute;
+    margin: 20% auto;
+    padding: 5%;
+    border: 2px solid grey;
+    border-radius: 1%;
+    z-index: 200;
+    background-color: white;
+}

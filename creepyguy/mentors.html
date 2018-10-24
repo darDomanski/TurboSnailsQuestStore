@@ -4,10 +4,11 @@
 <head>
     <meta charset="utf-8">
     <title>QuestStore login</title>
-    <meta name="viewport" content="width=device-width, initial-sclae=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/main.css">
-    <script src="../js/script.js"></script>
+    <link rel="stylesheet" href="../css/mentors.css">
+    <script src="../js/script.js"></script>    
 </head>
 
 <body>
@@ -22,21 +23,48 @@
             <nav>
                 <ul>
                     <li>
-
+                        <a href="mentors.html">MENTORS</a>
                     </li>
                     <li>
-
+                        <a href="classes.html">CLASSES</a>
                     </li>
                     <li>
-
+                        <a href="levels.html">LEVELS</a>
                     </li>
                 </ul>
             </nav>
 
         </header>
         <div class="main_content">
-            <h1> </h1>
-            <p> </p>
+            <h1>MENTORS</h1>
+            <p>Here you can see the list of all Mentors, add new Mentor or edit existing one.</p>
+            <ul id="mentors">
+                <li id="list_header">
+                    <span class="mentor_name_label">NAME</span>
+                    <span class="mentor_class_label">CLASS</span>
+                    <span class="mentor_e_mail_label">E-MAIL</span>
+                    <span class="edit_label"></span>
+                </li>
+                <li>
+                    <span class="mentor_name">Piotr Tomaszewski</span>
+                    <span class="mentor_class">Web</span>
+                    <span class="mentor_e_mail">piotr@codecool.pl</span>
+                    <input class="edit_button" type="button" name="edit_mentor" value="EDIT">
+                </li>
+                <li>
+                    <span class="mentor_name">Agnieszka Koszany</span>
+                    <span class="mentor_class">Java</span>
+                    <span class="mentor_e_mail">agnieszka@codecool.pl</span>
+                    <input class="edit_button" type="button" name="edit_mentor" value="EDIT">
+                </li>
+                <li>
+                    <span class="mentor_name">Marek Grzybek</span>
+                    <span class="mentor_class">Basics</span>
+                    <span class="mentor_e_mail">marek@codecool.pl</span>
+                    <input class="edit_button" type="button" name="edit_mentor" value="EDIT">
+                </li>
+            </ul>
+            <input id="add_mentor" type="button" name="add_mentor" value="ADD MENTOR">
 
         </div>
         <footer>
@@ -53,8 +81,31 @@
                 <p>Copyrights&copy; 2018 by TurboSnails, all rights reserved.</p>
             </span>
         </footer>
+        <div id="edit_window">
+            <form name="edit_mentor_form" id="edit_mentor_form">
+                <label for="name">Name:</label>
+                <br>
+                <input type="text" name="name" id="name" size="50"
+                    placeholder="Mentor name">
+                <br>
+                <label for="edit_mentor_class">Class:</label>
+                <br>
+                <input type="text" name="edit_mentor_class" id="edit_mentor_class" size="50" 
+                    placeholder="Mentor class">
+                <br>
+                <label for="edit_mentor_email">E-mail:</label>
+                <br>
+                <input type="text" name="edit_mentor_email" id="messageedit_mentor_email" size="50"
+                    placeholder="Mentor email">
+                <br>
+                <input type="button" id="save_mentor_button" value="SAVE">
+                <br>
+                <input type="button" id="exit_mentor_button" value="EXIT">
+            </form>
+        </div>
+        <div id="shade_background"></div>
     </div>
-
+    <script src="../js/mentors.js"></script>
 </body>
 
 </html>
