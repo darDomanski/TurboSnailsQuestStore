@@ -20,4 +20,17 @@ function logIn() {
 
 function logIt(name) {
     console.log(name);
-}  
+}
+
+function fund() {
+    var actualPrice = parseInt(document.getElementById("item_price").innerHTML);
+    var contribution = parseInt(document.getElementById("fund_input").value);
+
+    actualPrice = actualPrice - contribution;
+
+    if (actualPrice < 0) {
+        document.getElementById("item_price").innerHTML = 0;
+    } else {
+        document.getElementById("item_price").innerHTML = actualPrice;
+    }
+}
