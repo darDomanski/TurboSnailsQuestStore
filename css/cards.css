@@ -13,15 +13,31 @@
 }
 
 .row_card div{
-    margin: 20xp;
-    border: 10px solid black;
+    margin: 10xp;
+    border: 5px solid black;
 }
 
 .card {
-
-    background-color: yellow;
-    width: 120px;
-    height: 150px;
- 
-
+    background-color: rgb(61, 61, 50);
+    width: 150px;
+    height: 200px;
 }
+
+.pictures_on_card{
+    width: 100%;
+    height: auto;
+}
+
+.text_on_card_1{
+    color: rgb(211, 211, 214);
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.text_on_card_2{
+    color: rgb(211, 211, 214);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
