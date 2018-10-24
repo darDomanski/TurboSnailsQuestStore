@@ -5,7 +5,6 @@
     /* width: max-content; */
     /* padding: 10px; */
     /* box-sizing: border-box; */
-     
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -22,16 +21,25 @@
     background-color: rgb(61, 61, 50);
     width: 200px;
     height: 300px;
+    border: 3px; black;
+    border-style: solid;
     border-radius: 10px;
-    /* text-align: center; */
-    /* margin: 25xp; */
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.638);
-    margin: 10px;
-    /* display: flex; 
-    flex-direction: column;
-    justify-content: center; */
-    
+    margin: 10px; 
+}
+
+.card_artefacts {
+    background-color: rgb(51, 51, 28);
+    width: 200px;
+    height: 300px;
+    border: 3px; black;
+    /* border-style: solid; */
+    border-style: double;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.638);
+    margin: 10px; 
 }
 
 .pictures_on_card{
