@@ -5,30 +5,33 @@ html, body {
 }
 .page_content {
     display: flex;
-    justify-content: center;
-    align-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;    
     height: auto !important;
     min-height: 100%;
     width: 70%;
     margin: 0 auto 0 auto;
     background-color: white;  
 }
+.main_content {
+    padding: 5% 0;
+}
 header, footer {
-    width: inherit;
+    display: flex;
+    justify-content: center;
+    align-content: space-between;
+    width: 100%;
     background-color: grey;
 }
 header{
     height: 250px;
     margin-top: 0;
-    position: absolute;
 }
 footer {
-    display: flex;
-    justify-content: space-between;
+    bottom: 0;
     align-items: flex-end;
-    height: 150px;
-    position: absolute;
-    bottom: -1%;
+    height: 150px;    
 }
 footer span {
     padding-left: 5%;
@@ -41,11 +44,11 @@ form {
 form label, input {
     padding: 1%;
 }
-.login_content {    
+.login_content {
     width: 200px;
     height: 130px;
     padding: 2%;
-    margin-top: 40%;
+    margin-top: 20%;
     background-color: grey;
 }
 #links ul {
