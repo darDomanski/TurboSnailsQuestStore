@@ -4,9 +4,10 @@
 <head>
     <meta charset="utf-8">
     <title>Crowfunding</title>
-    <meta name="viewport" content="width=device-width, initial-sclae=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/cards.css">
     <script src="../js/script.js"></script>
 </head>
 
@@ -23,28 +24,40 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="store.html"> STORE</a>
+                        <a href="../student/store.html"> Store</a>
                     </li>
                     <li>
-                        CROWDFUNDING
+                        <a href="../student/crowdfunding.html">Crowdfunding</a>
                     </li>
                     <li>
-                        <a href="artifacts.html">ARTEFACTS</a>
+                        <a href="artifacts.html">Artifacts</a>
                     </li>
                 </ul>
-             </nav>
+            </nav>
         </header>
 
         <div class="main_content">
-            <h1>CROWD FUNDING </h1>
-            <p> </p>
+            <h1>Crowdfunding</h1>
+            <p>Together with your classmates you can buy some artifacts.</p>
+
+            <div class="crowdfund_item">
+                <div class="card">
+                    <img src="" alt="item">
+                    <span class="item_description">Description...</span>
+                </div>
+                <p>Yet to collect: <p id="item_price">10 </p> cc</p>
+                <label for="fund_input">Fund:</label>
+                <input type="number" name="fund_input" id="fund_input" min="1" max="5">
+                <input type="button" value="Donate" onclick="fund()">
+
+            </div>
 
         </div>
 
         <footer>
             <span id="links">
                 <h3>Find us on Facebook:</h3>
-                <ul>                    
+                <ul>
                     <li><a href="https://www.facebook.com/profile.php?id=100024050271937" target="_blank">TurboKrzyś</a></li>
                     <li><a href="https://www.facebook.com/roman.bulinski" target="_blank">TurboRoman</a></li>
                     <li><a href="https://www.facebook.com/dar.domanski" target="_blank">TurboDaro</a></li>
@@ -58,4 +71,5 @@
     </div>
 
 </body>
+
 </html>
