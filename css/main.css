@@ -29,13 +29,14 @@ header{
     margin-top: 0;
 }
 footer {
-    bottom: 0;
+    display: flex;
+    justify-content: space-between;
     align-items: flex-end;
+    bottom: 0;    
     height: 150px;    
 }
 footer span {
-    padding-left: 5%;
-    padding-right: 5%;
+    padding: 2% 5% 1% 5%;
 }
 form {    
     display: flex;
