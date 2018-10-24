@@ -28,9 +28,9 @@
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.638);
     margin: 10px;
-    display: flex; 
+    /* display: flex; 
     flex-direction: column;
-    justify-content: center;
+    justify-content: center; */
     
 }
 
@@ -55,6 +55,20 @@
     font-weight: bold;
     text-align: left;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
