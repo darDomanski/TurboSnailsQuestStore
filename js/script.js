@@ -38,5 +38,11 @@ function fund(item_number) {
     if (document.getElementById("item_price" + item_number).innerHTML == 0) {
         document.getElementById("fund_button" + item_number).disabled = true;
     }
+}
 
+function getCCAmount() {
+    var ccAmount = document.getElementById("amount_of_coolcoins");
+    var actualCCAmount = document.getElementById("actual_cc_amount");
+
+    actualCCAmount.innerHTML = ccAmount.innerHTML;
 }
