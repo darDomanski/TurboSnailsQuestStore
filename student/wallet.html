@@ -10,7 +10,7 @@
     <script src="../js/script.js"></script>
 </head>
 
-<body>
+<body onload="getCCAmount()">
     <div class="page_content">
         <header>
             <div class="title_container">
@@ -19,7 +19,7 @@
                 </figure>
                 <a href="wallet.html">
                     <figure id="wallet_icon">
-                        <img src="../img/wallet.png" id="wallet_img" alt="wallet">
+                        <img src="../img/wallet.png" title="wallet" id="wallet_img" alt="wallet">
                         <div id="amount_of_coolcoins">100</div>
                     </figure>
                 </a>
@@ -42,8 +42,9 @@
 
         </header>
         <div class="main_content">
-            <h1> </h1>
-            <p> </p>
+
+            <h1>Wallet</h1>
+            <p>You have <span id="actual_cc_amount"> </span>cc</p>
 
         </div>
         <footer>
