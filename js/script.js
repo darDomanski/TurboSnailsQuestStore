@@ -23,14 +23,23 @@ function logIt(name) {
 }
 
 function fund() {
-    var actualPrice = parseInt(document.getElementById("item_price").innerHTML);
+    var actualPrice = document.getElementById("item_price").innerHTML;
+    var actualPriceInt = parseInt(actualPrice);
     var contribution = parseInt(document.getElementById("fund_input").value);
 
-    actualPrice = actualPrice - contribution;
+    actualPriceInt = actualPriceInt - contribution;
 
-    if (actualPrice < 0) {
+    logIt(contribution);
+
+    if (actualPriceInt < 0) {
         document.getElementById("item_price").innerHTML = 0;
     } else {
-        document.getElementById("item_price").innerHTML = actualPrice;
+        document.getElementById("item_price").innerHTML = actualPriceInt;
     }
+    logIt(actualPriceInt);
+
+    if (document.getElementById("item_price").innerHTML == 0) {
+        document.getElementById("fund_button").disabled = true;
+    }
+
 }
