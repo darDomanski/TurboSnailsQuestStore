@@ -24,18 +24,54 @@ header, footer {
     width: 100%;
     background-color: grey;
 }
-header{
+header {
+    display: flex;
+    flex-direction: column;
     height: 250px;
     margin-top: 0;
 }
+.title_container {
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.title_container figure, .title_container a {
+    padding: 2% 5% 1% 5%;
+}
+#logo {
+    width: 70%;
+    margin-top: -2%;
+    margin-left: -5%;
+}
+header nav ul {
+    padding-inline-start: 0;
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+}
+header nav ul li {
+    display: inline;
+    margin-left: 2%;
+    margin-right: 2%;
+    font-size: 2em;
+    
+}
+header nav ul li a {    
+    text-decoration: none;
+    color: white;
+}
 footer {
-    bottom: 0;
+    display: flex;
+    justify-content: space-between;
     align-items: flex-end;
+    bottom: 0;    
     height: 150px;    
 }
 footer span {
-    padding-left: 5%;
-    padding-right: 5%;
+    padding: 2% 5% 1% 5%;
 }
 form {    
     display: flex;
