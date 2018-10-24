@@ -29,14 +29,11 @@ function fund() {
 
     actualPriceInt = actualPriceInt - contribution;
 
-    logIt(contribution);
-
     if (actualPriceInt < 0) {
         document.getElementById("item_price").innerHTML = 0;
     } else {
         document.getElementById("item_price").innerHTML = actualPriceInt;
     }
-    logIt(actualPriceInt);
 
     if (document.getElementById("item_price").innerHTML == 0) {
         document.getElementById("fund_button").disabled = true;
