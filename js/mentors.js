@@ -20,7 +20,7 @@ function showDialogBox(addOrEdit) {
         addMentorButton.style.display = "none";
         saveEditButton.style.display = "block";
     }
-}
+};
 
 // Clear all inputs and hide box
 function hideEditDialogBox() {
@@ -29,20 +29,38 @@ function hideEditDialogBox() {
     document.getElementById("edit_mentor_email").value = "";
     editWindow.style.display = "none";
     shadeBackground.style.display = "none";
-}
+};
 
 // Add function for all edit buttons
-var editMentor = function() {
-
-    var currentMentorName = document.getElementById()
+var showMentorEdit = function() {    
     showDialogBox("editMentor");
 };
+
 function addEventListeners() {
     for (var i = 0; i < editButton.length; i++) {
-        editButton[i].addEventListener('click', editMentor, false);
+        editButton[i].addEventListener('click', showMentorEdit, false);
     };
 };
+
 addEventListeners();
+
+function addClassesAndButtonsForListItems() {
+    var listItems = document.querySelectorAll("#mentors li");
+    for (var i = 1; i < listItems.length; i++) {
+        listItems[i].setAttribute("class", i);
+
+        var newMentorEditButton = document.createElement("input");
+        newMentorEditButton.setAttribute("id", i);
+        newMentorEditButton.setAttribute("class", "edit_button");
+        newMentorEditButton.setAttribute("type", "button");
+        newMentorEditButton.setAttribute("name", "edit_mentor");
+        newMentorEditButton.setAttribute("value", "EDIT");
+
+        listItems[i].appendChild(newMentorEditButton);
+    }
+};
+
+addClassesAndButtonsForListItems();
 
 // Create new list item filled with new mentor info
 addMentorButton.addEventListener('click', function() {
@@ -110,8 +128,13 @@ function getMentorEditButton() {
 
 // 
 saveEditButton.addEventListener('click', function() {
+    editMentor();
     hideEditDialogBox();
 });
+
+function editMentor() {
+    
+};
 
 //
 exitEditButton.addEventListener('click', function() {
