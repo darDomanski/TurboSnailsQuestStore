@@ -104,6 +104,9 @@ form label, input {
     margin-top: 20%;
     background-color: grey;
 }
+#links h3 {
+    color: white;
+}
 #links ul {
     list-style-type: none;    
 }
