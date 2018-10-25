@@ -1,7 +1,17 @@
 html, body {
     height: 100%;
-    width: auto;    
-    background-color: black;
+    width: auto;
+}
+body {
+    background-image: url("../img/main_background.png");
+    background-attachment: fixed;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'MedievalSharp', cursive;
+    font-weight: bold;
+}
+a, span, li, p {
+    font-family: 'Noto Serif', serif;
 }
 .page_content {
     min-width: 520px;
@@ -13,7 +23,9 @@ html, body {
     min-height: 100%;
     width: 70%;
     margin: 0 auto 0 auto;
-    background-color: white;  
+    background-color: white;
+    filter: drop-shadow(0 0 2rem black);
+    background-image: url("../img/page_content_background.jpg");
 }
 .main_content {
     padding: 5% 5%;
@@ -23,7 +35,7 @@ header, footer {
     justify-content: center;
     align-content: space-between;
     width: 100%;
-    background-color: grey;
+    background-image: url("../img/header_footer_background.jpg");
 }
 header {
     display: flex;
@@ -63,13 +75,19 @@ header nav ul li {
 header nav ul li a {    
     text-decoration: none;
     color: white;
+    font-family: 'MedievalSharp', cursive;
+}
+header nav ul li a:hover {    
+    text-decoration: none;
+    color: lightgray;
 }
 footer {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    bottom: 0;    
-    height: 150px;    
+    bottom: 0;
+    height: 150px;
+    color: wheat;
 }
 footer span {
     padding: 2% 5% 1% 5%;
@@ -88,12 +106,15 @@ form label, input {
     margin-top: 20%;
     background-color: grey;
 }
+#links h3 {
+    color: white;
+}
 #links ul {
     list-style-type: none;    
 }
 #links a {
     text-decoration: none;
-    color: black;
+    color: wheat;
 }
 
 #header_icons {
@@ -141,8 +162,9 @@ form label, input {
         justify-content: space-evenly;
     }
     #logo {
+        min-width: 0;
         margin-left: -8%;
-        display: none;
+        content:url("../img/logo_small.png");        
     }
 }
 @media screen and (max-width: 600px) {
