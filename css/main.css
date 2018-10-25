@@ -35,7 +35,7 @@ header, footer {
     justify-content: center;
     align-content: space-between;
     width: 100%;
-    background-color: grey;
+    background-image: url("../img/header_footer_background.jpg");
 }
 header {
     display: flex;
@@ -85,8 +85,9 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    bottom: 0;    
-    height: 150px;    
+    bottom: 0;
+    height: 150px;
+    color: wheat;
 }
 footer span {
     padding: 2% 5% 1% 5%;
@@ -113,7 +114,7 @@ form label, input {
 }
 #links a {
     text-decoration: none;
-    color: black;
+    color: wheat;
 }
 
 #header_icons {
