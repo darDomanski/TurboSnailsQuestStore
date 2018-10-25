@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/cards.css">
+
     <script src="../js/script.js"></script>
+    <script src="../js/cards.js"></script>
+
 </head>
 
 <body>
@@ -39,7 +42,7 @@
 
         <div class="main_content">
 
-                <h1></h1>
+                <h1>Quest</h1>
                 <p> </p>
 
 <!-- make card - quest     -->
@@ -55,39 +58,37 @@
                                 <img 
                                     class="pictures_on_card" 
                                     src="../resources/img/heroes.jpg"
-                                    alt="No image!!!" />
+                                    alt="Picture of  heroes!!" />
                             </div> 
                             <ul>
                                 <li><p class="text_on_card_2">Finishing a Teamwork week</p></li>
                                 <li><p class="text_on_card_2">100 cc/ person</p></li>
                             </ul>
-
                             <p id="example">EXAMPLE </p>
-
                         </div>
 
-                        <div class ="card">  
-                                <p class="text_on_card_1"><input type="text" placeholder="Title of card / quest..."></p>
+                        <div class ="card" id="create_quest_card">  
+                                <p class="text_on_card_1"><input id="input_card_title" type="text" placeholder="Title of card / quest..."></p>
                                 <div id="pictures_on_card_workshop">
                                     <img 
                                         class="pictures_on_card" 
                                         src="../resources/img/heroes.jpg"
-                                        alt="No image!!!" />
+                                        alt="Picture of  heroes!!" />
 
                                         <button id="button_basic_quest" type="button">Basie Quest</button>
                                         <button id="button_extra_quest" type="button">Extra Quest</button>
 
-                                        <p id="inputonpicture"><input type="text" placeholder="Picture address..."></p>
+                                        <p id="inputonpicture"><input  id="input_card_picture_address" type="text" placeholder="Picture address..."></p>
                                 </div> 
-                             
-                                <p class="text_on_card_1"><input type="text" placeholder="Short description..."></p>
-                                <p class="text_on_card_1"><input type="text" placeholder="Value..."></p>
-                            </div>
+                                <p class="text_on_card_1"><input  id="input_card_description" type="text" placeholder="Short description..."></p>
+                                <p class="text_on_card_1"><input id="input_card_value" type="text" placeholder="Value..."></p>
+                        </div>
 
-                        <button id="button_create_quest_card" type="button"><p class="text_on_card_1">Create quest</p></button>
-
+                        <button id="button_create_quest_card" type="button" onclick="create_quest_card()"><p class="text_on_button">Create quest</p></button>
+                        
                     </div>
 
+<!-- basic - quest     -->
                 <h2>Basic Quests</h2>
     
                 <div class ="quests">
@@ -98,12 +99,13 @@
                                     <img 
                                         class="pictures_on_card" 
                                         src="../resources/img/heroes.jpg"
-                                        alt="No image!!!" />
+                                        alt="Picture of  heroes!!" />
                                 </div> 
                                 <ul>
                                     <li><p class="text_on_card_2">Finishing a Teamwork week</p></li>
                                     <li><p class="text_on_card_2">100 cc/ person</p></li>
                                 </ul>
+                                <div  class="editcardbutton">EDIT CARD</div>
                             </div>
     
                             <div class="card">
@@ -112,13 +114,14 @@
                                     <img 
                                         class="pictures_on_card" 
                                         src="../resources/img/heroes.jpg"
-                                        alt="No image!!!" />
+                                        alt="Picture of  heroes!!" />
                                 </div> 
                                 
                                 <ul>
                                     <li><p class="text_on_card_2">Finishing an SI assignment</p></li>
                                     <li><p class="text_on_card_2">100 cc/ person</p></li>
                                 </ul>
+                                <div  class="editcardbutton">EDIT CARD</div>
                             </div>
     
                             <div class ="card">
@@ -127,47 +130,68 @@
                                         <img 
                                             class="pictures_on_card" 
                                             src="../resources/img/heroes.jpg"
-                                            alt="No image!!!" />
+                                            alt="Picture of  heroes!!" />
                                     </div> 
                                     <ul>
                                         <li><p class="text_on_card_2">Passing a Checkpoint</p></li>
                                         <li><p class="text_on_card_2">500 cc/ person</p></li>
                                     </ul>
-                                </div>
+                                    <div  class="editcardbutton">EDIT CARD</div>
+                            </div>
                         </div>
-        
-            
-    
+
+    <!-- empty card   -->                    
+                        <div class ="row_card">
+
+                            <div class ="card_empty" id="empty_card_1">  
+                                <p class="text_on_card_1" id="empty_card_title"></p>
+                                <div >
+                                    <img 
+                                        id ="no_img"
+                                        class="pictures_on_card" 
+                                        src=""
+                                        alt="Picture of  heroes!!" />
+                                </div> 
+                                <ul>
+                                    <li><p class="text_on_card_2" id="empty_card_descritpion"></p></li>
+                                    <li><p class="text_on_card_2" id="empty_card_value"></p></li>
+                                </ul>
+                                
+                            </div>
+                        </div>
+
+<!-- Extra - quest     -->    
+
                         <h2>Extra Quests</h2>
-    
     
                         <div class ="row_card">
             
-                                <div class ="card">
+                                <div class ="card" id="Spot_trap_card">
                                     
-                        
                                     <p class="text_on_card_1">Spot trap</p>
                                     <div >
                                         <img 
                                             class="pictures_on_card" 
                                             src="../resources/img/heroes.jpg"
-                                            alt="No image!!!" />
+                                            alt="Picture of  heroes!!" />
                                     </div> 
                                     <ul>
                                         <li><p class="text_on_card_2">Spot a major mistake in the assignment</p></li>
                                         <li><p class="text_on_card_2">50 cc</p></li>
                                     </ul>
                                     <p class="extra">EXTRA QUEST</p>
+                                    <button  class="editcardbutton" id="Spot_trap_card_b" onclick="editCard()" >EDIT CARD</button>
+                                    
                                 </div>
         
-                                <div class="card">
+                                <div class="card" id="Taming_a_pet">
 
-                                    <p class="text_on_card_1">Taming a pet</p>
+                                    <p class="text_on_card_1" >Taming a pet</p>
                                     <div >
                                         <img 
                                             class="pictures_on_card" 
                                             src="../resources/img/heroes.jpg"
-                                            alt="No image!!!" />
+                                            alt="Picture of  heroes!!" />
                                     </div> 
                                     
                                     <ul>
@@ -175,6 +199,7 @@
                                         <li><p class="text_on_card_2">100 cc/ person</p></li>
                                     </ul>
                                     <p class="extra">EXTRA QUEST</p>
+                                    <button  class="editcardbutton" id="Taming_a_pet_b" onclick="editCard()" >EDIT CARD</button>
                                 </div>
         
                                 <div class ="card">
@@ -183,13 +208,14 @@
                                             <img 
                                                 class="pictures_on_card" 
                                                 src="../resources/img/heroes.jpg"
-                                                alt="No image!!!" />
+                                                alt="Picture of  heroes!!" />
                                         </div> 
                                         <ul>
                                             <li><p class="text_on_card_2">Taking part in the student screening process </p></li>
                                             <li><p class="text_on_card_2">100 cc/ person</p></li>
                                         </ul>
                                         <p class="extra">EXTRA QUEST</p>
+                                        <div  class="editcardbutton">EDIT CARD</div>
                                 </div>
                         </div>
     
@@ -204,13 +230,14 @@
                                         <img 
                                             class="pictures_on_card" 
                                             src="../resources/img/heroes.jpg"
-                                            alt="No image!!!" />
+                                            alt="Picture of  heroes!!" />
                                     </div> 
                                     <ul>
                                         <li><p class="text_on_card_2">Organizing a workshop for other students</p></li>
                                         <li><p class="text_on_card_2">400 cc</p></li>
                                     </ul>
                                     <p class="extra">EXTRA QUEST</p>
+                                    <div  class="editcardbutton">EDIT CARD</div>
                                 </div>
         
                                 <div class="card">
@@ -219,7 +246,7 @@
                                         <img 
                                             class="pictures_on_card" 
                                             src="../resources/img/heroes.jpg"
-                                            alt="No image!!!" />
+                                            alt="Picture of  heroes!!" />
                                     </div> 
                                     
                                     <ul>
@@ -227,6 +254,7 @@
                                         <li><p class="text_on_card_2">300 cc</p></li>
                                     </ul>
                                     <p class="extra">EXTRA QUEST</p>
+                                    <div  class="editcardbutton">EDIT CARD</div>
                                 </div>
         
                                 <div class ="card">
@@ -235,19 +263,18 @@
                                             <img 
                                                 class="pictures_on_card" 
                                                 src="../resources/img/heroes.jpg"
-                                                alt="No image!!!" />
+                                                alt="Picture of  heroes!!" />
                                         </div> 
                                         <ul>
                                             <li><p class="text_on_card_2">deliver 4 consecutive SI week assignments on time </p></li>
                                             <li><p class="text_on_card_2">500 cc</p></li>
                                         </ul>
                                         <p class="extra">EXTRA QUEST</p>
+                                        <div  class="editcardbutton">EDIT CARD</div>
                                 </div>
                         </div>
-    
-    
-    
-    
+
+
                         <div class ="row_card">
             
                                 <div class ="card">
@@ -257,13 +284,14 @@
                                         <img 
                                             class="pictures_on_card" 
                                             src="../resources/img/heroes.jpg"
-                                            alt="No image!!!" />
+                                            alt="Picture of  heroes!!" />
                                     </div> 
                                     <ul>
                                         <li><p class="text_on_card_2">set up a SMART goal accepted by a mentor, then achieve it </p></li>
                                         <li><p class="text_on_card_2">500 cc</p></li>
                                     </ul>
                                     <p class="extra">EXTRA QUEST</p>
+                                    <div  class="editcardbutton">EDIT CARD</div>
                                 </div>
         
                                 <div class="card">
@@ -272,7 +300,7 @@
                                         <img 
                                             class="pictures_on_card" 
                                             src="../resources/img/heroes.jpg"
-                                            alt="No image!!!" />
+                                            alt="Picture of  heroes!!" />
                                     </div> 
                                     
                                     <ul>
@@ -280,6 +308,7 @@
                                         <li><p class="text_on_card_2">500 cc</p></li>
                                     </ul>
                                     <p class="extra">EXTRA QUEST</p>
+                                    <div  class="editcardbutton">EDIT CARD</div>
                                 </div>
         
                                 <div class ="card">
@@ -288,13 +317,15 @@
                                             <img 
                                                 class="pictures_on_card" 
                                                 src="../resources/img/heroes.jpg"
-                                                alt="No image!!!" />
+                                                alt="Picture of  heroes!!" />
                                         </div> 
                                         <ul>
                                             <li><p class="text_on_card_2">Creating extra material for the current TW/SI topic (should be revised by mentors)</p></li>
                                             <li><p class="text_on_card_2">500 cc</p></li>
                                         </ul>
                                         <p class="extra">EXTRA QUEST</p>
+                                        <div  class="editcardbutton">EDIT CARD</div>
+                            
                                 </div>
                         </div>
     
@@ -307,13 +338,15 @@
                                     <img 
                                         class="pictures_on_card" 
                                         src="../resources/img/heroes.jpg"
-                                        alt="No image!!!" />
+                                        alt="Picture of  heroes!!" />
                                 </div> 
                                 <ul>
                                     <li><p class="text_on_card_2">set up a SMART goal accepted by a mentor, then achieve it </p></li>
                                     <li><p class="text_on_card_2">500 cc</p></li>
                                 </ul>
                                 <p class="extra">EXTRA QUEST</p>
+                                <div  class="editcardbutton">EDIT CARD</div>
+                                
                             </div>
     
                             <div class="card">
@@ -322,7 +355,7 @@
                                     <img 
                                         class="pictures_on_card" 
                                         src="../resources/img/heroes.jpg"
-                                        alt="No image!!!" />
+                                        alt="Picture of  heroes!!" />
                                 </div> 
                                 
                                 <ul>
@@ -330,6 +363,8 @@
                                     <li><p class="text_on_card_2">500 cc</p></li>
                                 </ul>
                                 <p class="extra">EXTRA QUEST</p>
+                                <div  class="editcardbutton">EDIT CARD</div>
+                            
                             </div>
     
                             <div class ="card">
@@ -338,13 +373,14 @@
                                         <img 
                                             class="pictures_on_card" 
                                             src="../resources/img/heroes.jpg"
-                                            alt="No image!!!" />
+                                            alt="Picture of  heroes!!" />
                                     </div> 
                                     <ul>
                                         <li><p class="text_on_card_2">Creating extra material for the current TW/SI topic (should be revised by mentors)</p></li>
                                         <li><p class="text_on_card_2">500 cc</p></li>
                                     </ul>
                                     <p class="extra">EXTRA QUEST</p>
+                                    <div  class="editcardbutton">EDIT CARD</div>
                             </div>
                         </div>
     
