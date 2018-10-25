@@ -1,20 +1,22 @@
 // Collect all buttons and dialog box elements
-var editButton = document.getElementsByClassName("edit_button");
 var saveEditButton = document.getElementById("save_mentor_button");
 var exitEditButton = document.getElementById("exit_mentor_button");
 var addMentorButton = document.getElementById("add_mentor_button");
 var addMentorOption = document.getElementById("add_mentor_option");
+var mentorNumberInput = document.getElementById("mentor_number");
+var mentorEditButton = document.getElementById("edit_mentor_option");
 
 var editWindow = document.getElementById("edit_window");
 var shadeBackground =  document.getElementById("shade_background");
 
-var clikedEditButton;
+var clickedEditButtonId;
 
 // Show box for adding and editing mentor
 function showDialogBox(addOrEdit) {
 
     editWindow.style.display = "block";
     shadeBackground.style.display = "block";
+
     if (addOrEdit == "addMentor") {
         saveEditButton.style.display = "none";
         addMentorButton.style.display = "block";
@@ -34,25 +36,17 @@ function hideEditDialogBox() {
 };
 
 // Add function for all edit buttons
-var showMentorEdit = function() {    
-    clikedEditButton = e.target.id;
-    clikedEditButton = "1";
+function showMentorEdit(id) {
+    clickedEditButtonId = id;
     showDialogBox("editMentor");
 };
-
-function addEventListeners() {
-    for (var i = 0; i < editButton.length; i++) {
-        editButton[i].addEventListener('click', showMentorEdit(), false);
-    };
-};
-
-addEventListeners();
 
 function addClassesAndButtonsForListItems() {
     var listItems = document.querySelectorAll("#mentors li");
     for (var i = 1; i < listItems.length; i++) {
         listItems[i].setAttribute("class", i);
-
+        listItems[i].children[0].innerHTML = i;
+        /*
         var newMentorEditButton = document.createElement("input");
         newMentorEditButton.setAttribute("id", i);
         newMentorEditButton.setAttribute("class", "edit_button");
@@ -61,6 +55,7 @@ function addClassesAndButtonsForListItems() {
         newMentorEditButton.setAttribute("value", "EDIT");
 
         listItems[i].appendChild(newMentorEditButton);
+        */
     }
 };
 
@@ -69,26 +64,45 @@ addClassesAndButtonsForListItems();
 // Create new list item filled with new mentor info
 addMentorButton.addEventListener('click', function() {
 
+    var listItems = document.querySelectorAll("#mentors li");
+    var listItemsCount = 0;
+    for (var i = 0; i < listItems.length; i++) {
+        listItemsCount++;
+    }
+
     var newMentorName = document.getElementById("edit_mentor_name").value;
     var newMentorClass = document.getElementById("edit_mentor_class").value;
     var newMentorEmail = document.getElementById("edit_mentor_email").value;
 
     var newMentorListItem = document.createElement("li");
+    newMentorListItem.setAttribute("class", listItemsCount);
 
+    var mentorIdSpan = getMentorIdSpan(listItemsCount);
+    newMentorListItem.appendChild(mentorIdSpan);
     var mentorNameSpan = getMentorNameSpan(newMentorName);
     newMentorListItem.appendChild(mentorNameSpan);
     var mentorClassSpan = getMentorClassSpan(newMentorClass);    
     newMentorListItem.appendChild(mentorClassSpan);
     var mentorEmailSpan = getMentorEmailSpan(newMentorEmail);
     newMentorListItem.appendChild(mentorEmailSpan);
-    var newMentorEditButton = getMentorEditButton();   
+    /*
+    var newMentorEditButton = getMentorEditButton(listItemsCount);   
     newMentorListItem.appendChild(newMentorEditButton);
+    */
 
     document.getElementById("mentors").appendChild(newMentorListItem);
 
-    addEventListeners();
     hideEditDialogBox();
 });
+
+//
+function getMentorIdSpan(listItemsCount) {
+    var mentorIdSpan = document.createElement("span");
+    mentorIdSpan.setAttribute("class", "mentor_e_mail");
+    mentorIdSpan.innerHTML = listItemsCount;
+
+    return mentorIdSpan;
+};
 
 // Get mentor name span from form input
 function getMentorNameSpan(newMentorName) {
@@ -119,9 +133,10 @@ function getMentorEmailSpan(newMentorEmail) {
 
     return mentorEmailSpan;
 };
-
-function getMentorEditButton() {
+/*
+function getMentorEditButton(listItemsCount) {
     var newMentorEditButton = document.createElement("input");
+    newMentorEditButton.setAttribute("id", listItemsCount);
     newMentorEditButton.setAttribute("class", "edit_button");
     newMentorEditButton.setAttribute("type", "button");
     newMentorEditButton.setAttribute("name", "edit_mentor");
@@ -129,26 +144,67 @@ function getMentorEditButton() {
 
     return newMentorEditButton;
 };
+*/
+
+//
+mentorEditButton.addEventListener('click', function() {
+    if (mentorNumberInput.value != "") {
+        var mentorNumber = mentorNumberInput.value;
+
+        var chosenMentorNodeId = mentorNumberInput.value;
+
+        var chosenMentorsName = document.getElementsByClassName(chosenMentorNodeId)[0].children[1].innerHTML;
+        document.getElementById("edit_mentor_name").placeholder = chosenMentorsName;
+        var chosenMentorsClass = document.getElementsByClassName(chosenMentorNodeId)[0].children[2].innerHTML;
+        document.getElementById("edit_mentor_class").placeholder = chosenMentorsClass;
+        var chosenMentorsEmail = document.getElementsByClassName(chosenMentorNodeId)[0].children[3].innerHTML;
+        document.getElementById("edit_mentor_email").placeholder = chosenMentorsEmail;
+
+        showDialogBox("editMentor");
+    } else {
+        alert("Input mentor's number!");
+    };
+    
+});
 
 // 
 saveEditButton.addEventListener('click', function() {    
     editMentor();
+
+    document.getElementById("edit_mentor_name").placeholder = "Mentor name";
+    document.getElementById("edit_mentor_class").placeholder = "Mentor class";
+    document.getElementById("edit_mentor_email").placeholder = "Mentor email";
+
     hideEditDialogBox();
 });
 
 function editMentor() {
+
+    var chosenMentorNodeId = mentorNumberInput.value;
+
     var newMentorName = document.getElementById("edit_mentor_name").value;
     var newMentorClass = document.getElementById("edit_mentor_class").value;
     var newMentorEmail = document.getElementById("edit_mentor_email").value;
 
-    alert(clickedEditButton);
-    var listItem = document.getElementsByClassName(clikedEditButton);
-    listItem.getElementsByClassName("mentor_name")
-            .innerHTML = newMentorName;
-    listItem.getElementsByClassName("mentor_class")
-            .innerHTML = newMentorClass;
-    listItem.getElementsByClassName("mentor_e_mail")
-            .innerHTML = newMentorEmail;
+    var overridedMentorName = document.getElementsByClassName(chosenMentorNodeId)[0].children[1];
+    var overridedMentorsClass = document.getElementsByClassName(chosenMentorNodeId)[0].children[2];
+    var overridedMentorsEmail = document.getElementsByClassName(chosenMentorNodeId)[0].children[3];
+
+    if (newMentorName == "" || newMentorClass == "" || newMentorEmail == "") {
+        if (newMentorName == "") {
+            alert("Input mentor's name!");
+        }
+        if (newMentorClass == "") {
+            alert("Input mentor's class!");
+        }
+        if (newMentorEmail == "") {
+            alert("Input mentor's e-mail!");
+        };
+    } else {
+        overridedMentorName.innerHTML = newMentorName;
+        overridedMentorsClass.innerHTML = newMentorClass;
+        overridedMentorsEmail.innerHTML = newMentorEmail;
+    };
 };
 
 //
