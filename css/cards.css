@@ -17,6 +17,20 @@
     align-items: flex-start;
 } */
 
+.card_empty {
+    background-color: rgb(61, 61, 50);
+    width: 200px;
+    height: 300px;
+    border: 3px; black;
+    border-style: solid;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.638);
+    margin: 10px;
+    
+    position:relative;
+}
+
 .card {
     background-color: rgb(61, 61, 50);
     width: 200px;
@@ -148,6 +162,21 @@
     text-align: center;
     text-shadow: 0 2px 2px rgba(12, 1, 1, 1);
 }
+
+
+.text_on_button{
+    color: rgb(211, 211, 214);
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 5px;
+    width: 100%;
+    color: #d5ffc8;
+    text-align: center;
+    text-shadow: 0 2px 2px rgba(12, 1, 1, 1);
+}
+
+
+
 
 .text_on_card_2{
     color: rgb(211, 211, 214);
