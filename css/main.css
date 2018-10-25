@@ -38,7 +38,7 @@ header {
     justify-content: space-between;
 }
 .title_container figure, .title_container a {
-    padding: 2% 5% 1% 5%;
+    padding: 2% 0 1% 0;
 }
 #logo {
     width: 70%;
@@ -97,20 +97,19 @@ form label, input {
 }
 
 #header_icons {
-    width: 30%;
+    /*width: 30%;*/
     float: right;
+    display: flex;
 }
-
-#header_icon {
-    width: 20px;
+#icon {
+    width: 10px;
     position: relative;
     text-align: center;
     color: black;
 }
-
-#icon_img {
-    width: 30px;
-    height: 30px;
+.icon_img {
+    width: 60px;
+    height: 60px;
 }
 
 #amount_of_coolcoins {
@@ -135,11 +134,15 @@ form label, input {
     header nav ul {
         flex-direction: column;
     }
+    .title_container {
+        justify-content: center;
+    }
     .page_content {
         justify-content: space-evenly;
     }
     #logo {
         margin-left: -8%;
+        display: none;
     }
 }
 @media screen and (max-width: 600px) {
