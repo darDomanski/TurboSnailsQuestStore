@@ -26,11 +26,22 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.638);
-    margin: 10px; 
-
+    margin: 10px;
     
+    position:relative;
 }
 
+#button_create_quest_card {
+    background-color: green;
+    width: 200px;
+    height: 50px;
+    border: 3px; black;
+    border-style: solid;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.638);
+    margin: 10px; 
+}
 
 .card_from_mentor {
     /* background-color: rgb(145, 145, 89); */
@@ -48,9 +59,29 @@
     position:relative;
 }
 
+#example{
+    position:absolute;
+    top:120px;
+    left:15px;
+    color: rgb(211, 211, 214);
+    font-size: 30px;
+    font-weight: bold;
+    transform: rotate(-45deg);
+}
+
+.extra{
+    position:absolute;
+    bottom:20px;
+    right: 0px;
+    color: rgb(211, 211, 214);
+    font-size: 13px;
+    font-weight: bold;
+    transform: rotate(-45deg);
+    text-shadow: 0 2px 2px rgba(12, 1, 1, 1);
+    text-shadow: 0 1px 1px rgb(138, 255, 5);
+}
 
 .card_artefacts {
-
     background-image: linear-gradient(rgba(41, 41, 8, 0.823), rgba(100, 100, 0, 0.652));
     width: 200px;
     height: 300px;
@@ -64,12 +95,35 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.638);
 
     position:relative;
-
 }
 
 .pictures_on_card{
     width: 100%;
     height: auto;
+}
+
+#pictures_on_card_workshop{
+    width: 100%;
+    height: auto;
+    position:relative;
+}
+
+#inputonpicture{
+    position:absolute;
+    bottom:10px;
+    right:10px;
+}
+
+#button_basic_quest{
+    position:absolute;
+    top:10px;
+    right:10px;
+}
+
+#button_extra_quest{
+    position:absolute;
+    top:10px;
+    left:10px;
 }
 
 .text_on_card_1{
@@ -81,7 +135,6 @@
     color: #d5ffc8;
     text-align: center;
     text-shadow: 0 2px 2px rgba(12, 1, 1, 1);
- 
 }
 
 .text_on_card_2{
@@ -124,7 +177,6 @@
     
     overflow: hidden;
     box-shadow: 2px 2px 1px rgb(56, 56, 56);
-
 }
 
 
