@@ -3,6 +3,16 @@ html, body {
     width: auto;    
     background-color: black;
 }
+body {
+    background-image: url("../img/main_background.png");
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Charmonman', cursive;
+    font-weight: bold;
+}
+a, span, li, p {
+    font-family: 'Noto Serif', serif;
+}
 .page_content {
     min-width: 520px;
     display: flex;
@@ -13,7 +23,8 @@ html, body {
     min-height: 100%;
     width: 70%;
     margin: 0 auto 0 auto;
-    background-color: white;  
+    background-color: white;
+    filter: drop-shadow(0 0 2rem black);
 }
 .main_content {
     padding: 5% 5%;
@@ -63,6 +74,11 @@ header nav ul li {
 header nav ul li a {    
     text-decoration: none;
     color: white;
+    font-family: 'Charmonman', cursive;
+}
+header nav ul li a:hover {    
+    text-decoration: none;
+    color: lightgray;
 }
 footer {
     display: flex;
