@@ -141,8 +141,9 @@ form label, input {
         justify-content: space-evenly;
     }
     #logo {
+        min-width: 0;
         margin-left: -8%;
-        display: none;
+        content:url("../img/logo_small.png");        
     }
 }
 @media screen and (max-width: 600px) {
