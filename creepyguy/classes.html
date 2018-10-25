@@ -6,8 +6,9 @@
     <title>QuestStore login</title>
     <meta name="viewport" content="width=device-width, initial-sclae=1">
     <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href=../css/main.css">
+    <link rel="stylesheet" href="../css/main.css">
     <script src="../js/script.js"></script>
+    <script src="../js/classes.js"></script>
 </head>
 
 <body>
@@ -22,27 +23,63 @@
             <nav>
                 <ul>
                     <li>
-
+                        <a href="../creepyguy/classes.html">CLASSES MANAGEMENT</a>
                     </li>
                     <li>
-
+                        <a href="../creepyguy/mentors.html">MENTORS MANAGEMENT</a>
                     </li>
                     <li>
-
+                        <a href="../creepyguy/levels.html">LEVELS MANAGEMENT</a>
                     </li>
                 </ul>
             </nav>
 
         </header>
         <div class="main_content">
-            <h1> </h1>
-            <p> </p>
+            <h1>Classes management</h1>
+            <p>Here you can create new classes.</p>
+
+            <div class="classes">
+
+                <table id="classes_table">
+                    <tr id="table_row1">
+                        <th>Class</th>
+                        <th>Mentor</th>
+                    </tr>
+                    <tr id="table_row2">
+                        <td class="">ProgBasic</td>
+                        <td>Marek Grzybek</td>
+                    </tr>
+                    <tr id="table_row3">
+                        <td>Java Room</td>
+                        <td>Agnieszka Koszany</td>
+                    </tr>
+                    <tr id="table_row4">
+                        <td>Web Room</td>
+                        <td>Konrad Gadzina</td>
+                    </tr>
+                </table>
+
+                <form action="#" onsubmit="addClass()">
+                    <h2>Add new class:</h2>
+                    <label for="class_name">Class name:</label>
+                    <input type="text" name="class_name" id="class_name" required>
+                    <label for="mentor">Mentor:</label>
+                    <select name="mentor" id="mentor_select">
+                        <option value="Agnieszka Koszany">Agnieszka Koszany</option>
+                        <option value="Marek Grzybek">Marek Grzybek</option>
+                        <option value="Konrad Gadzina">Konrad Gadzina</option>
+                    </select>
+                    <input type="submit" value="Add class">
+                </form>
+
+            </div>
 
         </div>
         <footer>
             <span id="links">
                 <h3>Find us on Facebook:</h3>
-                <ul>                    
+                <ul>
                     <li><a href="https://www.facebook.com/profile.php?id=100024050271937" target="_blank">TurboKrzyś</a></li>
                     <li><a href="https://www.facebook.com/roman.bulinski" target="_blank">TurboRoman</a></li>
                     <li><a href="https://www.facebook.com/dar.domanski" target="_blank">TurboDaro</a></li>
