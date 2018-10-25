@@ -8,6 +8,8 @@ var addMentorOption = document.getElementById("add_mentor_option");
 var editWindow = document.getElementById("edit_window");
 var shadeBackground =  document.getElementById("shade_background");
 
+var clikedEditButton;
+
 // Show box for adding and editing mentor
 function showDialogBox(addOrEdit) {
 
@@ -33,12 +35,14 @@ function hideEditDialogBox() {
 
 // Add function for all edit buttons
 var showMentorEdit = function() {    
+    clikedEditButton = e.target.id;
+    clikedEditButton = "1";
     showDialogBox("editMentor");
 };
 
 function addEventListeners() {
     for (var i = 0; i < editButton.length; i++) {
-        editButton[i].addEventListener('click', showMentorEdit, false);
+        editButton[i].addEventListener('click', showMentorEdit(), false);
     };
 };
 
@@ -127,13 +131,24 @@ function getMentorEditButton() {
 };
 
 // 
-saveEditButton.addEventListener('click', function() {
+saveEditButton.addEventListener('click', function() {    
     editMentor();
     hideEditDialogBox();
 });
 
 function editMentor() {
-    
+    var newMentorName = document.getElementById("edit_mentor_name").value;
+    var newMentorClass = document.getElementById("edit_mentor_class").value;
+    var newMentorEmail = document.getElementById("edit_mentor_email").value;
+
+    alert(clickedEditButton);
+    var listItem = document.getElementsByClassName(clikedEditButton);
+    listItem.getElementsByClassName("mentor_name")
+            .innerHTML = newMentorName;
+    listItem.getElementsByClassName("mentor_class")
+            .innerHTML = newMentorClass;
+    listItem.getElementsByClassName("mentor_e_mail")
+            .innerHTML = newMentorEmail;
 };
 
 //
