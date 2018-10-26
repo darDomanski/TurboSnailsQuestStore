@@ -25,10 +25,7 @@
 }
 .mentor_class, .mentor_class_label {
     width: 100px;
-}    /*
-.mentor_e_mail, .mentor_e_mail_label {
-    width: 200px;
-} */
+} 
 #shade_background {
     display: none;
     position: absolute;

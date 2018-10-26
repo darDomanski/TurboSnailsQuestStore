@@ -39,12 +39,7 @@ function hideEditDialogBox() {
     shadeBackground.style.display = "none";
 };
 
-// Add function for all edit buttons
-function showStudentEdit(id) {
-    clickedEditButtonId = id;
-    showDialogBox("editStudent");
-};
-
+// Add classes for all list items and place that number in id span
 function addClassesAndButtonsForListItems() {
     var listItems = document.querySelectorAll("#students li");
     for (var i = 1; i < listItems.length; i++) {
@@ -55,7 +50,7 @@ function addClassesAndButtonsForListItems() {
 
 addClassesAndButtonsForListItems();
 
-// Create new list item filled with new mentor info
+// Create new list item filled with new student info
 addStudentButton.addEventListener('click', function () {
 
     var listItems = document.querySelectorAll("#students li");
@@ -85,15 +80,6 @@ addStudentButton.addEventListener('click', function () {
     hideEditDialogBox();
 });
 
-//
-function getstudentIdSpan(listItemsCount) {
-    var studentIdSpan = document.createElement("span");
-    studentIdSpan.setAttribute("class", "student_e_mail");
-    studentIdSpan.innerHTML = listItemsCount;
-
-    return studentIdSpan;
-};
-
 // Get student name span from form input
 function getstudentNameSpan(newStudentName) {
     var studentNameSpan = document.createElement("span");
@@ -104,27 +90,7 @@ function getstudentNameSpan(newStudentName) {
     return studentNameSpan;
 };
 
-// Get student class span from form input
-function getstudentClassSpan(newStudentClass) {
-    var studentClassSpan = document.createElement("span");
-    studentClassSpan.classList.add("student_class");
-    var studentClassNode = document.createTextNode(newStudentClass);
-    studentClassSpan.appendChild(studentClassNode);
-
-    return studentClassSpan;
-};
-
-// Get student e-mail span from form input
-function getstudentEmailSpan(newStudentEmail) {
-    var studentEmailSpan = document.createElement("span");
-    studentEmailSpan.classList.add("student_e_mail");
-    var studentEmailNode = document.createTextNode(newStudentEmail);
-    studentEmailSpan.appendChild(studentEmailNode);
-
-    return studentEmailSpan;
-};
-
-//
+// Check if there is a number in student edit input and change placeholder in dialog box
 studentEditButton.addEventListener('click', function () {
     if (studentNumberInput.value != "") {
 
@@ -140,7 +106,7 @@ studentEditButton.addEventListener('click', function () {
 
 });
 
-// 
+// Override placeholder text when editing concrete student
 saveEditButton.addEventListener('click', function () {
     editStudent();
 
@@ -151,6 +117,7 @@ saveEditButton.addEventListener('click', function () {
     hideEditDialogBox();
 });
 
+// Get all inputs from input fields and override ones in students list
 function editStudent() {
 
     var chosenStudentNodeId = studentNumberInput.value;
@@ -180,12 +147,10 @@ function editStudent() {
     };
 };
 
-//
 exitEditButton.addEventListener('click', function () {
     hideEditDialogBox();
 });
 
-//
 addStudentOption.addEventListener('click', function () {
     showDialogBox("addStudent");
 });

@@ -1,27 +1,16 @@
 
-.row_card {
-    background-color; white;
-    /* height: max-content; */
-    /* width: max-content; */
-    /* padding: 10px; */
-    /* box-sizing: border-box; */
+.row_card {       
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-/* .row_card div{
-    margin: 25xp;
-    border: 10px solid gray;
-    align-items: flex-start;
-} */
-
 .card_empty {
     background-color: rgb(61, 61, 50);
     width: 200px;
     height: 300px;
-    border: 3px; black;
+    border: 3px black;
     border-style: solid;
     border-radius: 10px;
     overflow: hidden;
@@ -35,13 +24,12 @@
     background-color: rgb(61, 61, 50);
     width: 200px;
     height: 300px;
-    border: 3px; black;
+    border: 3px black;
     border-style: solid;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.638);
-    margin: 10px;
-    
+    margin: 10px;    
     position:relative;
 }
 
@@ -49,7 +37,7 @@
     background-color: green;
     width: 200px;
     height: 50px;
-    border: 3px; black;
+    border: 3px black;
     border-style: solid;
     border-radius: 10px;
     overflow: hidden;
@@ -62,14 +50,13 @@
     background-image: linear-gradient(red, rgba(255, 255, 0, 0.652));
     width: 200px;
     height: 300px;
-    border: 3px; black;
+    border: 3px black;
     border-style: solid;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.638);
     margin: 10px; 
-    background-image: linear-gradient(red, yellow);
-    
+    background-image: linear-gradient(red, yellow);    
     position:relative;
 }
 
@@ -112,14 +99,11 @@
     width: 200px;
     height: 300px;
     margin: 10px; 
-
-    border: 3px; black;
+    border: 3px black;
     border-style: double;
     border-radius: 10px;
-
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.638);
-
     position:relative;
 }
 
@@ -216,17 +200,13 @@
 
     background:rgb(223, 226, 223);
     width:50px;
-    height:50px;
-    /* border: 3px double rgb(24, 26, 22); */
+    height:50px;    
     border-radius: 25px;
-
-    text-align: center;
-    
+    text-align: center;    
     line-height: 50px;
     text-align: center;
     color: white;
-    text-shadow: 2px 2px 2px #000000;
-    
+    text-shadow: 2px 2px 2px #000000;    
     overflow: hidden;
     box-shadow: 2px 2px 1px rgb(56, 56, 56);
 }

@@ -7,7 +7,7 @@ var mentorNumberInput = document.getElementById("mentor_number");
 var mentorEditButton = document.getElementById("edit_mentor_option");
 
 var editWindow = document.getElementById("edit_window");
-var shadeBackground =  document.getElementById("shade_background");
+var shadeBackground = document.getElementById("shade_background");
 
 var clickedEditButtonId;
 
@@ -35,34 +35,19 @@ function hideEditDialogBox() {
     shadeBackground.style.display = "none";
 };
 
-// Add function for all edit buttons
-function showMentorEdit(id) {
-    clickedEditButtonId = id;
-    showDialogBox("editMentor");
-};
-
+// Add classes for all list items and place that number in id span
 function addClassesAndButtonsForListItems() {
     var listItems = document.querySelectorAll("#mentors li");
     for (var i = 1; i < listItems.length; i++) {
         listItems[i].setAttribute("class", i);
         listItems[i].children[0].innerHTML = i;
-        /*
-        var newMentorEditButton = document.createElement("input");
-        newMentorEditButton.setAttribute("id", i);
-        newMentorEditButton.setAttribute("class", "edit_button");
-        newMentorEditButton.setAttribute("type", "button");
-        newMentorEditButton.setAttribute("name", "edit_mentor");
-        newMentorEditButton.setAttribute("value", "EDIT");
-
-        listItems[i].appendChild(newMentorEditButton);
-        */
     }
 };
 
 addClassesAndButtonsForListItems();
 
 // Create new list item filled with new mentor info
-addMentorButton.addEventListener('click', function() {
+addMentorButton.addEventListener('click', function () {
 
     var listItems = document.querySelectorAll("#mentors li");
     var listItemsCount = 0;
@@ -81,7 +66,7 @@ addMentorButton.addEventListener('click', function() {
     newMentorListItem.appendChild(mentorIdSpan);
     var mentorNameSpan = getMentorNameSpan(newMentorName);
     newMentorListItem.appendChild(mentorNameSpan);
-    var mentorClassSpan = getMentorClassSpan(newMentorClass);    
+    var mentorClassSpan = getMentorClassSpan(newMentorClass);
     newMentorListItem.appendChild(mentorClassSpan);
     var mentorEmailSpan = getMentorEmailSpan(newMentorEmail);
     newMentorListItem.appendChild(mentorEmailSpan);
@@ -95,7 +80,7 @@ addMentorButton.addEventListener('click', function() {
     hideEditDialogBox();
 });
 
-//
+// Get mentors id from span
 function getMentorIdSpan(listItemsCount) {
     var mentorIdSpan = document.createElement("span");
     mentorIdSpan.setAttribute("class", "mentor_e_mail");
@@ -133,21 +118,9 @@ function getMentorEmailSpan(newMentorEmail) {
 
     return mentorEmailSpan;
 };
-/*
-function getMentorEditButton(listItemsCount) {
-    var newMentorEditButton = document.createElement("input");
-    newMentorEditButton.setAttribute("id", listItemsCount);
-    newMentorEditButton.setAttribute("class", "edit_button");
-    newMentorEditButton.setAttribute("type", "button");
-    newMentorEditButton.setAttribute("name", "edit_mentor");
-    newMentorEditButton.setAttribute("value", "EDIT");
 
-    return newMentorEditButton;
-};
-*/
-
-//
-mentorEditButton.addEventListener('click', function() {
+// Check if there is a number in mentor edit input and change placeholder in dialog box
+mentorEditButton.addEventListener('click', function () {
     if (mentorNumberInput.value != "") {
         var mentorNumber = mentorNumberInput.value;
 
@@ -164,11 +137,11 @@ mentorEditButton.addEventListener('click', function() {
     } else {
         alert("Input mentor's number!");
     };
-    
+
 });
 
-// 
-saveEditButton.addEventListener('click', function() {    
+// Override placeholders text when editing concrete mentor
+saveEditButton.addEventListener('click', function () {
     editMentor();
 
     document.getElementById("edit_mentor_name").placeholder = "Mentor name";
@@ -178,6 +151,7 @@ saveEditButton.addEventListener('click', function() {
     hideEditDialogBox();
 });
 
+// Get all inputs from input fields and override ones in mentors list
 function editMentor() {
 
     var chosenMentorNodeId = mentorNumberInput.value;
@@ -207,12 +181,10 @@ function editMentor() {
     };
 };
 
-//
-exitEditButton.addEventListener('click', function() {
+exitEditButton.addEventListener('click', function () {
     hideEditDialogBox();
 });
 
-//
-addMentorOption.addEventListener('click', function() {
-    showDialogBox("addMentor");    
+addMentorOption.addEventListener('click', function () {
+    showDialogBox("addMentor");
 });

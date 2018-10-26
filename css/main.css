@@ -115,7 +115,6 @@ form label, input {
 }
 
 #header_icons {
-    /*width: 30%;*/
     float: right;
     display: flex;
 }
