@@ -81,6 +81,10 @@ header nav ul li a:hover {
     text-decoration: none;
     color: lightgray;
 }
+#amount_of_coolcoins, #exp_level {
+    color: wheat;
+    font-size: 1.4em;
+}
 footer {
     display: flex;
     justify-content: space-between;
@@ -98,13 +102,6 @@ form {
 }
 form label, input {
     padding: 1%;
-}
-.login_content {
-    width: 200px;
-    height: 130px;
-    padding: 2%;
-    margin-top: 20%;
-    background-color: grey;
 }
 #links h3 {
     color: white;
