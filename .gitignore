@@ -28,3 +28,16 @@ hs_err_pid*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Maven
+log/
+target/
+
+# Other
+.classpath
+.project
+.settings/
+.idea/workspace.xml
+.idea
+.editorconfig
+.iml
