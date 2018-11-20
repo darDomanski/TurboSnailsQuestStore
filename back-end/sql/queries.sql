@@ -1,14 +1,33 @@
+--Database reset
+DROP DATABASE quest_store;
+DROP USER admin;
+
 --User creation
-CREATE USER admin;
+CREATE USER admin WITH ENCRYPTED PASSWORD 'admin';
 
 --Database creation
 CREATE DATABASE quest_store WITH OWNER = admin;
-GRANT ALL PRIVILEGES ON quest_store TO admin;
+GRANT CONNECT ON DATABASE quest_store TO admin;
+--GRANT USAGE ON SCHEMA public to admin;
+--GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO admin;
+--GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO admin;
 
 --Connection to new created database
-\c quest_store admin
+\c quest_store admin localhost
 
 --Tables creation
+CREATE TABLE
+IF NOT EXISTS user_type (
+    user_type_id SERIAL PRIMARY KEY,
+    user_type_name TEXT
+);
+
+CREATE TABLE
+IF NOT EXISTS user_status (
+    user_status_id SERIAL PRIMARY KEY,
+    user_status_name TEXT
+);
+
 CREATE TABLE
 IF NOT EXISTS access_level (
 	level_id INTEGER PRIMARY KEY,
@@ -40,8 +59,8 @@ IF NOT EXISTS qs_user (
 	last_name TEXT,
 	email VARCHAR(320),
 	class_id INTEGER REFERENCES class_(class_id),
-	user_type TEXT REFERENCES user_type(user_type_id),
-	status TEXT REFERENCES user_status(user_status_id)
+	user_type INTEGER REFERENCES user_type(user_type_id),
+	status INTEGER REFERENCES user_status(user_status_id)
 );
 
 CREATE TABLE
@@ -104,18 +123,6 @@ IF NOT EXISTS wallet (
 	lifetime_coins INTEGER
 );
 
-CREATE TABLE
-IF NOT EXISTS user_type (
-    user_type_id SERIAL PRIMARY KEY,
-    user_type_name TEXT
-);
-
-
-CREATE TABLE
-IF NOT EXISTS user_status (
-    user_status_id SERIAL PRIMARY KEY,
-    user_status_name TEXT
-);
 
 --Default data insertion
 INSERT INTO login_data (login, password)
