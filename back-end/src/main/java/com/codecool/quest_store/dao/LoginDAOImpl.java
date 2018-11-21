@@ -1,6 +1,8 @@
 package com.codecool.quest_store.dao;
 
 import com.codecool.quest_store.model.Person;
+import com.codecool.quest_store.model.Mentor;
+import com.codecool.quest_store.model.Student;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,41 +12,64 @@ import java.sql.SQLException;
 
 public class LoginDAOImpl implements LoginDAO {
 
-    public static void main(String[] args) {
-
-        LoginDAOImpl loginDAO = new LoginDAOImpl();
-        loginDAO.getPersonByLoginPassword("dario", "darek123");
-        // loginDAO.addPerson(5, "John", "Rambo");
-        loginDAO.updatePerson(5, "Jasiek", "login");
-    }
-
     public Person getPersonByLoginPassword(String login, String password) {
 
         Connection connection = null;
         PreparedStatement findUser = null;
         ResultSet resultSet = null;
         Person person = null;
+        String id = null;
 
         try {
             connection = DBConnector.getConnection();
-            findUser = connection.prepareStatement("SELECT qs_user.id, first_name, last_name, email, class_.name AS class, " +
-                    "user_type.user_type_name AS user_type, user_status.user_status_name AS status " +
-                    "FROM qs_user " +
-                    "INNER JOIN login_data ON qs_user.id = login_data.id " +
-                    "INNER JOIN class_ ON qs_user.class_id = class_.class_id " +
-                    "INNER JOIN user_type ON qs_user.user_type = user_type.user_type_id " +
-                    "INNER JOIN user_status ON qs_user.status = user_status.user_status_id " +
-                    "WHERE login=? AND password=?");
+            findUser = connection.prepareStatement("SELECT id FROM login_data WHERE login = ? AND password = ?");
             findUser.setString(1, login);
             findUser.setString(2, password);
             resultSet = findUser.executeQuery();
 
-            // method creating a person
-            // person = new Mentor(id, firstName, LastName, eMail, className, userType, status);
+            resultSet.next();
+            id = resultSet.getString("id");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+                findUser.close();
+                resultSet.close();
+            }
+            catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        if (id == null) {
+            System.out.println("kripigaj");
+            // person = new CreepyGuy();
+        } else {
+
+            connection = null;
+            findUser = null;
+            resultSet = null;
+            person = null;
+            id = null;
 
             try {
+                connection = DBConnector.getConnection();
+                findUser = connection.prepareStatement("SELECT qs_user.id, first_name, last_name, email, class_.name AS class, " +
+                        "user_type.user_type_name AS user_type, user_status.user_status_name AS status " +
+                        "FROM qs_user " +
+                        "INNER JOIN login_data ON qs_user.id = login_data.id " +
+                        "INNER JOIN class_ ON qs_user.class_id = class_.class_id " +
+                        "INNER JOIN user_type ON qs_user.user_type = user_type.user_type_id " +
+                        "INNER JOIN user_status ON qs_user.status = user_status.user_status_id " +
+                        "WHERE login=? AND password=?");
+                findUser.setString(1, login);
+                findUser.setString(2, password);
+                resultSet = findUser.executeQuery();
+
                 resultSet.next();
-                int id = Integer.parseInt(resultSet.getString("id"));
+                int user_id = Integer.parseInt(resultSet.getString("id"));
                 String firstName = resultSet.getString("first_name");
                 String lastName = resultSet.getString("last_name");
                 String eMail = resultSet.getString("email");
@@ -52,29 +77,17 @@ public class LoginDAOImpl implements LoginDAO {
                 String userType = resultSet.getString("user_type");
                 String status = resultSet.getString("status");
 
-                // testing what is returned
-                System.out.println(id + firstName + lastName + eMail + classId + userType + status);
-
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (findUser != null) {
-
-                try {
-                    connection.close();
-                    findUser.close();
-                    resultSet.close();
+                if (userType.equals("mentor")) {
+                    System.out.println("mentor");
+                    // person = new Mentor(user_id, firstName, lastName, eMail, classId, userType, status);
+                } else if (userType.equals("student")) {
+                    System.out.println("student");
+                    // person = new Student(user_id, firstName, lastName, eMail, classId, userType, status);
                 }
-                catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            if (connection != null) {
 
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
                 try {
                     connection.close();
                     findUser.close();
@@ -104,25 +117,12 @@ public class LoginDAOImpl implements LoginDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (findUser != null) {
-
-                try {
-                    connection.close();
-                    findUser.close();
-                }
-                catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+            try {
+                connection.close();
+                findUser.close();
             }
-            if (connection != null) {
-
-                try {
-                    connection.close();
-                    findUser.close();
-                }
-                catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+            catch (SQLException ex) {
+                ex.printStackTrace();
             }
         }
     }
@@ -134,39 +134,46 @@ public class LoginDAOImpl implements LoginDAO {
 
         try {
             connection = DBConnector.getConnection();
-            findUser = connection.prepareStatement("UPDATE login_data SET ? = ? WHERE id = ?");
-            findUser.setString(1, valueType);
-            findUser.setString(2, value);
-            findUser.setInt(3, id);
+            findUser = connection.prepareStatement(String.format("UPDATE login_data SET %s = ? WHERE id = ?", valueType));
+            findUser.setString(1, value);
+            findUser.setInt(2, id);
+            findUser.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+                findUser.close();
+            }
+            catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public void deletePerson(int id) {
+
+        Connection connection = null;
+        PreparedStatement findUser = null;
+
+        try {
+            connection = DBConnector.getConnection();
+            findUser = connection.prepareStatement("DELETE FROM login_data WHERE id = ?");
+            findUser.setInt(1, id);
             findUser.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (findUser != null) {
-
-                try {
-                    connection.close();
-                    findUser.close();
-                }
-                catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+            try {
+                connection.close();
+                findUser.close();
             }
-            if (connection != null) {
-
-                try {
-                    connection.close();
-                    findUser.close();
-                }
-                catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+            catch (SQLException ex) {
+                ex.printStackTrace();
             }
         }
-    }
-
-    public void deletePerson(Person person) {
 
     }
 }
