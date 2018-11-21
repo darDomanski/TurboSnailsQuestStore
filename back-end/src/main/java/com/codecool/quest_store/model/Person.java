@@ -1,7 +1,7 @@
 package com.codecool.quest_store.model;
 
 public abstract class Person {
-    final int ID;
+    int ID;
     String firstName;
     String lastName;
     String email;
@@ -9,12 +9,24 @@ public abstract class Person {
     String userType;
     String status;
 
+    public Person(int ID, String firstName, String lastName, String email, String className,
+                  String userType, String status)
+    {
+        this.ID = ID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.className = className;
+        this.userType = userType;
+        this.status = status;
+    }
+
     public int getId() {
-        return id;
+        return ID;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.ID = id;
     }
 
     public String getFirstName() {
