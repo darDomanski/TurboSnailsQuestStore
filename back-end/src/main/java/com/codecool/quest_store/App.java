@@ -3,6 +3,7 @@ package com.codecool.quest_store;
 import com.codecool.quest_store.dao.ItemDAO;
 import com.codecool.quest_store.dao.QuestDAO;
 import com.codecool.quest_store.model.Item;
+import com.codecool.quest_store.model.Quest;
 
 import java.util.List;
 
@@ -25,8 +26,18 @@ public class App {
             System.out.println();
         }
 
-        System.out.println(quests.getById(1).getTitle());
-        System.out.println(quests.getById(2).getTitle());
+        System.out.println();
+        System.out.println(quests.getById(4).getTitle());
+        System.out.println(quests.getById(3).getTitle());
+
+        System.out.println();
+
+
+        Item quest10 = new Quest(11,5,"aaaa","xxxxxxxx afd xcv", 500, "basic");
+//        quests.add(quest10);
+//
+        quests.update(1);
+
 
     }
 

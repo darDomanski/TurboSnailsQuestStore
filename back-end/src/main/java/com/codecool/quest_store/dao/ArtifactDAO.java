@@ -25,17 +25,17 @@ public class ArtifactDAO implements ItemDAO {
     }
 
     @Override
-    public void add() {
+    public void add(Item item ) {
 
     }
 
     @Override
-    public void update() {
+    public void update(Integer id) {
 
     }
 
     @Override
-    public void delete() {
+    public void delete(Integer id) {
 
     }
 }

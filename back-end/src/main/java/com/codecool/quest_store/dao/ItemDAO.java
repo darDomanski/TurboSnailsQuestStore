@@ -10,9 +10,9 @@ public interface ItemDAO {
 
     List<Item> getAll();
     Item getById(Integer id);
-    void add();
-    void update();
-    void delete();
+    void add(Item item );
+    void update(Integer id);
+    void delete(Integer id);
 
 
 }
