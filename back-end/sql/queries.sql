@@ -130,3 +130,12 @@ VALUES ('admin', 'admin');
 
 INSERT INTO access_level (level_id, min_lifetime_coins, max_lifetime_coins)
 VALUES (1, 0, 50), (2, 51, 150), (3, 151, 250), (4, 251, 350), (5, 351, null); 
+
+INSERT INTO class_ (name)
+VALUES ('progbasic'), ('java'), ('web'), ('advanced');
+
+INSERT INTO user_type (user_type_name)
+VALUES ('mentor'), ('student');
+
+INSERT INTO user_status (user_status_name)
+VALUES ('active'), ('inactve');
