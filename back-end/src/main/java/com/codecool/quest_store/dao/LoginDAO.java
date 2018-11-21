@@ -4,5 +4,5 @@ import com.codecool.quest_store.model.Person;
 
 public interface LoginDAO {
 
-    Person getPersonByLoginPassword(String login, String password);
+//    Person getPersonByLoginPassword(String login, String password);
 }
