@@ -14,7 +14,7 @@ public class LoginDAOImpl implements LoginDAO {
 
         LoginDAOImpl loginDAO = new LoginDAOImpl();
         loginDAO.getPersonByLoginPassword("dario", "darek123");
-        loginDAO.addPerson(5, "John", "Rambo");
+        // loginDAO.addPerson(5, "John", "Rambo");
         loginDAO.updatePerson(5, "Jasiek", "login");
     }
 
