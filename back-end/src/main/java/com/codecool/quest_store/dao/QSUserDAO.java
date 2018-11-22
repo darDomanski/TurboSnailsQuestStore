@@ -28,7 +28,7 @@ public class QSUserDAO implements PersonDAO {
 
     @Override
     public List<Person> getAll(String userTypeToGet) {
-        String sql = "SELECT qs_user.id, first_name, last_name, email, class_.name AS class_name, " +
+        String query = "SELECT qs_user.id, first_name, last_name, email, class_.name AS class_name, " +
                 "user_type.user_type_name AS user_type, " +
                 "user_status.user_status_name AS STATUS " +
                 "FROM qs_user " +
@@ -39,24 +39,25 @@ public class QSUserDAO implements PersonDAO {
         List<Person> users = new ArrayList<Person>();
 
         Connection connection = null;
-        PreparedStatement ps = null;
+        PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
             connection = DBConnector.getConnection();
-            ps = connection.prepareStatement(sql);
-            resultSet = ps.executeQuery();
+            preparedStatement = connection.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+
             while (resultSet.next()) {
-                int ID = resultSet.getInt("id");
+                int id = resultSet.getInt("id");
                 String firstName = resultSet.getString("first_name");
                 String lastName = resultSet.getString("last_name");
                 String email = resultSet.getString("email");
                 String className = resultSet.getString("class_name");
                 String userType = resultSet.getString("user_type");
                 String userStatus = resultSet.getString("status");
-                Person mentor = new QSUser(ID, firstName, lastName, email, className, userType, userStatus);
+                Person mentor = new QSUser(id, firstName, lastName, email, className, userType, userStatus);
                 users.add(mentor);
             }
-            ps.close();
+            preparedStatement.close();
             resultSet.close();
             connection.close();
 
@@ -75,7 +76,7 @@ public class QSUserDAO implements PersonDAO {
         String classId = person.getClassName();
         String userType = person.getUserType();
         String userStatus = person.getStatus();
-        String sql = "INSERT INTO qs_user (first_name, last_name, email, class_id, user_type, status) " +
+        String query = "INSERT INTO qs_user (first_name, last_name, email, class_id, user_type, status) " +
                 "VALUES (?, ?, ?, (SELECT class_id FROM class_ where name=?), " +
                 "(SELECT user_type_id FROM user_type WHERE user_type_name = ?), " +
                 "(SELECT user_status_id FROM user_status WHERE user_status_name = ?));";
@@ -85,7 +86,7 @@ public class QSUserDAO implements PersonDAO {
 
         try {
             connection = DBConnector.getConnection();
-            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, firstName);
             preparedStatement.setString(2, lastName);
             preparedStatement.setString(3, email);
@@ -105,13 +106,13 @@ public class QSUserDAO implements PersonDAO {
 
     @Override
     public void update(int id, String column, String newValue) {
-        String sql = String.format("UPDATE qs_user SET %s=? WHERE id=?;", column);
+        String query = String.format("UPDATE qs_user SET %s=? WHERE id=?;", column);
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = DBConnector.getConnection();
-            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, newValue);
             preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
@@ -126,13 +127,13 @@ public class QSUserDAO implements PersonDAO {
 
     @Override
     public void delete(int id) {
-        String sql = "DELETE FROM qs_user WHERE id=?";
+        String query = "DELETE FROM qs_user WHERE id=?";
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = DBConnector.getConnection();
-            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
 
@@ -146,7 +147,7 @@ public class QSUserDAO implements PersonDAO {
 
     @Override
     public List<Person> getStudentsByClass(String className) {
-        String sql = "SELECT qs_user.id, first_name, last_name, email, class_.name AS class_name, " +
+        String query = "SELECT qs_user.id, first_name, last_name, email, class_.name AS class_name, " +
                 "user_type.user_type_name AS user_type, " +
                 "user_status.user_status_name AS STATUS " +
                 "FROM qs_user " +
@@ -157,25 +158,26 @@ public class QSUserDAO implements PersonDAO {
         List<Person> users = new ArrayList<Person>();
 
         Connection connection = null;
-        PreparedStatement ps = null;
+        PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
             connection = DBConnector.getConnection();
-            ps = connection.prepareStatement(sql);
-            ps.setString(1, className);
-            resultSet = ps.executeQuery();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, className);
+            resultSet = preparedStatement.executeQuery();
+
             while (resultSet.next()) {
-                int ID = resultSet.getInt("id");
+                int id = resultSet.getInt("id");
                 String firstName = resultSet.getString("first_name");
                 String lastName = resultSet.getString("last_name");
                 String email = resultSet.getString("email");
                 String class_ = resultSet.getString("class_name");
                 String userType = resultSet.getString("user_type");
                 String userStatus = resultSet.getString("status");
-                Person student = new QSUser(ID, firstName, lastName, email, class_, userType, userStatus);
+                Person student = new QSUser(id, firstName, lastName, email, class_, userType, userStatus);
                 users.add(student);
             }
-            ps.close();
+            preparedStatement.close();
             resultSet.close();
             connection.close();
 
