@@ -11,41 +11,30 @@ import java.util.Scanner;
 
 public class QuestDAO implements ItemDAO {
 
-    List<Item> quests = new ArrayList<>();
+    List<Item> quests = null;
     Quest quest = null;
 
-
-    public String jdbUrl = "jdbc:postgresql://localhost:5432/quest_store";
-    public String user = "admin";
-    public String password = "admin";
-
-    public Connection conn = null;
-    public Statement statement = null;
+//    public Connection con = null;
     public ResultSet resultSet = null;
 
 
-    public void connection () {
-        try {
-            conn = DriverManager.getConnection(jdbUrl, user, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public QuestDAO() {
-        connection ();
+
     }
 
     @Override
     public List<Item> getAll() {
-        PreparedStatement pst = null;
+
+        quests = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement preparedStatement = null;
         try {
-            connection();
-            pst = conn.prepareStatement("SELECT * FROM quest ");
-            resultSet = pst.executeQuery();
+            con = DBConnector.getConnection();
+            preparedStatement = con.prepareStatement("SELECT * FROM quest ");
+            resultSet = preparedStatement.executeQuery();
             createQuests(resultSet);
             resultSet.close();
-            conn.close();
+            con.close();
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -72,16 +61,17 @@ public class QuestDAO implements ItemDAO {
 
     @Override
     public Item getById(Integer id){
+        Connection con = null;
         Quest quest=null;
         PreparedStatement pst = null;
         try {
-            connection();
-            pst = conn.prepareStatement("SELECT * FROM quest WHERE id = ?");
+            con = DBConnector.getConnection();
+            pst = con.prepareStatement("SELECT * FROM quest WHERE id = ?");
             pst.setInt(1, id);
             resultSet = pst.executeQuery();
             quest=createQuest(resultSet);
             resultSet.close();
-            conn.close();
+            con.close();
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -109,6 +99,7 @@ public class QuestDAO implements ItemDAO {
 
     @Override
     public void add( Item item ) {
+        Connection con = null;
         PreparedStatement pst = null;
         Integer id = item.getId();
         Integer access_level = item.getAccess_level();
@@ -118,20 +109,18 @@ public class QuestDAO implements ItemDAO {
         String quest_type =  item.getType();
 
         try{
-            connection();
-            pst = conn.prepareStatement("INSERT INTO quest ( ID,access_level,title,description,quest_value,quest_type ) " +
-                    "VALUES(?,?,?,?,?,?)");
-            pst.setInt(1, id);
-            pst.setInt(2, access_level);
-            pst.setString(3, title);
-            pst.setString(4, description);
-            pst.setInt(5, quest_value);
-            pst.setString(6, quest_type);
+            con = DBConnector.getConnection();
+            pst = con.prepareStatement("INSERT INTO quest ( access_level,title,description,quest_value,quest_type ) " +
+                    "VALUES(?,?,?,?,?)");
+//            pst.setInt(1, id);
+            pst.setInt(1, access_level);
+            pst.setString(2, title);
+            pst.setString(3, description);
+            pst.setInt(4, quest_value);
+            pst.setString(5, quest_type);
             pst.executeUpdate();
             System.out.println("Inserted successfully");
-
-            resultSet.close();
-            conn.close();
+            con.close();
         } catch(Exception ex){
             ex.printStackTrace();
         }
@@ -139,18 +128,19 @@ public class QuestDAO implements ItemDAO {
 
     @Override
     public void update(Integer id) {
+        Connection con = null;
         PreparedStatement pst = null;
         String atribut = type("Type which atribut would you like to change(title/descritpion/quest_type/access_level/quest_value) ; ");
         if ( atribut.equals("title")  || atribut.equals("description") || atribut.equals("quest_type") ){
             String newtextValue =  type("Type new value ; ");
             try {
-                connection();
-                pst = conn.prepareStatement(String.format(  "UPDATE quest SET %s = ? WHERE id = ? ;", atribut  )  );
+                con = DBConnector.getConnection();
+                pst = con.prepareStatement(String.format(  "UPDATE quest SET %s = ? WHERE id = ? ;", atribut  )  );
                 pst.setString(1, newtextValue);
                 pst.setInt(2, id);
                 pst.executeUpdate();
                 resultSet.close();
-                conn.close();
+                con.close();
             }
             catch (Exception exc) {
                 exc.printStackTrace();
@@ -159,13 +149,13 @@ public class QuestDAO implements ItemDAO {
         if ( atribut.equals( "access_level"  )  || atribut.equals( "quest_value" )  ){
             Integer newIntValue =  typeInt("Type new value ; ");
             try {
-                connection();
-                pst = conn.prepareStatement(String.format(  "UPDATE quest SET %s = ? WHERE id = ? ;", atribut  )  );
+                con = DBConnector.getConnection();
+                pst = con.prepareStatement(String.format(  "UPDATE quest SET %s = ? WHERE id = ? ;", atribut  )  );
                 pst.setInt(1, newIntValue);
                 pst.setInt(2, id);
                 pst.executeUpdate();
                 resultSet.close();
-                conn.close();
+                con.close();
             }
             catch (Exception exc) {
                 exc.printStackTrace();
@@ -190,14 +180,14 @@ public class QuestDAO implements ItemDAO {
 
     @Override
     public void delete(Integer id) {
+        Connection con = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection();
-            preparedStatement = conn.prepareStatement(" DELETE FROM  quest WHERE id = ? ");
+            con = DBConnector.getConnection();
+            preparedStatement = con.prepareStatement(" DELETE FROM  quest WHERE id = ? ");
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
-            resultSet.close();
-            conn.close();
+            con.close();
             System.out.println( "Quest with id : "+id+" was deleted." );
         }
         catch (Exception exc) {
