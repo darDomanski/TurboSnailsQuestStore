@@ -141,8 +141,7 @@ public class QuestDAO implements ItemDAO {
     @Override
     public void update(Integer id) {
         PreparedStatement pst = null;
-        String atribut = type("Type which atribut would you like change ; ");
-//        String newtextValue =  type("Type new value ; ");
+        String atribut = type("Type which atribut would you like to change(title/descritpion/quest_type/access_level/quest_value) ; ");
         if ( atribut.equals("title")  || atribut.equals("description") || atribut.equals("quest_type") ){
             String newtextValue =  type("Type new value ; ");
             try {
@@ -190,7 +189,6 @@ public class QuestDAO implements ItemDAO {
         return n;
     }
 
-
     @Override
     public void delete(Integer id) {
         PreparedStatement preparedStatement = null;
@@ -206,7 +204,6 @@ public class QuestDAO implements ItemDAO {
         catch (Exception exc) {
             exc.printStackTrace();
         }
-
     }
 
 }

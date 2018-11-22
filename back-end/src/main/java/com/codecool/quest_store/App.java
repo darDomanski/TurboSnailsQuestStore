@@ -32,7 +32,6 @@ public class App {
 
         System.out.println();
 
-
         Item quest10 = new Quest(11,5,"aaaa","xxxxxxxx afd xcv", 500, "basic");
 //        quests.add(quest10);
 //

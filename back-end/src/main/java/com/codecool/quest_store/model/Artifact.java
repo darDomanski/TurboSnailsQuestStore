@@ -11,11 +11,11 @@ public class Artifact extends Item {
 //    protected String type;
 
 
-    public Artifact(Integer id, Integer access_level, String title, String decription, Integer value, String type) {
+    public Artifact(Integer id, Integer access_level, String title, String description, Integer value, String type) {
         this.id = id;
         this.access_level = access_level;
         this.title = title;
-        this.description = decription;
+        this.description = description;
         this.value = value;
         this.type = type;
     }
