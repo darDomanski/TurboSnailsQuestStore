@@ -1,7 +1,7 @@
 package com.codecool.quest_store.dao;
 
-import com.codecool.quest_store.model.Mentor;
 import com.codecool.quest_store.model.Person;
+import com.codecool.quest_store.model.QSUser;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MentorDAO implements PersonDAO {
+public class QSUserDAO implements PersonDAO {
 
     @Override
     public List<Person> getAll() {
@@ -39,7 +39,7 @@ public class MentorDAO implements PersonDAO {
                 String className = resultSet.getString("class_name");
                 String userType = resultSet.getString("user_type");
                 String userStatus = resultSet.getString("status");
-                Person mentor = new Mentor(ID, firstName, lastName, email, className, userType, userStatus);
+                Person mentor = new QSUser(ID, firstName, lastName, email, className, userType, userStatus);
                 mentors.add(mentor);
             }
             ps.close();

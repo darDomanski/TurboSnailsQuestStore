@@ -1,8 +1,6 @@
 package com.codecool.quest_store.dao;
 
 import com.codecool.quest_store.model.Person;
-import com.codecool.quest_store.model.Mentor;
-import com.codecool.quest_store.model.Student;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -79,7 +77,7 @@ public class LoginDAOImpl implements LoginDAO {
 
                 if (userType.equals("mentor")) {
                     System.out.println("mentor");
-                    // person = new Mentor(user_id, firstName, lastName, eMail, classId, userType, status);
+                    // person = new QSUser(user_id, firstName, lastName, eMail, classId, userType, status);
                 } else if (userType.equals("student")) {
                     System.out.println("student");
                     // person = new Student(user_id, firstName, lastName, eMail, classId, userType, status);
