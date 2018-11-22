@@ -11,18 +11,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QSUserDAO implements PersonDAO {
-
-    public static void main(String[] args) {
-        QSUserDAO qsUserDAO = new QSUserDAO();
-        List<Person> personList = qsUserDAO.getStudentsByClass("web");
-        for (Person p : personList) {
-            System.out.println(p.getFirstName());
-            System.out.println(p.getLastName());
-            System.out.println(p.getEmail());
-            System.out.println();
-
-        }
-    }
+//
+//    public static void main(String[] args) {
+//        QSUserDAO qsUserDAO = new QSUserDAO();
+//        Person person = new QSUser(10, "Dario", "Dom", "dar@dar.pl", "web", "student", "active");
+//        qsUserDAO.insert(person);
+//        List<Person> personList = qsUserDAO.getStudentsByClass("web");
+//        for (Person p : personList) {
+//            System.out.println(p.getFirstName());
+//            System.out.println(p.getLastName());
+//            System.out.println(p.getEmail());
+//            System.out.println();
+//
+//        }
+//    }
 
     @Override
     public List<Person> getAll(String userTypeToGet) {
