@@ -12,8 +12,20 @@ import java.util.List;
 
 public class QSUserDAO implements PersonDAO {
 
+    public static void main(String[] args) {
+        QSUserDAO qsUserDAO = new QSUserDAO();
+        List<Person> personList = qsUserDAO.getStudentsByClass("web");
+        for (Person p : personList) {
+            System.out.println(p.getFirstName());
+            System.out.println(p.getLastName());
+            System.out.println(p.getEmail());
+            System.out.println();
+
+        }
+    }
+
     @Override
-    public List<Person> getAll() {
+    public List<Person> getAll(String userTypeToGet) {
         String sql = "SELECT qs_user.id, first_name, last_name, email, class_.name AS class_name, " +
                 "user_type.user_type_name AS user_type, " +
                 "user_status.user_status_name AS STATUS " +
@@ -21,8 +33,8 @@ public class QSUserDAO implements PersonDAO {
                 "INNER JOIN class_ ON qs_user.class_id = class_.class_id " +
                 "INNER JOIN user_type ON qs_user.user_type = user_type.user_type_id " +
                 "INNER JOIN user_status ON qs_user.STATUS = user_status.user_status_id " +
-                "WHERE user_type.user_type_name = 'mentor'";
-        List<Person> mentors = new ArrayList<Person>();
+                "WHERE user_type.user_type_name = '" + userTypeToGet + "'";
+        List<Person> users = new ArrayList<Person>();
 
         Connection connection = null;
         PreparedStatement ps = null;
@@ -40,7 +52,7 @@ public class QSUserDAO implements PersonDAO {
                 String userType = resultSet.getString("user_type");
                 String userStatus = resultSet.getString("status");
                 Person mentor = new QSUser(ID, firstName, lastName, email, className, userType, userStatus);
-                mentors.add(mentor);
+                users.add(mentor);
             }
             ps.close();
             resultSet.close();
@@ -50,7 +62,7 @@ public class QSUserDAO implements PersonDAO {
             System.err.println("Error, cant get all objects from database!");
             e.printStackTrace();
         }
-        return mentors;
+        return users;
     }
 
     @Override
@@ -128,5 +140,47 @@ public class QSUserDAO implements PersonDAO {
             System.err.println("Can't delete record from database!");
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public List<Person> getStudentsByClass(String className) {
+        String sql = "SELECT qs_user.id, first_name, last_name, email, class_.name AS class_name, " +
+                "user_type.user_type_name AS user_type, " +
+                "user_status.user_status_name AS STATUS " +
+                "FROM qs_user " +
+                "INNER JOIN class_ ON qs_user.class_id = class_.class_id " +
+                "INNER JOIN user_type ON qs_user.user_type = user_type.user_type_id " +
+                "INNER JOIN user_status ON qs_user.STATUS = user_status.user_status_id " +
+                "WHERE user_type.user_type_name = 'student' AND class_.name = ?";
+        List<Person> users = new ArrayList<Person>();
+
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DBConnector.getConnection();
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, className);
+            resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                int ID = resultSet.getInt("id");
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                String email = resultSet.getString("email");
+                String class_ = resultSet.getString("class_name");
+                String userType = resultSet.getString("user_type");
+                String userStatus = resultSet.getString("status");
+                Person student = new QSUser(ID, firstName, lastName, email, class_, userType, userStatus);
+                users.add(student);
+            }
+            ps.close();
+            resultSet.close();
+            connection.close();
+
+        } catch (SQLException e) {
+            System.err.println("Error, cant get all objects from database!");
+            e.printStackTrace();
+        }
+        return users;
     }
 }
