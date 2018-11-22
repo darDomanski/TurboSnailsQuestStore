@@ -62,7 +62,8 @@ public class QuestController {
                 break;
 
             case 3:
-                Item quest10 = new Quest(11,5,"aaaa","xxxxxxxx afd xcv", 500, "basic");
+
+                Item quest10 = new Quest(22,5,"aaaa","xxxxxxxx afd xcv", 500, "basic");
                 quests.add(quest10);
                 break;
             case 4:
