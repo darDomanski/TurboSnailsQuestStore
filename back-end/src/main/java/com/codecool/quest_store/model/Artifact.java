@@ -10,7 +10,6 @@ public class Artifact extends Item {
 //    protected Integer value;
 //    protected String type;
 
-
     public Artifact(Integer id, Integer access_level, String title, String description, Integer value, String type) {
         this.id = id;
         this.access_level = access_level;

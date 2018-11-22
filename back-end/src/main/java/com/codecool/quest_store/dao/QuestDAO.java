@@ -27,7 +27,6 @@ public class QuestDAO implements ItemDAO {
     public void connection () {
         try {
             conn = DriverManager.getConnection(jdbUrl, user, password);
-            System.out.println("connection established");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -205,5 +204,4 @@ public class QuestDAO implements ItemDAO {
             exc.printStackTrace();
         }
     }
-
 }
