@@ -195,7 +195,7 @@ public class QuestDAO implements ItemDAO {
             connection();
             preparedStatement = conn.prepareStatement(" DELETE FROM  quest WHERE id = ? ");
             preparedStatement.setInt(1, id);
-            preparedStatement.executeQuery();
+            preparedStatement.execute();
             resultSet.close();
             conn.close();
             System.out.println( "Quest with id : "+id+" was deleted." );
@@ -204,4 +204,5 @@ public class QuestDAO implements ItemDAO {
             exc.printStackTrace();
         }
     }
+
 }
