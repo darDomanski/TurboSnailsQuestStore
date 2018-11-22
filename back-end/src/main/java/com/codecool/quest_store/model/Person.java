@@ -21,6 +21,9 @@ public abstract class Person {
         this.status = status;
     }
 
+    protected Person() {
+    }
+
     public int getId() {
         return ID;
     }
