@@ -4,37 +4,31 @@ package com.codecool.quest_store.dao;
 import com.codecool.quest_store.model.Item;
 import com.codecool.quest_store.model.Quest;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class QuestDAO implements ItemDAO {
 
-    List<Item> quests = null;
-    Quest quest = null;
-
-//    public Connection con = null;
-    public ResultSet resultSet = null;
-
-
-    public QuestDAO() {
-
-    }
 
     @Override
     public List<Item> getAll() {
 
-        quests = new ArrayList<>();
-        Connection con = null;
+        List<Item> quests = new ArrayList<>();
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
         try {
-            con = DBConnector.getConnection();
-            preparedStatement = con.prepareStatement("SELECT * FROM quest ");
+            connection = DBConnector.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM quest ");
             resultSet = preparedStatement.executeQuery();
-            createQuests(resultSet);
+            createQuests(resultSet, quests);
             resultSet.close();
-            con.close();
+            connection.close();
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -42,36 +36,37 @@ public class QuestDAO implements ItemDAO {
         return quests;
     }
 
-    private void createQuests(ResultSet myRs)  {
+    private void createQuests(ResultSet resultSet, List<Item> quests) {
         try{
-            while (myRs.next()) {
-                Integer id  = myRs.getInt("id");
-                Integer access_level =myRs.getInt("access_level");
-                String title = myRs.getString("title");
-                String description = myRs.getString("description");
-                Integer value = myRs.getInt("quest_value");
-                String type = myRs.getString("quest_type");
-                quest = new Quest(id,access_level,title,description,value,type);
+            while (resultSet.next()) {
+                Integer id = resultSet.getInt("id");
+                Integer access_level = resultSet.getInt("access_level");
+                String title = resultSet.getString("title");
+                String description = resultSet.getString("description");
+                Integer value = resultSet.getInt("quest_value");
+                String type = resultSet.getString("quest_type");
+                Item quest = new Quest(id, access_level, title, description, value, type);
                 quests.add(quest);
             }
-        }catch(SQLException e ){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public Item getById(Integer id){
-        Connection con = null;
+        Connection connection = null;
         Quest quest=null;
-        PreparedStatement pst = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
         try {
-            con = DBConnector.getConnection();
-            pst = con.prepareStatement("SELECT * FROM quest WHERE id = ?");
-            pst.setInt(1, id);
-            resultSet = pst.executeQuery();
+            connection = DBConnector.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM quest WHERE id = ?");
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
             quest=createQuest(resultSet);
             resultSet.close();
-            con.close();
+            connection.close();
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -79,16 +74,16 @@ public class QuestDAO implements ItemDAO {
         return quest;
     }
 
-    private Quest createQuest(ResultSet myRs)  {
+    private Quest createQuest(ResultSet resultSet) {
         Quest quest=null;
         try{
-            while (myRs.next()) {
-                Integer id  = myRs.getInt("id");
-                Integer access_level =myRs.getInt("access_level");
-                String title = myRs.getString("title");
-                String description = myRs.getString("description");
-                Integer value = myRs.getInt("quest_value");
-                String type = myRs.getString("quest_type");
+            while (resultSet.next()) {
+                Integer id = resultSet.getInt("id");
+                Integer access_level = resultSet.getInt("access_level");
+                String title = resultSet.getString("title");
+                String description = resultSet.getString("description");
+                Integer value = resultSet.getInt("quest_value");
+                String type = resultSet.getString("quest_type");
                 quest = new Quest(id,access_level,title,description,value,type);
             }
         }catch(SQLException e ){
@@ -99,71 +94,77 @@ public class QuestDAO implements ItemDAO {
 
     @Override
     public void add( Item item ) {
-        Connection con = null;
-        PreparedStatement pst = null;
-        Integer id = item.getId();
         Integer access_level = item.getAccess_level();
         String title = item.getTitle();
         String description = item.getDescription();
         Integer quest_value = item.getValue();
         String quest_type =  item.getType();
 
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
         try{
-            con = DBConnector.getConnection();
-            pst = con.prepareStatement("INSERT INTO quest ( access_level,title,description,quest_value,quest_type ) " +
+            connection = DBConnector.getConnection();
+            preparedStatement = connection.prepareStatement("INSERT INTO quest ( access_level,title,description,quest_value,quest_type ) " +
                     "VALUES(?,?,?,?,?)");
-//            pst.setInt(1, id);
-            pst.setInt(1, access_level);
-            pst.setString(2, title);
-            pst.setString(3, description);
-            pst.setInt(4, quest_value);
-            pst.setString(5, quest_type);
-            pst.executeUpdate();
-            System.out.println("Inserted successfully");
-            con.close();
-        } catch(Exception ex){
+            preparedStatement.setInt(1, access_level);
+            preparedStatement.setString(2, title);
+            preparedStatement.setString(3, description);
+            preparedStatement.setInt(4, quest_value);
+            preparedStatement.setString(5, quest_type);
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
 
     @Override
     public void update(Integer id) {
-        Connection con = null;
-        PreparedStatement pst = null;
-        String atribut = type("Type which atribut would you like to change(title/descritpion/quest_type/access_level/quest_value) ; ");
-        if ( atribut.equals("title")  || atribut.equals("description") || atribut.equals("quest_type") ){
-            String newtextValue =  type("Type new value ; ");
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String attribute = type("Type which attribute would you like to change(title/description/quest_type/access_level/quest_value) ; ");
+
+        if (attribute.equals("title") || attribute.equals("description") || attribute.equals("quest_type")) {
+            String newTextValue = type("Type new value ; ");
+
             try {
-                con = DBConnector.getConnection();
-                pst = con.prepareStatement(String.format(  "UPDATE quest SET %s = ? WHERE id = ? ;", atribut  )  );
-                pst.setString(1, newtextValue);
-                pst.setInt(2, id);
-                pst.executeUpdate();
+                connection = DBConnector.getConnection();
+                preparedStatement = connection.prepareStatement(String.format("UPDATE quest SET %s = ? WHERE id = ? ;", attribute));
+                preparedStatement.setString(1, newTextValue);
+                preparedStatement.setInt(2, id);
+                preparedStatement.executeUpdate();
+
                 resultSet.close();
-                con.close();
-            }
-            catch (Exception exc) {
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException exc) {
                 exc.printStackTrace();
             }
         }
-        if ( atribut.equals( "access_level"  )  || atribut.equals( "quest_value" )  ){
+
+        if (attribute.equals("access_level") || attribute.equals("quest_value")) {
             Integer newIntValue =  typeInt("Type new value ; ");
             try {
-                con = DBConnector.getConnection();
-                pst = con.prepareStatement(String.format(  "UPDATE quest SET %s = ? WHERE id = ? ;", atribut  )  );
-                pst.setInt(1, newIntValue);
-                pst.setInt(2, id);
-                pst.executeUpdate();
+                connection = DBConnector.getConnection();
+                preparedStatement = connection.prepareStatement(String.format("UPDATE quest SET %s = ? WHERE id = ? ;", attribute));
+                preparedStatement.setInt(1, newIntValue);
+                preparedStatement.setInt(2, id);
+                preparedStatement.executeUpdate();
+
+                preparedStatement.close();
                 resultSet.close();
-                con.close();
-            }
-            catch (Exception exc) {
+                connection.close();
+            } catch (SQLException exc) {
                 exc.printStackTrace();
             }
         }
     }
 
-    // it can be in View
+    // it SHOULD be in View
     private String type(String info){
         Scanner reader = new Scanner(System.in);
         System.out.println(info);
@@ -180,17 +181,18 @@ public class QuestDAO implements ItemDAO {
 
     @Override
     public void delete(Integer id) {
-        Connection con = null;
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            con = DBConnector.getConnection();
-            preparedStatement = con.prepareStatement(" DELETE FROM  quest WHERE id = ? ");
+            connection = DBConnector.getConnection();
+            preparedStatement = connection.prepareStatement(" DELETE FROM  quest WHERE id = ? ");
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
-            con.close();
+
+            preparedStatement.close();
+            connection.close();
             System.out.println( "Quest with id : "+id+" was deleted." );
-        }
-        catch (Exception exc) {
+        } catch (SQLException exc) {
             exc.printStackTrace();
         }
     }
