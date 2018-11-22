@@ -13,8 +13,8 @@ public class CreepyGuyDAO {
 //    // for testing purposes
 //    public static void main(String[] args) {
 //        CreepyGuyDAO guyDao = new CreepyGuyDAO();
-//        //int[] update = new int[] {50, 51, 150, 151, 250, 251, 350, 351};
-//        //guyDao.updateAccessLevels(update);
+//        int[] update = new int[] {60, 61, 160, 161, 260, 261, 360, 361};
+//        guyDao.updateAccessLevels(update);
 //        int[] result = guyDao.getAccessLevels();
 //        for (int i : result) {
 //            System.out.println(i);
@@ -22,43 +22,35 @@ public class CreepyGuyDAO {
 //    }
 
     public void createClass(String className) {
-
         Connection connection = null;
-        PreparedStatement query = null;
-        String statement = "INSERT INTO class_ (name) VALUES (?)";
+        PreparedStatement preparedStatement = null;
+        String query = "INSERT INTO class_ (name) VALUES (?)";
 
         try {
             connection = DBConnector.getConnection();
-            query = connection.prepareStatement(statement);
-            query.setString(1, className);
-            query.execute();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, className);
+            preparedStatement.execute();
 
+            connection.close();
+            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                connection.close();
-                query.close();
-            }
-            catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
 
     public int[] getAccessLevels() {
-
         Connection connection = null;
-        PreparedStatement query = null;
+        PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String statement = "SELECT * FROM access_level";
+        String query = "SELECT * FROM access_level";
         List<Integer> accessLevelsList = new ArrayList<>();
         int[] accessLevels = new int[8];
 
         try {
             connection = DBConnector.getConnection();
-            query = connection.prepareStatement(statement);
-            resultSet = query.executeQuery();
+            preparedStatement = connection.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
             int resultCounter = 0;
 
             while (resultSet.next()) {
@@ -70,31 +62,23 @@ public class CreepyGuyDAO {
                 }
                 resultCounter += 1;
             }
-
+            connection.close();
+            preparedStatement.close();
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                connection.close();
-                query.close();
-                resultSet.close();
-            }
-            catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
         for (int index = 0; index < accessLevelsList.size(); index++) {
             accessLevels[index] = accessLevelsList.get(index).intValue();
         }
         return accessLevels;
-
     }
 
     public void updateAccessLevels(int[] update) {
-
+        final int NUMBER_OF_ACCESS_RANGES = 8;
         Connection connection = null;
-        PreparedStatement query = null;
-        String statement = "UPDATE access_level SET max_lifetime_coins = ? WHERE level_id = 1; " +
+        PreparedStatement preparedStatement = null;
+        String query = "UPDATE access_level SET max_lifetime_coins = ? WHERE level_id = 1; " +
                 "UPDATE access_level SET min_lifetime_coins = ?, max_lifetime_coins = ? WHERE level_id = 2; " +
                 "UPDATE access_level SET min_lifetime_coins = ?, max_lifetime_coins = ? WHERE level_id = 3; " +
                 "UPDATE access_level SET min_lifetime_coins = ?, max_lifetime_coins = ? WHERE level_id = 4; " +
@@ -102,27 +86,18 @@ public class CreepyGuyDAO {
 
         try {
             connection = DBConnector.getConnection();
-            query = connection.prepareStatement(statement);
-            query.setInt(1, update[0]);
-            query.setInt(2, update[1]);
-            query.setInt(3, update[2]);
-            query.setInt(4, update[3]);
-            query.setInt(5, update[4]);
-            query.setInt(6, update[5]);
-            query.setInt(7, update[6]);
-            query.setInt(8, update[7]);
-            query.executeUpdate();
+            preparedStatement = connection.prepareStatement(query);
 
+            for (int i = 0; i < NUMBER_OF_ACCESS_RANGES; i++) {
+                int index = i + 1;
+                preparedStatement.setInt(index, update[i]);
+            }
+            preparedStatement.executeUpdate();
+
+            connection.close();
+            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                connection.close();
-                query.close();
-            }
-            catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
 }
