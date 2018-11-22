@@ -4,17 +4,25 @@ import com.codecool.quest_store.model.Person;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class CreepyGuyDAO {
 
-    public static void main(String[] args) {
-        CreepyGuyDAO guyDao = new CreepyGuyDAO();
-        int[] update = new int[] {50, 51, 150, 151, 250, 251, 350, 351};
-        guyDao.updateAccessLevels(update);
-    }
+//    // for testing purposes
+//    public static void main(String[] args) {
+//        CreepyGuyDAO guyDao = new CreepyGuyDAO();
+//        //int[] update = new int[] {50, 51, 150, 151, 250, 251, 350, 351};
+//        //guyDao.updateAccessLevels(update);
+//        int[] result = guyDao.getAccessLevels();
+//        for (int i : result) {
+//            System.out.println(i);
+//        }
+//    }
 
     public void createClass(String className) {
 
@@ -42,7 +50,47 @@ public class CreepyGuyDAO {
     }
 
     public int[] getAccessLevels() {
-        return null;
+
+        Connection connection = null;
+        PreparedStatement query = null;
+        ResultSet resultSet = null;
+        String statement = "SELECT * FROM access_level";
+        List<Integer> accessLevelsList = new ArrayList<>();
+        int[] accessLevels = new int[8];
+
+        try {
+            connection = DBConnector.getConnection();
+            query = connection.prepareStatement(statement);
+            resultSet = query.executeQuery();
+            int resultCounter = 0;
+
+            while (resultSet.next()) {
+                if (resultCounter > 0) {
+                    accessLevelsList.add(Integer.parseInt(resultSet.getString("min_lifetime_coins")));
+                }
+                if (resultCounter < 4) {
+                    accessLevelsList.add(Integer.parseInt(resultSet.getString("max_lifetime_coins")));
+                }
+                resultCounter += 1;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+                query.close();
+                resultSet.close();
+            }
+            catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        for (int index = 0; index < accessLevelsList.size(); index++) {
+            accessLevels[index] = accessLevelsList.get(index).intValue();
+        }
+        return accessLevels;
+
     }
 
     public void updateAccessLevels(int[] update) {
