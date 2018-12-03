@@ -13,6 +13,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ArtifactDAO implements ItemDAO {
+    private Connection connection;
+
+    public ArtifactDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     @Override
     public List<Item> getAll() {
@@ -20,16 +25,13 @@ public class ArtifactDAO implements ItemDAO {
 
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        Connection connection = null;
         try {
-            connection = DBConnector.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM artifact ");
+            preparedStatement = this.connection.prepareStatement("SELECT * FROM artifact ");
             resultSet = preparedStatement.executeQuery();
             createArtifacts(resultSet, artifacts);
 
             preparedStatement.close();
             resultSet.close();
-            connection.close();
         } catch (SQLException exc) {
             exc.printStackTrace();
         }
@@ -56,19 +58,16 @@ public class ArtifactDAO implements ItemDAO {
     @Override
     public Item getById(Integer id){
         Item artifact = null;
-        Connection connection = null;
         ResultSet resultSet = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DBConnector.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM artifact WHERE id = ?");
+            preparedStatement = this.connection.prepareStatement("SELECT * FROM artifact WHERE id = ?");
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             artifact = createArtifact(resultSet);
 
             resultSet.close();
             resultSet.close();
-            connection.close();
         } catch (SQLException exc) {
             exc.printStackTrace();
         }
@@ -102,11 +101,9 @@ public class ArtifactDAO implements ItemDAO {
         Integer artifact_price = item.getValue();
         String artifact_type =  item.getType();
 
-        Connection connection = null;
         PreparedStatement preparedstatement = null;
         try{
-            connection = DBConnector.getConnection();
-            preparedstatement = connection.prepareStatement("INSERT INTO quest ( ID,access_level,title,description,artifact_price,artifact_type ) " +
+            preparedstatement = this.connection.prepareStatement("INSERT INTO quest ( ID,access_level,title,description,artifact_price,artifact_type ) " +
                     "VALUES(?,?,?,?,?,?)");
             preparedstatement.setInt(1, id);
             preparedstatement.setInt(2, access_level);
@@ -117,7 +114,6 @@ public class ArtifactDAO implements ItemDAO {
             preparedstatement.executeUpdate();
 
             preparedstatement.close();
-            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -127,20 +123,17 @@ public class ArtifactDAO implements ItemDAO {
     public void update(Integer id) {
         String attribute = type("Type which attribute would you like to change(title/description/artifact_type/access_level/artifact_price) ; ");
         PreparedStatement preparedStatementt = null;
-        Connection connection = null;
 
         if (attribute.equals("title") || attribute.equals("description") || attribute.equals("artifact_type")) {
             String newTextValue = type("Type new value ; ");
 
             try {
-                connection = DBConnector.getConnection();
-                preparedStatementt = connection.prepareStatement(String.format("UPDATE quest SET %s = ? WHERE id = ? ;", attribute));
+                preparedStatementt = this.connection.prepareStatement(String.format("UPDATE quest SET %s = ? WHERE id = ? ;", attribute));
                 preparedStatementt.setString(1, newTextValue);
                 preparedStatementt.setInt(2, id);
                 preparedStatementt.executeUpdate();
 
                 preparedStatementt.close();
-                connection.close();
             } catch (SQLException exc) {
                 exc.printStackTrace();
             }
@@ -148,14 +141,12 @@ public class ArtifactDAO implements ItemDAO {
         if (attribute.equals("access_level") || attribute.equals("artifact_price")) {
             Integer newIntValue =  typeInt("Type new value ; ");
             try {
-                connection = DBConnector.getConnection();
-                preparedStatementt = connection.prepareStatement(String.format("UPDATE artifact SET %s = ? WHERE id = ? ;", attribute));
+                preparedStatementt = this.connection.prepareStatement(String.format("UPDATE artifact SET %s = ? WHERE id = ? ;", attribute));
                 preparedStatementt.setInt(1, newIntValue);
                 preparedStatementt.setInt(2, id);
                 preparedStatementt.executeUpdate();
 
                 preparedStatementt.close();
-                connection.close();
             } catch (SQLException exc) {
                 exc.printStackTrace();
             }
@@ -180,15 +171,12 @@ public class ArtifactDAO implements ItemDAO {
     @Override
     public void delete(Integer id) {
         PreparedStatement preparedStatement = null;
-        Connection connection = null;
         try {
-            connection = DBConnector.getConnection();
-            preparedStatement = connection.prepareStatement(" DELETE FROM  artifact WHERE id = ? ");
+            preparedStatement = this.connection.prepareStatement(" DELETE FROM  artifact WHERE id = ? ");
             preparedStatement.setInt(1, id);
             preparedStatement.executeQuery();
 
             preparedStatement.close();
-            connection.close();
         } catch (SQLException exc) {
             exc.printStackTrace();
         }

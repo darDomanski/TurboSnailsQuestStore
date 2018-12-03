@@ -7,9 +7,10 @@ import java.sql.SQLException;
 
 public class DBConnector {
 
-    private static BasicDataSource dataSource = new BasicDataSource();
+    private static BasicDataSource dataSource;
 
-    static {
+    public DBConnector(){
+        this.dataSource = new BasicDataSource();
         dataSource.setUrl("jdbc:postgresql://localhost:5432/quest_store");
         dataSource.setUsername("admin");
         dataSource.setPassword("admin");
@@ -18,9 +19,7 @@ public class DBConnector {
         dataSource.setMaxOpenPreparedStatements(100);
     }
 
-    private DBConnector(){ }
-
-    public static Connection getConnection() {
+    public Connection getConnection() {
         Connection connection = null;
 
         try {
