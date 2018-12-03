@@ -24,7 +24,7 @@ public class LoginController implements HttpHandler {
         if(method.equals("GET")){
 
             response = template.render(model);
-            httpExchange.sendResponseHeaders(200, response.length());
+            httpExchange.sendResponseHeaders(200, 0);
             OutputStream os = httpExchange.getResponseBody();
             os.write(response.getBytes());
             os.close();
@@ -34,7 +34,7 @@ public class LoginController implements HttpHandler {
         if(method.equals("POST")){
 
             response = template.render(model);
-            httpExchange.sendResponseHeaders(200, response.length());
+            httpExchange.sendResponseHeaders(200, 0);
             OutputStream os = httpExchange.getResponseBody();
             os.write(response.getBytes());
             os.close();
