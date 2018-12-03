@@ -11,8 +11,20 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'MedievalSharp', cursive;
     font-weight: bold;
 }
+h1 {
+    font-size: 2em;
+}
+h2 {
+    font-size: 1.2em;
+}
 a, span, li, p {
     font-family: 'Noto Serif', serif;
+}
+p {
+    margin: 1.2em;
+}
+.main-content div {
+    padding: 5%
 }
 .page_content {
     min-width: 520px;
@@ -57,7 +69,13 @@ header {
     width: 70%;
     min-width: 280px;
     margin-top: -2%;
-    margin-left: -5%;
+    margin-left: 10%;
+}
+#header_icons {
+    margin-right: 5%;
+}
+#header_icons figure {
+    padding: 0 2em;
 }
 header nav ul {
     padding-inline-start: 0;
@@ -135,6 +153,18 @@ form label, input {
     top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+#logout {
+    margin-right: 80px;
+}
+table {
+    margin: 10%;
+}
+th {
+    font-weight: bold;
+}
+td {
+    padding: 5% 10% 5% 10%;
 }
 @media screen and (max-width: 1200px) {
     .page_content {
