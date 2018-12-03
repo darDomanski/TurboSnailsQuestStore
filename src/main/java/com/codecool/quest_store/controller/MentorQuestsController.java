@@ -6,8 +6,10 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 
 
-public class LoginController implements HttpHandler {
+public class MentorQuestsController implements HttpHandler {
 
     @Override
-    public void handle(HttpExchange httpExchange) throws IOException {}
+    public void handle(HttpExchange httpExchange) throws IOException {
+
+    }
 }
