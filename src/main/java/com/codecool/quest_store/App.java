@@ -26,6 +26,9 @@ public class App {
         server.createContext("/student/artifacts", new StudentArtifactsController());
         server.createContext("/student/inventory", new StudentInventoryController());
         server.createContext("/student/wallet", new StudentWalletController());
+
+        server.createContext("/static", new StaticController());
+
         server.setExecutor(null); // creates a default executor
 
         // start listening
