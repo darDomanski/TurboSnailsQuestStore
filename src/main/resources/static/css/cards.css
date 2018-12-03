@@ -1,5 +1,5 @@
 
-.row_card {       
+.row_card {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

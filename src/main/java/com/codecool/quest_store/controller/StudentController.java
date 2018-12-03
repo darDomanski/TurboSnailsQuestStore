@@ -1,4 +1,12 @@
 package com.codecool.quest_store.controller;
 
-public class StudentController implements UserController {
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+import java.io.IOException;
+
+public class StudentController implements UserController, HttpHandler {
+
+    @Override
+    public void handle(HttpExchange httpExchange) throws IOException {}
 }
