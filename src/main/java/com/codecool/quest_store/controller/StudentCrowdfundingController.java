@@ -5,8 +5,11 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 
-public class StudentController implements UserController, HttpHandler {
+
+public class StudentCrowdfundingController implements HttpHandler {
 
     @Override
-    public void handle(HttpExchange httpExchange) throws IOException {}
+    public void handle(HttpExchange httpExchange) throws IOException {
+
+    }
 }

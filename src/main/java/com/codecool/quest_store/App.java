@@ -1,9 +1,6 @@
 package com.codecool.quest_store;
 
-import com.codecool.quest_store.controller.CreepyGuyController;
-import com.codecool.quest_store.controller.LoginController;
-import com.codecool.quest_store.controller.MentorController;
-import com.codecool.quest_store.controller.StudentController;
+import com.codecool.quest_store.controller.*;
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
 
@@ -16,19 +13,19 @@ public class App {
         // set routes
         server.createContext("/login", new LoginController());
 
-        server.createContext("/creepyguy/classes", new CreepyGuyController());
-        server.createContext("/creepyguy/mentors", new CreepyGuyController());
-        server.createContext("/creepyguy/levels", new CreepyGuyController());
+        server.createContext("/creepyguy/classes", new CreepyGuyClassesController());
+        server.createContext("/creepyguy/mentors", new CreepyGuyMentorsController());
+        server.createContext("/creepyguy/levels", new CreepyGuyLevelsController());
 
-        server.createContext("/mentor/codecoolers", new MentorController());
-        server.createContext("/mentor/quests", new MentorController());
-        server.createContext("/mentor/artifacts", new MentorController());
+        server.createContext("/mentor/codecoolers", new MentorCodecoolersController());
+        server.createContext("/mentor/quests", new MentorQuestsController());
+        server.createContext("/mentor/artifacts", new MentorArtifactsController());
 
-        server.createContext("/student/store", new StudentController());
-        server.createContext("/student/crowdfunding", new StudentController());
-        server.createContext("/student/artifacts", new StudentController());
-        server.createContext("/student/inventory", new StudentController());
-        server.createContext("/student/wallet", new StudentController());
+        server.createContext("/student/store", new StudentStoreController());
+        server.createContext("/student/crowdfunding", new StudentCrowdfundingController());
+        server.createContext("/student/artifacts", new StudentArtifactsController());
+        server.createContext("/student/inventory", new StudentInventoryController());
+        server.createContext("/student/wallet", new StudentWalletController());
         server.setExecutor(null); // creates a default executor
 
         // start listening
