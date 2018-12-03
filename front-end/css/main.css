@@ -4,6 +4,7 @@ html, body {
 }
 body {
     background-image: url("../img/main_background.png");
+    background-size: cover;
     background-attachment: fixed;
 }
 h1, h2, h3, h4, h5, h6 {
