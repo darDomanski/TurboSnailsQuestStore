@@ -11,12 +11,11 @@ import java.sql.SQLException;
 
 
 public class LoginDAOImpl implements LoginDAO {
+    private Connection connection;
 
-//    // for testing purposes
-//    public static void main(String[] args) {
-//        LoginDAO loginDao = new LoginDAOImpl();
-//        loginDao.getPersonByLoginPassword("dario", "darek123");
-//    }
+    public LoginDAOImpl(Connection connection) {
+        this.connection = connection;
+    }
 
     public Person getPersonByLoginPassword(String login, String password) {
         Person person = null;
@@ -31,15 +30,13 @@ public class LoginDAOImpl implements LoginDAO {
     }
 
     private String checkIfIdIsEmpty(String login, String password) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         String id = null;
         String query = "SELECT id FROM login_data WHERE login = ? AND password = ?";
 
         try {
-            connection = DBConnector.getConnection();
-            preparedStatement = connection.prepareStatement(query);
+            preparedStatement = this.connection.prepareStatement(query);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
@@ -47,7 +44,6 @@ public class LoginDAOImpl implements LoginDAO {
             resultSet.next();
             id = resultSet.getString("id");
 
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         } catch (SQLException e) {
@@ -57,7 +53,6 @@ public class LoginDAOImpl implements LoginDAO {
     }
 
     private Person getPersonOtherThanCreepyGuy(String login, String password) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         Person person = null;
@@ -71,8 +66,7 @@ public class LoginDAOImpl implements LoginDAO {
                 "WHERE login=? AND password=?";
 
         try {
-            connection = DBConnector.getConnection();
-            preparedStatement = connection.prepareStatement(query);
+            preparedStatement = this.connection.prepareStatement(query);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
@@ -88,7 +82,6 @@ public class LoginDAOImpl implements LoginDAO {
 
             person = new QSUser(user_id, firstName, lastName, eMail, classId, userType, status);
 
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         } catch (SQLException e) {
@@ -98,19 +91,16 @@ public class LoginDAOImpl implements LoginDAO {
     }
 
     public void addPerson(int id, String login, String password) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         String query = "INSERT INTO login_data VALUES (?, ?, ?)";
 
         try {
-            connection = DBConnector.getConnection();
-            preparedStatement = connection.prepareStatement(query);
+            preparedStatement = this.connection.prepareStatement(query);
             preparedStatement.setInt(1, id);
             preparedStatement.setString(2, login);
             preparedStatement.setString(3, password);
             preparedStatement.execute();
 
-            connection.close();
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -123,14 +113,12 @@ public class LoginDAOImpl implements LoginDAO {
         String query = "UPDATE login_data SET %s = ? WHERE id = ?";
 
         try {
-            connection = DBConnector.getConnection();
             // below statement should be done only when valueType is first checked in mainController
-            preparedStatement = connection.prepareStatement(String.format(query, valueType));
+            preparedStatement = this.connection.prepareStatement(String.format(query, valueType));
             preparedStatement.setString(1, value);
             preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
 
-            connection.close();
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -138,18 +126,14 @@ public class LoginDAOImpl implements LoginDAO {
     }
 
     public void deletePerson(int id) {
-
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         String query = "DELETE FROM login_data WHERE id = ?";
 
         try {
-            connection = DBConnector.getConnection();
-            preparedStatement = connection.prepareStatement(query);
+            preparedStatement = this.connection.prepareStatement(query);
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
 
-            connection.close();
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
