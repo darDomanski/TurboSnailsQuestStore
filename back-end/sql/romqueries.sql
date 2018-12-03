@@ -76,7 +76,7 @@ IF NOT EXISTS artifact (
 	access_level INTEGER REFERENCES access_level(level_id),
 	title TEXT,
 	description TEXT,
-	aritfact_price INTEGER,
+	artifact_price INTEGER,
 	artifact_type VARCHAR(5)
 );
 
@@ -129,7 +129,7 @@ INSERT INTO login_data (login, password)
 VALUES ('admin', 'admin');
 
 INSERT INTO access_level (level_id, min_lifetime_coins, max_lifetime_coins)
-VALUES (1, 0, 50), (2, 51, 150), (3, 151, 250), (4, 251, 350), (5, 351, null); 
+VALUES (1, 0, 50), (2, 51, 150), (3, 151, 250), (4, 251, 350), (5, 351, null);
 
 INSERT INTO class_ (name)
 VALUES ('progbasic'), ('java'), ('web'), ('advanced');
@@ -139,3 +139,23 @@ VALUES ('mentor'), ('student');
 
 INSERT INTO user_status (user_status_name)
 VALUES ('active'), ('inactve');
+
+INSERT INTO quest
+  (id, access_level, title, description, quest_value, quest_type)
+  VALUES
+  (1,2,'Exploring a dungeon','Finishing a Teamwork week',50,'basic'),
+  (2,2,'Solving the magic puzzle','Finishing an SI assignment',100,'basic'),
+  (3,2,'Exploring a dungeon','Finishing a Teamwork week',50,'basic'),
+  (4,2,'Solving the magic puzzle','Finishing an SI assignment',100,'basic'),
+  (5,2,'Exploring a dungeon','Finishing a Teamwork week',50,'extra'),
+  (6,2,'Solving the magic puzzle','Finishing an SI assignment',100,'extra');
+
+INSERT INTO artifact
+  (id, access_level, title, description, artifact_price, artifact_type )
+  VALUES
+  (1,2,'Combat training','Private mentoring',50,'basic'),
+  (2,2,'Sanctuary','You can spend a day in home office',100,'basic'),
+  (3,2,'Time Travel','extend SI week assignment deadline by one day',50,'basic'),
+  (4,3,'Circle of Sorcery',' 60 min workshop by a mentor(s) of the chosen topic',100,'basic'),
+  (5,4,'Summon Code Elemental','Mentor joins a student team for a one hour',50,'extra'),
+  (6,3,'Solving the magic puzzle','Finishing an SI assignment',100,'extra');
