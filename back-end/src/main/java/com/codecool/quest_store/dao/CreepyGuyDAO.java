@@ -9,30 +9,21 @@ import java.util.List;
 
 
 public class CreepyGuyDAO {
+    private Connection connection;
 
-//    // for testing purposes
-//    public static void main(String[] args) {
-//        CreepyGuyDAO guyDao = new CreepyGuyDAO();
-//        int[] update = new int[] {60, 61, 160, 161, 260, 261, 360, 361};
-//        guyDao.updateAccessLevels(update);
-//        int[] result = guyDao.getAccessLevels();
-//        for (int i : result) {
-//            System.out.println(i);
-//        }
-//    }
+    public CreepyGuyDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     public void createClass(String className) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         String query = "INSERT INTO class_ (name) VALUES (?)";
 
         try {
-            connection = DBConnector.getConnection();
-            preparedStatement = connection.prepareStatement(query);
+            preparedStatement = this.connection.prepareStatement(query);
             preparedStatement.setString(1, className);
             preparedStatement.execute();
 
-            connection.close();
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -40,7 +31,6 @@ public class CreepyGuyDAO {
     }
 
     public int[] getAccessLevels() {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         String query = "SELECT * FROM access_level";
@@ -48,8 +38,7 @@ public class CreepyGuyDAO {
         int[] accessLevels = new int[8];
 
         try {
-            connection = DBConnector.getConnection();
-            preparedStatement = connection.prepareStatement(query);
+            preparedStatement = this.connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
             int resultCounter = 0;
 
@@ -62,7 +51,6 @@ public class CreepyGuyDAO {
                 }
                 resultCounter += 1;
             }
-            connection.close();
             preparedStatement.close();
             resultSet.close();
         } catch (SQLException e) {
@@ -85,8 +73,7 @@ public class CreepyGuyDAO {
                 "UPDATE access_level SET min_lifetime_coins = ? WHERE level_id = 5;";
 
         try {
-            connection = DBConnector.getConnection();
-            preparedStatement = connection.prepareStatement(query);
+            preparedStatement = this.connection.prepareStatement(query);
 
             for (int i = 0; i < NUMBER_OF_ACCESS_RANGES; i++) {
                 int index = i + 1;
@@ -94,7 +81,6 @@ public class CreepyGuyDAO {
             }
             preparedStatement.executeUpdate();
 
-            connection.close();
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
