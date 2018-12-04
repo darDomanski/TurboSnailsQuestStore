@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=MedievalSharp" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/cards.css">
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/cards.css">
 </head>
 
 <body>
@@ -18,31 +18,31 @@
 
             <div class="title_container">
                 <figure>
-                    <img id="logo" src="../img/logo.png" alt="logo">
+                    <img id="logo" src="/static/img/logo.png" alt="logo">
                 </figure>
 
                 <span id="header_icons">
 
-                    <figure class="icon">
+                    <figure id="icon">
                         <a href="inventory.html">
-                            <img src="../img/backpack.png" class="icon_img" alt="backpack">
+                            <img src="/static/img/backpack.png" class="icon_img" alt="backpack">
                         </a>
                     </figure>
 
-                    <figure class="icon">
+                    <figure id="icon">
                         <a href="wallet.html">
-                            <img src="../img/wallet.png" class="icon_img" alt="wallet">
+                            <img src="/static/img/wallet.png" class="icon_img" alt="wallet">
                             <div id="amount_of_coolcoins">100</div>
                         </a>
                     </figure>
 
-                    <figure class="icon">
-                        <img src="../img/star-icon.png" class="icon_img" alt="exp_icon">
+                    <figure id="icon">
+                        <img src="/static/img/star-icon.png" class="icon_img" alt="exp_icon">
                         <div id="exp_level">5</div>
                     </figure>
 
-                    <figure class="icon">
-                        <a href="../login.html"><img src="../img/logout.png" class="icon_img" alt="logout"></a>
+                    <figure id="icon">
+                        <a href="../login.html"><img src="/static/img/logout.png" class="icon_img" alt="logout"></a>
                     </figure>
 
                 </span>
@@ -51,13 +51,13 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="store.html">STORE</a>
+                        <a href="store">STORE</a>
                     </li>
                     <li>
                         <a href="crowdfunding.html">CROWDFUNDING</a>
                     </li>
                     <li>
-                        <a href="artifacts.html">QUESTS</a>
+                        <a href="artifacts">QUESTS</a>
                     </li>
                 </ul>
             </nav>
@@ -74,53 +74,167 @@
 
             <div class="artefacts">
 
-                    {{% for artifact in artifacts %}}
+                <div class="row_card">
 
                     <div class="card_artefacts">
-                        <p class="text_on_card_1"> {{% artifact.getTitle() %}}</p>
+                        <p class="text_on_card_1">Combat training</p>
                         <div>
-                            <img class="pictures_on_card" src="../resources/img/heroes.jpg" alt="Picture of Hero" />
+                            <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
                         </div>
                         <ul>
                             <li>
-                                <p class="text_on_card_2"> {{% artifact.getDescription() %}} </p>
+                                <p class="text_on_card_2">Private mentoring</p>
                             </li>
                             <li>
-                                <p class="text_on_card_2"> {{% artifact.getValue() %}} </p>
+                                <p class="text_on_card_2">50 cc</p>
                             </li>
                         </ul>
                         <button class="buybutton" onclick="buy()">BUY!</button>
 
                     </div>
-                    {{% endfor %}}
+
+                    <div class="card_artefacts">
+
+                        <p class="text_on_card_1">Sanctuary</p>
+                        <div>
+                            <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
+                        </div>
+
+                        <ul>
+                            <li>
+                                <p class="text_on_card_2">You can spend a day in home office</p>
+                            </li>
+                            <li>
+                                <p class="text_on_card_2">300 cc</p>
+                            </li>
+                        </ul>
+                        <button class="buybutton" onclick="buy()">BUY!</button>
+                    </div>
+
+                    <div class="card_artefacts">
+                        <p class="text_on_card_1">Time Travel</p>
+                        <div>
+                            <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
+                        </div>
+                        <ul>
+                            <li>
+                                <p class="text_on_card_2">xtend SI week assignment deadline by one da</p>
+                            </li>
+                            <li>
+                                <p class="text_on_card_2">500 cc</p>
+                            </li>
+                        </ul>
+                        <button class="buybutton" onclick="buy()">BUY!</button>
+                    </div>
+
+                </div>
             </div>
 
 
             <h2>Magic items</h2>
-            <div class="artefacts">
 
-            {{% for artifact in magic_artifacts %}}
+            <div class="row_card">
 
-                <div class="card_artefacts">
-                        <p class="text_on_card_1"> {{% artifact.getTitle() %}} </p>
+                <div class="row_card">
+
+                    <div class="card_artefacts">
+                        <p class="text_on_card_1">Circle of Sorcery</p>
                         <div>
-                            <img class="pictures_on_card" src="../resources/img/heroes.jpg" alt="Picture of Hero" />
+                            <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
                         </div>
                         <ul>
                             <li>
-                                <p class="text_on_card_2"> {{% artifact.getDescription() %}} </p>
+                                <p class="text_on_card_2">60 min workshop by a mentor(s) of the chosen topic</p>
                             </li>
                             <li>
-                                <p class="text_on_card_2"> {{% artifact.getValue() %}}</p>
+                                <p class="text_on_card_2">1000 cc</p>
                             </li>
                         </ul>
                         <div class="buybutton">BUY!</div>
-                </div>
-            {{% endfor %}}
+                    </div>
 
+                    <div class="card_artefacts">
+                        <p class="text_on_card_1">Code Elemental</p>
+                        <div>
+                            <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
+                        </div>
+
+                        <ul>
+                            <li>
+                                <p class="text_on_card_2">mentor joins a students' team for a one hour</p>
+                            </li>
+                            <li>
+                                <p class="text_on_card_2">1000 cc</p>
+                            </li>
+                        </ul>
+                        <div class="buybutton">BUY!</div>
+                    </div>
+
+                    <div class="card_artefacts">
+                        <p class="text_on_card_1">Tome of knowledge</p>
+                        <div>
+                            <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
+                        </div>
+                        <ul>
+                            <li>
+                                <p class="text_on_card_2">Extra material for the current topic</p>
+                            </li>
+                            <li>
+                                <p class="text_on_card_2">500 cc</p>
+                            </li>
+                        </ul>
+                        <div class="buybutton">BUY!</div>
+                    </div>
+                </div>
+
+                <div class="row_card">
+
+                    <div class="card_artefacts">
+                        <p class="text_on_card_1">Transform mentors</p>
+                        <div>
+                            <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
+                        </div>
+                        <ul>
+                            <li>
+                                <p class="text_on_card_2">All mentors should dress up as pirates (or just funny) for
+                                    the day</p>
+                            </li>
+                            <li>
+                                <p class="text_on_card_2">5000 cc</p>
+                            </li>
+                        </ul>
+                        <div class="buybutton">BUY!</div>
+
+                    </div>
+
+
+                    <div class="card_artefacts">
+                        <p class="text_on_card_1">Teleport</p>
+                        <div>
+                            <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
+                        </div>
+                        <ul>
+                            <li>
+                                <p class="text_on_card_2">The whole course goes to an off-school program instead for a
+                                    day </p>
+                            </li>
+                            <li>
+                                <p class="text_on_card_2">30000 cc</p>
+                            </li>
+                        </ul>
+                        <div class="buybutton">BUY!</div>
+                    </div>
+
+
+                    <div class="card_artefacts">
+
+                    </div>
+
+                </div>
 
             </div>
 
+        </div>
         <footer>
             <span id="links">
                 <h3>Find us on Facebook:</h3>
@@ -138,7 +252,7 @@
     </div>
 
 </body>
-<script src="../js/script.js"></script>
-<script src="../js/cards.js"></script>
+<script src="/static/js/script.js"></script>
+<script src="/static/js/cards.js"></script>
 
 </html>
