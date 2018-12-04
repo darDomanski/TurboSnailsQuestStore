@@ -66,61 +66,29 @@
             <h1>Crowdfunding</h1>
             <p>Together with your classmates you can buy some artifacts.</p>
 
+            {{% for croudfund_item in croudfund_items %}}
+
             <div class="crowdfund_item">
                 <div class="card">
 
-                    <span class="text_on_card_1">Exploring a dungeon</span>
-                    <div>
-                        <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
-                    </div>
-                    <ul>
-                        <li><span class="text_on_card_2">Finishing a Teamwork week</span></li>
-                        <li><span class="text_on_card_2">100 cc/ person</span></li>
-                    </ul>
+                <span class="text_on_card_1"> {{% crowdfund_item.getTitle() %}} </span>
+                <div>
+                    <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
                 </div>
-                <p>Yet to collect: <span id="item_price1">10 </span> cc</p>
+                <ul>
+                    <li><span class="text_on_card_2"> {{% crowdfund_item.getDescription() %}} </span></li>
+                    <li><span class="text_on_card_2"> {{% crowdfund_item.getValue() %}} </span></li>
+                </ul>
+                </div>
+
+                <p>Yet to collect: <span id="item_price1"> {{% ????? %}} </span> cc</p>
                 <label for="fund_input">Fund:</label>
                 <input type="number" name="fund_input" id="fund_input1" min="1" max="5">
                 <input type="button" id="fund_button1" value="Donate" onclick="fund(1)">
 
             </div>
 
-            <div class="crowdfund_item">
-                <div class="card">
-
-                    <span class="text_on_card_1">Exploring a dungeon</span>
-                    <div>
-                        <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
-                    </div>
-                    <ul>
-                        <li><span class="text_on_card_2">Finishing a Teamwork week</span></li>
-                        <li><span class="text_on_card_2">100 cc/ person</span></li>
-                    </ul>
-                </div>
-                <p>Yet to collect: <span id="item_price2">10 </span> cc</p>
-                <label for="fund_input">Fund:</label>
-                <input type="number" name="fund_input" id="fund_input2" min="1" max="5">
-                <input type="button" id="fund_button2" value="Donate" onclick="fund(2)">
-
-            </div>
-
-            <div class="crowdfund_item">
-                <div class="card">
-                    <span class="text_on_card_1">Exploring a dungeon</span>
-                    <div>
-                        <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
-                    </div>
-                    <ul>
-                        <li><span class="text_on_card_2">Finishing a Teamwork week</span></li>
-                        <li><span class="text_on_card_2">100 cc/ person</span></li>
-                    </ul>
-                </div>
-                <p>Yet to collect: <span id="item_price3">10 </span> cc</p>
-                <label for="fund_input">Fund:</label>
-                <input type="number" name="fund_input" id="fund_input3" min="1" max="5">
-                <input type="button" id="fund_button3" value="Donate" onclick="fund(3)">
-
-            </div>
+            {{% endfor %}}
 
         </div>
 
