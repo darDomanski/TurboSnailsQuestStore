@@ -13,9 +13,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.HttpCookie;
 import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
 import java.util.Map;
+import java.util.UUID;
 
 
 public class LoginController implements HttpHandler {
@@ -27,7 +28,7 @@ public class LoginController implements HttpHandler {
 
     public LoginController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;
-        this.loginDAO = new LoginDAOImpl(this.connection);
+        this.loginDAO = new LoginDAOImpl(this.connectionPool);
         this.redirectController = new RedirectController();
     }
 
@@ -52,7 +53,7 @@ public class LoginController implements HttpHandler {
 
         // If the form was submitted, retrieve it's content.
         if (method.equals("POST")) {
-            String context;
+            String context = "";
             InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), StandardCharsets.UTF_8);
             BufferedReader br = new BufferedReader(isr);
             String formData = br.readLine();
@@ -60,20 +61,25 @@ public class LoginController implements HttpHandler {
             String username = (String) inputs.get("login");
             String password = (String) inputs.get("password");
 
-            Person person = loginDAO.getPersonByLoginPassword(username, password);
+            boolean userExists = loginDAO.checkIfUserExists(username, password);
 
-            if (person != null) {
-                String userType = loginDAO.getUserTypeById(person.getId());
-                if (userType.equals("mentor")) {
-                    context = "mentor/codecoolers";
-                } else if (userType.equals("student")) {
-                    context = "student/store";
-                } else {
-                    context = "creepyguy/classes";
+            if (userExists) {
+                Person person = loginDAO.getPersonByLoginPassword(username, password);
+                HttpCookie cookie = new HttpCookie("sessionId", UUID.randomUUID().toString());
+                httpExchange.getResponseHeaders().add("Set-Cookie", cookie.toString());
+
+                if (person != null) {
+                    String userType = loginDAO.getUserTypeById(person.getId());
+                    if (userType.equals("mentor")) {
+                        context = "mentor/codecoolers";
+                    } else if (userType.equals("student")) {
+                        context = "student/store";
+                    }
                 }
             } else {
                 context = "login";
             }
+
             redirectController.redirect(httpExchange, context);
 
         }
