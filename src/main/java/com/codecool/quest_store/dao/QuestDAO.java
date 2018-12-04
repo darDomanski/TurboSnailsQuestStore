@@ -38,6 +38,44 @@ public class QuestDAO implements ItemDAO {
         return quests;
     }
 
+
+    @Override
+    public List<Item> getAllBasic(){
+        List<Item> quests = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = this.connection.prepareStatement("SELECT * FROM quest WHERE quest_type='basic'  ");
+            resultSet = preparedStatement.executeQuery();
+            createQuests(resultSet, quests);
+            resultSet.close();
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return quests;
+    }
+
+
+    @Override
+    public List<Item> getAllExtra(){
+        List<Item> quests = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = this.connection.prepareStatement("SELECT * FROM quest WHERE quest_type='extra'  ");
+            resultSet = preparedStatement.executeQuery();
+            createQuests(resultSet, quests);
+            resultSet.close();
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return quests;
+    }
+
+
+
     private void createQuests(ResultSet resultSet, List<Item> quests) {
         try{
             while (resultSet.next()) {

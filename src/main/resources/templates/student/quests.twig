@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Artefacts</title>
+    <title>Store</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=MedievalSharp" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet">
@@ -15,7 +15,6 @@
 <body>
     <div class="page_content">
         <header>
-
             <div class="title_container">
                 <figure>
                     <img id="logo" src="/static/img/logo.png" alt="logo">
@@ -47,79 +46,75 @@
 
                 </span>
             </div>
-
             <nav>
                 <ul>
                     <li>
-                        <a href="store.html">STORE</a>
+                        <a href="store">STORE</a>
                     </li>
                     <li>
-                        <a href="crowdfunding.html">CROWDFUNDING</a>
+                        <a href="crowdfunding.html"> CROWDFUNDING</a>
                     </li>
                     <li>
-                        <a href="artifacts.html">QUESTS</a>
+                        <a href="quests">QUESTS</a>
                     </li>
                 </ul>
             </nav>
-
         </header>
-
 
         <div class="main_content">
 
-            <h1>STORE</h1>
-            <p> </p>
+            <h1>QUESTS</h1>
 
-            <h2>Basic items</h2>
+
+
+            <h2>Basic Quests</h2>
 
             <div class="artefacts">
 
-                    {{% for artifact in artifacts %}}
+                    {% for quest in questsBasic %}
+                        <div class="card_artefacts">
+                            <p class="text_on_card_1"> {{ quest.getTitle }} </p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
+                            </div>
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2"> {{ quest.description }} </p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2"> {{ quest.value }} </p>
+                                </li>
+                            </ul>
 
-                    <div class="card_artefacts">
-                        <p class="text_on_card_1"> {{% artifact.getTitle() %}}</p>
-                        <div>
-                            <img class="pictures_on_card" src="/student/resources/img/heroes.jpg" alt="Picture of Hero" />
                         </div>
-                        <ul>
-                            <li>
-                                <p class="text_on_card_2"> {{% artifact.getDescription() %}} </p>
-                            </li>
-                            <li>
-                                <p class="text_on_card_2"> {{% artifact.getValue() %}} </p>
-                            </li>
-                        </ul>
-                        <button class="buybutton" onclick="buy()">BUY!</button>
+                    {% endfor %}
 
-                    </div>
-                    {{% endfor %}}
             </div>
 
+            <h2>Extra Quests</h2>
 
-            <h2>Magic items</h2>
-            <div class="artefacts">
+                  <div class="artefacts">
 
-            {{% for artifact in magic_artifacts %}}
+                          {% for quest in questsExtra %}
 
-                <div class="card_artefacts">
-                        <p class="text_on_card_1"> {{% artifact.getTitle() %}} </p>
-                        <div>
-                            <img class="pictures_on_card" src="/student/resources/img/heroes.jpg" alt="Picture of Hero" />
-                        </div>
-                        <ul>
-                            <li>
-                                <p class="text_on_card_2"> {{% artifact.getDescription() %}} </p>
-                            </li>
-                            <li>
-                                <p class="text_on_card_2"> {{% artifact.getValue() %}}</p>
-                            </li>
-                        </ul>
-                        <div class="buybutton">BUY!</div>
-                </div>
-            {{% endfor %}}
-
-
-            </div>
+                              <div class="card_artefacts">
+                                  <p class="text_on_card_1"> {{ quest.getTitle }} </p>
+                                  <div>
+                                      <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
+                                  </div>
+                                  <ul>
+                                      <li>
+                                          <p class="text_on_card_2"> {{ quest.description }} </p>
+                                      </li>
+                                      <li>
+                                          <p class="text_on_card_2"> {{ quest.value }} </p>
+                                      </li>
+                                  </ul>
+                                  <p class="extra">EXTRA QUEST</p>
+                              </div>
+                          {% endfor %}
+                  </div>
+        </div>
 
         <footer>
             <span id="links">
@@ -136,9 +131,7 @@
             </span>
         </footer>
     </div>
-
 </body>
 <script src="../js/script.js"></script>
-<script src="../js/cards.js"></script>
 
 </html>

@@ -23,7 +23,7 @@ public class App {
 
         server.createContext("/student/store", new StudentStoreController());
         server.createContext("/student/crowdfunding", new StudentCrowdfundingController());
-        server.createContext("/student/artifacts", new StudentArtifactsController());
+        server.createContext("/student/quests", new StudentQuestController());
         server.createContext("/student/inventory", new StudentInventoryController());
         server.createContext("/student/wallet", new StudentWalletController());
 

@@ -1,5 +1,6 @@
 package com.codecool.quest_store.controller;
 
+import com.codecool.quest_store.dao.ArtifactDAO;
 import com.codecool.quest_store.dao.DBConnector;
 import com.codecool.quest_store.dao.ItemDAO;
 import com.codecool.quest_store.dao.QuestDAO;
@@ -22,12 +23,13 @@ public class StudentStoreController implements HttpHandler {
         String method = httpExchange.getRequestMethod();
 
         // Probably should be in view
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store_old.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
         JtwigModel model = JtwigModel.newModel();
 
         DBConnector dbConnector = new DBConnector();
-        ItemDAO items = new QuestDAO(dbConnector.getConnection());
-        List<Item> artifacts = items.getAll();
+        ItemDAO items = new ArtifactDAO(dbConnector.getConnection());
+        List<Item> artifactsBasic = items.getAllBasic();
+        List<Item> artifactsExtra = items.getAllExtra();
 
 //        System.out.println(artifacts.size());
 //        for ( int i=0; i < artifacts.size(); i++ ){
@@ -39,7 +41,8 @@ public class StudentStoreController implements HttpHandler {
         // Send a form if it wasn't submitted yet.
         if(method.equals("GET")){
 
-            model.with("artifacts", artifacts);
+            model.with("artifactsBasic", artifactsBasic);
+            model.with("artifactsExtra", artifactsExtra);
             response = template.render(model);
 
             httpExchange.sendResponseHeaders(200, 0);
@@ -51,7 +54,8 @@ public class StudentStoreController implements HttpHandler {
         // If the form was submitted, retrieve it's content.
         if(method.equals("POST")){
 
-            model.with("artifacts", artifacts);
+            model.with("artifactsBasic", artifactsBasic);
+            model.with("artifactsExtra", artifactsExtra);
             response = template.render(model);
 
             response = template.render(model);

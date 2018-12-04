@@ -38,6 +38,42 @@ public class ArtifactDAO implements ItemDAO {
         return artifacts;
     }
 
+    @Override
+    public List<Item> getAllBasic(){
+        List<Item> quests = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = this.connection.prepareStatement("SELECT * FROM artifact WHERE artifact_type='basic'  ");
+            resultSet = preparedStatement.executeQuery();
+            createArtifacts(resultSet, quests);
+            resultSet.close();
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return quests;
+    }
+
+
+    @Override
+    public List<Item> getAllExtra(){
+        List<Item> quests = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = this.connection.prepareStatement("SELECT * FROM artifact WHERE artifact_type='extra'  ");
+            resultSet = preparedStatement.executeQuery();
+            createArtifacts(resultSet, quests);
+            resultSet.close();
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return quests;
+    }
+
+
     private void createArtifacts(ResultSet resultSet, List<Item> artifacts) {
         try{
             while (resultSet.next()) {

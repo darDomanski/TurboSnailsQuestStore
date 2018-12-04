@@ -1,5 +1,5 @@
 
-.row_card {
+.artefacts {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -105,6 +105,9 @@
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.638);
     position:relative;
+
+
+
 }
 
 .pictures_on_card{
