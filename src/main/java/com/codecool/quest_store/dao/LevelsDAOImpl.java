@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LevelsDAOImpl implements LevelsDAO {
-    private Connection connection;
+    private DBConnector connectionPool;
 
-    public LevelsDAOImpl(Connection connection) {
-        this.connection = connection;
+    public LevelsDAOImpl(DBConnector connectionPool) {
+        this.connectionPool = connectionPool;
     }
 
     @Override

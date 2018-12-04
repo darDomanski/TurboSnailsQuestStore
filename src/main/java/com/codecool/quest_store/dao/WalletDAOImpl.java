@@ -6,11 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class WalletDAOImpl implements WalletDAO {
+    private DBConnector connectionPool;
 
-    private Connection connection;
-
-    public WalletDAOImpl(Connection connection) {
-        this.connection = connection;
+    public WalletDAOImpl(DBConnector connectionPool) {
+        this.connectionPool = connectionPool;
     }
 
     @Override

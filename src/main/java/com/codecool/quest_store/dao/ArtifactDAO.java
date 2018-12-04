@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ArtifactDAO implements ItemDAO {
-    private Connection connection;
+    private DBConnector connectionPool;
 
-    public ArtifactDAO(Connection connection) {
-        this.connection = connection;
+    public ArtifactDAO(DBConnector connectionPool) {
+        this.connectionPool = connectionPool;
     }
 
     @Override

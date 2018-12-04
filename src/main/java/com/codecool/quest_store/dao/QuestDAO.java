@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class QuestDAO implements ItemDAO {
-    private Connection connection;
+    private DBConnector connectionPool;
 
-    public QuestDAO(Connection connection) {
-        this.connection = connection;
+    public QuestDAO(DBConnector connectionPool) {
+        this.connectionPool = connectionPool;
     }
 
 

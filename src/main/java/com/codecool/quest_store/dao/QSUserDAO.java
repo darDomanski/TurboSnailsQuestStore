@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QSUserDAO implements PersonDAO {
-    private Connection connection;
+    private DBConnector connectionPool;
 
-    public QSUserDAO(Connection connection) {
-        this.connection = connection;
+    public QSUserDAO(DBConnector connectionPool) {
+        this.connectionPool = connectionPool;
     }
 
     @Override

@@ -11,10 +11,10 @@ import java.sql.SQLException;
 
 
 public class LoginDAOImpl implements LoginDAO {
-    private Connection connection;
+    private DBConnector connectionPool;
 
-    public LoginDAOImpl(Connection connection) {
-        this.connection = connection;
+    public LoginDAOImpl(DBConnector connectionPool) {
+        this.connectionPool = connectionPool;
     }
 
     public Person getPersonByLoginPassword(String login, String password) {

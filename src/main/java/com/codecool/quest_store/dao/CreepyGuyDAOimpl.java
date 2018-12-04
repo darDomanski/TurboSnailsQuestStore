@@ -9,10 +9,10 @@ import java.util.List;
 
 
 public class CreepyGuyDAOimpl implements CreepyGuyDAO {
-    private Connection connection;
+    private DBConnector connectionPool;
 
-    public CreepyGuyDAOimpl(Connection connection) {
-        this.connection = connection;
+    public CreepyGuyDAOimpl(DBConnector connectionPool) {
+        this.connectionPool = connectionPool;
     }
 
     public void createClass(String className) {
