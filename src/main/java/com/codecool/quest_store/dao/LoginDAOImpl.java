@@ -38,8 +38,9 @@ public class LoginDAOImpl implements LoginDAO {
 
         PreparedStatement preparedStatement;
         ResultSet resultSet;
-
+        Connection connection = null;
         try {
+            connection = connectionPool.getConnection();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, userId);
             resultSet = preparedStatement.executeQuery();
@@ -82,6 +83,35 @@ public class LoginDAOImpl implements LoginDAO {
             e.printStackTrace();
         }
         return id;
+    }
+
+    public boolean checkIfUserExists(String login, String password) {
+        boolean userExists = false;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String query = "SELECT id FROM login_data WHERE login = ? AND password = ?";
+
+        try {
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, login);
+            preparedStatement.setString(2, password);
+            resultSet = preparedStatement.executeQuery();
+
+//            resultSet.next();
+            while (resultSet.next()) {
+                userExists = true;
+            }
+
+            preparedStatement.close();
+            resultSet.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userExists;
+
     }
 
     private Person getPersonOtherThanCreepyGuy(String login, String password) {
