@@ -65,7 +65,7 @@
         <div class="main_content">
             <h1>Inventory</h1>
 
-            {{% for artifact in artifacts %}}
+            {% for artifact in artifacts %}
 
             <div class="card_artefacts">
                 <p class="text_on_card_1"> {{% artifact.getTitle() %}}</p>
@@ -82,7 +82,7 @@
                 </ul>
 
             </div>
-            {{% endfor %}}
+            {% endfor %}
 
         </div>
 
