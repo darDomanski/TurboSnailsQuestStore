@@ -1,8 +1,11 @@
 package com.codecool.quest_store;
 
 import com.codecool.quest_store.controller.*;
+import com.codecool.quest_store.dao.DBConnector;
 import com.sun.net.httpserver.HttpServer;
+
 import java.net.InetSocketAddress;
+import java.sql.Connection;
 
 
 public class App {
@@ -10,8 +13,10 @@ public class App {
         // create a server on port 8000
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
 
+        DBConnector dbConnector = new DBConnector();
+        Connection connection = dbConnector.getConnection();
         // set routes
-        server.createContext("/login", new LoginController());
+        server.createContext("/login", new LoginController(connection));
 
         server.createContext("/creepyguy/classes", new CreepyGuyClassesController());
         server.createContext("/creepyguy/mentors", new CreepyGuyMentorsController());
