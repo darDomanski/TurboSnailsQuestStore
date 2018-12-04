@@ -1,5 +1,6 @@
 package com.codecool.quest_store.controller;
 
+import com.codecool.quest_store.dao.DBConnector;
 import com.codecool.quest_store.dao.LoginDAO;
 import com.codecool.quest_store.dao.LoginDAOImpl;
 import com.codecool.quest_store.model.Person;
@@ -18,12 +19,14 @@ import java.util.Map;
 
 
 public class LoginController implements HttpHandler {
-    private Connection connection;
+    private DBConnector connectionPool;
+
+
     private RedirectController redirectController;
     private LoginDAO loginDAO;
 
-    public LoginController(Connection connection) {
-        this.connection = connection;
+    public LoginController(DBConnector connectionPool) {
+        this.connectionPool = connectionPool;
         this.loginDAO = new LoginDAOImpl(this.connection);
         this.redirectController = new RedirectController();
     }

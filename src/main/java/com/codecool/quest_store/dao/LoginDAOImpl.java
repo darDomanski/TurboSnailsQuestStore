@@ -11,10 +11,10 @@ import java.sql.SQLException;
 
 
 public class LoginDAOImpl implements LoginDAO {
-    private Connection connection;
+    private DBConnector connectionPool;
 
-    public LoginDAOImpl(Connection connection) {
-        this.connection = connection;
+    public LoginDAOImpl(DBConnector connectionPool) {
+        this.connectionPool = connectionPool;
     }
 
     public Person getPersonByLoginPassword(String login, String password) {
@@ -57,13 +57,15 @@ public class LoginDAOImpl implements LoginDAO {
     }
 
     private String checkIfIdIsEmpty(String login, String password) {
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         String id = null;
         String query = "SELECT id FROM login_data WHERE login = ? AND password = ?";
 
         try {
-            preparedStatement = this.connection.prepareStatement(query);
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
@@ -75,6 +77,7 @@ public class LoginDAOImpl implements LoginDAO {
 
             preparedStatement.close();
             resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -82,6 +85,7 @@ public class LoginDAOImpl implements LoginDAO {
     }
 
     private Person getPersonOtherThanCreepyGuy(String login, String password) {
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         Person person = null;
@@ -95,7 +99,8 @@ public class LoginDAOImpl implements LoginDAO {
                 "WHERE login=? AND password=?";
 
         try {
-            preparedStatement = this.connection.prepareStatement(query);
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
@@ -113,6 +118,7 @@ public class LoginDAOImpl implements LoginDAO {
 
             preparedStatement.close();
             resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -120,17 +126,20 @@ public class LoginDAOImpl implements LoginDAO {
     }
 
     public void addPerson(int id, String login, String password) {
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         String query = "INSERT INTO login_data VALUES (?, ?, ?)";
 
         try {
-            preparedStatement = this.connection.prepareStatement(query);
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, id);
             preparedStatement.setString(2, login);
             preparedStatement.setString(3, password);
             preparedStatement.execute();
 
             preparedStatement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -143,27 +152,32 @@ public class LoginDAOImpl implements LoginDAO {
 
         try {
             // below statement should be done only when valueType is first checked in mainController
-            preparedStatement = this.connection.prepareStatement(String.format(query, valueType));
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(String.format(query, valueType));
             preparedStatement.setString(1, value);
             preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
 
             preparedStatement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void deletePerson(int id) {
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         String query = "DELETE FROM login_data WHERE id = ?";
 
         try {
-            preparedStatement = this.connection.prepareStatement(query);
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
 
             preparedStatement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

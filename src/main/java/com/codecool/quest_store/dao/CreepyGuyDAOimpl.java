@@ -9,28 +9,32 @@ import java.util.List;
 
 
 public class CreepyGuyDAOimpl implements CreepyGuyDAO {
-    private Connection connection;
+    private DBConnector connectionPool;
 
-    public CreepyGuyDAOimpl(Connection connection) {
-        this.connection = connection;
+    public CreepyGuyDAOimpl(DBConnector connectionPool) {
+        this.connectionPool = connectionPool;
     }
 
     public void createClass(String className) {
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         String query = "INSERT INTO class_ (name) VALUES (?)";
 
         try {
-            preparedStatement = this.connection.prepareStatement(query);
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, className);
             preparedStatement.execute();
 
             preparedStatement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public int[] getAccessLevels() {
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         String query = "SELECT * FROM access_level";
@@ -38,7 +42,8 @@ public class CreepyGuyDAOimpl implements CreepyGuyDAO {
         int[] accessLevels = new int[8];
 
         try {
-            preparedStatement = this.connection.prepareStatement(query);
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
             int resultCounter = 0;
 
@@ -53,6 +58,7 @@ public class CreepyGuyDAOimpl implements CreepyGuyDAO {
             }
             preparedStatement.close();
             resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -73,7 +79,8 @@ public class CreepyGuyDAOimpl implements CreepyGuyDAO {
                 "UPDATE access_level SET min_lifetime_coins = ? WHERE level_id = 5;";
 
         try {
-            preparedStatement = this.connection.prepareStatement(query);
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(query);
 
             for (int i = 0; i < NUMBER_OF_ACCESS_RANGES; i++) {
                 int index = i + 1;
@@ -82,6 +89,7 @@ public class CreepyGuyDAOimpl implements CreepyGuyDAO {
             preparedStatement.executeUpdate();
 
             preparedStatement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LevelsDAOImpl implements LevelsDAO {
-    private Connection connection;
+    private DBConnector connectionPool;
 
-    public LevelsDAOImpl(Connection connection) {
-        this.connection = connection;
+    public LevelsDAOImpl(DBConnector connectionPool) {
+        this.connectionPool = connectionPool;
     }
 
     @Override
@@ -21,10 +21,12 @@ public class LevelsDAOImpl implements LevelsDAO {
                 "AND wallet.lifetime_coins >= access_level.min_lifetime_coins " +
                 "WHERE wallet.student_id = ?;";
 
+        Connection connection = null;
         PreparedStatement preparedStatement;
         ResultSet resultSet;
 
         try {
+            connection = connectionPool.getConnection();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, studentId);
             resultSet = preparedStatement.executeQuery();
@@ -35,6 +37,7 @@ public class LevelsDAOImpl implements LevelsDAO {
 
             preparedStatement.close();
             resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             System.err.println("Can't get student's level!");
             e.printStackTrace();
@@ -48,15 +51,19 @@ public class LevelsDAOImpl implements LevelsDAO {
                 "SET min_lifetime_coins = ?, " +
                 "max_lifetime_coins = ? " +
                 "WHERE level_id =?;";
+        Connection connection = null;
         PreparedStatement preparedStatement;
 
         try {
+            connection = connectionPool.getConnection();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, minCoolcoinsAmount);
             preparedStatement.setInt(2, maxCoolcoinsAmount);
             preparedStatement.setInt(3, levelId);
             preparedStatement.executeUpdate();
+
             preparedStatement.close();
+            connection.close();
         } catch (SQLException e) {
             System.err.println("Can't update access level!");
             e.printStackTrace();

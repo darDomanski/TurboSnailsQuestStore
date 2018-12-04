@@ -13,24 +13,28 @@ import java.util.List;
 import java.util.Scanner;
 
 public class QuestDAO implements ItemDAO {
-    private Connection connection;
+    private DBConnector connectionPool;
 
-    public QuestDAO(Connection connection) {
-        this.connection = connection;
+    public QuestDAO(DBConnector connectionPool) {
+        this.connectionPool = connectionPool;
     }
 
 
     @Override
     public List<Item> getAll() {
-
+        Connection connection = null;
         List<Item> quests = new ArrayList<>();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
-            preparedStatement = this.connection.prepareStatement("SELECT * FROM quest ");
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM quest ");
             resultSet = preparedStatement.executeQuery();
             createQuests(resultSet, quests);
+
+            preparedStatement.close();
             resultSet.close();
+            connection.close();
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -58,14 +62,19 @@ public class QuestDAO implements ItemDAO {
     @Override
     public Item getById(Integer id){
         Quest quest = null;
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
-            preparedStatement = this.connection.prepareStatement("SELECT * FROM quest WHERE id = ?");
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM quest WHERE id = ?");
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
-            quest=createQuest(resultSet);
+            quest = createQuest(resultSet);
+
+            preparedStatement.close();
             resultSet.close();
+            connection.close();
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -99,10 +108,12 @@ public class QuestDAO implements ItemDAO {
         Integer quest_value = item.getValue();
         String quest_type =  item.getType();
 
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try{
-            preparedStatement = this.connection.prepareStatement("INSERT INTO quest ( access_level,title,description,quest_value,quest_type ) " +
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement("INSERT INTO quest ( access_level,title,description,quest_value,quest_type ) " +
                     "VALUES(?,?,?,?,?)");
             preparedStatement.setInt(1, access_level);
             preparedStatement.setString(2, title);
@@ -112,6 +123,7 @@ public class QuestDAO implements ItemDAO {
             preparedStatement.executeUpdate();
 
             preparedStatement.close();
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -119,6 +131,7 @@ public class QuestDAO implements ItemDAO {
 
     @Override
     public void update(Integer id) {
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         String attribute = type("Type which attribute would you like to change(title/description/quest_type/access_level/quest_value) ; ");
@@ -127,13 +140,15 @@ public class QuestDAO implements ItemDAO {
             String newTextValue = type("Type new value ; ");
 
             try {
-                preparedStatement = this.connection.prepareStatement(String.format("UPDATE quest SET %s = ? WHERE id = ? ;", attribute));
+                connection = connectionPool.getConnection();
+                preparedStatement = connection.prepareStatement(String.format("UPDATE quest SET %s = ? WHERE id = ? ;", attribute));
                 preparedStatement.setString(1, newTextValue);
                 preparedStatement.setInt(2, id);
                 preparedStatement.executeUpdate();
 
-                resultSet.close();
                 preparedStatement.close();
+                resultSet.close();
+                connection.close();
             } catch (SQLException exc) {
                 exc.printStackTrace();
             }
@@ -142,13 +157,14 @@ public class QuestDAO implements ItemDAO {
         if (attribute.equals("access_level") || attribute.equals("quest_value")) {
             Integer newIntValue =  typeInt("Type new value ; ");
             try {
-                preparedStatement = this.connection.prepareStatement(String.format("UPDATE quest SET %s = ? WHERE id = ? ;", attribute));
+                preparedStatement = connection.prepareStatement(String.format("UPDATE quest SET %s = ? WHERE id = ? ;", attribute));
                 preparedStatement.setInt(1, newIntValue);
                 preparedStatement.setInt(2, id);
                 preparedStatement.executeUpdate();
 
                 preparedStatement.close();
                 resultSet.close();
+                connection.close();
             } catch (SQLException exc) {
                 exc.printStackTrace();
             }
@@ -172,13 +188,16 @@ public class QuestDAO implements ItemDAO {
 
     @Override
     public void delete(Integer id) {
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = this.connection.prepareStatement(" DELETE FROM  quest WHERE id = ? ");
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(" DELETE FROM  quest WHERE id = ? ");
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
 
             preparedStatement.close();
+            connection.close();
             System.out.println( "Quest with id : "+id+" was deleted." );
         } catch (SQLException exc) {
             exc.printStackTrace();
