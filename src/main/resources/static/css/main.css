@@ -191,7 +191,7 @@ td {
     #logo {
         min-width: 0;
         margin-left: -8%;
-        content:url("../img/logo_small.png");        
+        content:url("../img/logo_small.png");
     }
 }
 @media screen and (max-width: 600px) {
