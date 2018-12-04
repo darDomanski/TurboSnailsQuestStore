@@ -1,8 +1,6 @@
 package com.codecool.quest_store.controller;
 
-import com.codecool.quest_store.dao.DBConnector;
-import com.codecool.quest_store.dao.LoginDAO;
-import com.codecool.quest_store.dao.LoginDAOImpl;
+import com.codecool.quest_store.dao.*;
 import com.codecool.quest_store.model.Person;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -25,10 +23,12 @@ public class LoginController implements HttpHandler {
 
     private RedirectController redirectController;
     private LoginDAO loginDAO;
+    private SessionDAO sessionDAO;
 
     public LoginController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;
         this.loginDAO = new LoginDAOImpl(this.connectionPool);
+        this.sessionDAO = new SessionDAOImpl(this.connectionPool);
         this.redirectController = new RedirectController();
     }
 
@@ -67,6 +67,8 @@ public class LoginController implements HttpHandler {
                 Person person = loginDAO.getPersonByLoginPassword(username, password);
                 HttpCookie cookie = new HttpCookie("sessionId", UUID.randomUUID().toString());
                 httpExchange.getResponseHeaders().add("Set-Cookie", cookie.toString());
+                sessionDAO.addSession(person.getId(), cookie.getValue());
+
 
                 if (person != null) {
                     String userType = loginDAO.getUserTypeById(person.getId());
