@@ -125,7 +125,7 @@ IF NOT EXISTS wallet (
 
 CREATE TABLE
 IF NOT EXISTS session (
-user_id INTEGER REFERENCES qs_user(id),
+user_id INTEGER,
 session_id TEXT UNIQUE
 );
 
