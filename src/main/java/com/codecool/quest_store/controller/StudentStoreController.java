@@ -15,6 +15,11 @@ import java.util.List;
 
 
 public class StudentStoreController implements HttpHandler {
+    private DBConnector connectionPool;
+
+    public StudentStoreController(DBConnector connectionPool) {
+        this.connectionPool = connectionPool;
+    }
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
@@ -26,7 +31,7 @@ public class StudentStoreController implements HttpHandler {
         JtwigModel model = JtwigModel.newModel();
 
         DBConnector dbConnector = new DBConnector();
-        ItemDAO items = new QuestDAO(dbConnector.getConnection());
+        ItemDAO items = new QuestDAO(connectionPool);
         List<Item> artifacts = items.getAll();
 
 //        System.out.println(artifacts.size());
