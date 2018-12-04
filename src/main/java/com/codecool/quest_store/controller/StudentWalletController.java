@@ -19,6 +19,7 @@ public class StudentWalletController implements HttpHandler {
         // Probably should be in view
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/wallet.twig");
         JtwigModel model = JtwigModel.newModel();
+        model.with("coolcoins_amount", 55);
 
         // Send a form if it wasn't submitted yet.
         if(method.equals("GET")){
