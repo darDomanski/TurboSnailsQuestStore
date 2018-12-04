@@ -17,14 +17,14 @@ public class LoginController implements HttpHandler {
         String method = httpExchange.getRequestMethod();
 
         // Probably should be in view
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/login.twig");;
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/login.twig");
         JtwigModel model = JtwigModel.newModel();
 
         // Send a form if it wasn't submitted yet.
         if(method.equals("GET")){
 
             response = template.render(model);
-            httpExchange.sendResponseHeaders(200, response.length());
+            httpExchange.sendResponseHeaders(200, 0);
             OutputStream os = httpExchange.getResponseBody();
             os.write(response.getBytes());
             os.close();
@@ -34,10 +34,12 @@ public class LoginController implements HttpHandler {
         if(method.equals("POST")){
 
             response = template.render(model);
-            httpExchange.sendResponseHeaders(200, response.length());
+            httpExchange.sendResponseHeaders(200, 0);
             OutputStream os = httpExchange.getResponseBody();
             os.write(response.getBytes());
             os.close();
         }
     }
+
+
 }
