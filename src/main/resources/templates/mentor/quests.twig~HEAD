@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>QuestStore login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=MedievalSharp" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/cards.css">
+
+</head>
+
+<body>
+    <div class="page_content">
+        <header>
+            <div class="title_container">
+                <figure>
+                    <img id="logo" src="/static/img/logo.png" alt="logo">
+                </figure>
+                <a id="logout" href="/static/login.html"><img src="/static/img/logout.png" alt="logout"></a>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="codecoolers.html">CODECOOLERS</a>
+                    </li>
+                    <li>
+                        <a href="quests.html">QUEST</a>
+                    </li>
+                    <li>
+                        <a href="artifacts.html">ARTIFACTS</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </header>
+
+
+        <div class="main_content">
+
+            <h1>Quest</h1>
+            <p> </p>
+
+            <h2>Quest workshop</h2>
+
+            <div class="quests">
+
+                <div class="row_card">
+
+                    <div class="card">
+                        <p class="text_on_card_1">Exploring a dungeon</p>
+                        <div>
+                            <img class="pictures_on_card" src="../resources/img/heroes.jpg" alt="Picture of  heroes" />
+                        </div>
+                        <ul>
+                            <li>
+                                <p class="text_on_card_2">Finishing a Teamwork week</p>
+                            </li>
+                            <li>
+                                <p class="text_on_card_2">100 cc/ person</p>
+                            </li>
+                        </ul>
+                        <p id="example">EXAMPLE </p>
+                    </div>
+
+                    <div class="card" id="create_quest_card">
+                        <p class="text_on_card_1"><input id="input_card_title" type="text" placeholder="Title of card / quest..."></p>
+                        <div id="pictures_on_card_workshop">
+                            <img class="pictures_on_card" src="/static/resources/img/heroes.jpg" alt="Picture of  heroes" />
+
+                            <button id="button_basic_quest" type="button">Basie Quest</button>
+                            <button id="button_extra_quest" type="button">Extra Quest</button>
+
+                            <p id="inputonpicture"><input id="input_card_picture_address" type="text" placeholder="Picture address..."></p>
+                        </div>
+                        <p class="text_on_card_1"><input id="input_card_description" type="text" placeholder="Short description..."></p>
+                        <p class="text_on_card_1"><input id="input_card_value" type="text" placeholder="Value..."></p>
+                    </div>
+
+                    <button id="button_create_quest_card" type="button" onclick="create_quest_card()">
+                        <p class="text_on_button">Create quest</p>
+                    </button>
+
+                </div>
+
+                <h2>Basic Quests</h2>
+
+                <div class="quests">
+                    <div class="row_card">
+                        <div class="card">
+                            <p class="text_on_card_1">Exploring a dungeon</p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/resources/img/heroes.jpg" alt="Picture of  heroes" />
+                            </div>
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2">Finishing a Teamwork week</p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2">100 cc/ person</p>
+                                </li>
+                            </ul>
+                            <div class="editcardbutton">EDIT CARD</div>
+                        </div>
+
+                        <div class="card">
+                            <p class="text_on_card_1">Solving the puzzle</p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/resources/img/heroes.jpg" alt="Picture of  heroes" />
+                            </div>
+
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2">Finishing an SI assignment</p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2">100 cc/ person</p>
+                                </li>
+                            </ul>
+                            <div class="editcardbutton">EDIT CARD</div>
+                        </div>
+
+                        <div class="card">
+                            <p class="text_on_card_1">Slaying a dragon</p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/resources/img/heroes.jpg" alt="Picture of  heroes" />
+                            </div>
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2">Passing a Checkpoint</p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2">500 cc/ person</p>
+                                </li>
+                            </ul>
+                            <div class="editcardbutton">EDIT CARD</div>
+                        </div>
+                    </div>
+
+                    <!-- empty card   -->
+                    <div class="row_card">
+
+                        <div id="new_card">
+                        </div>
+
+                    </div>
+
+                    <h2>Extra Quests</h2>
+
+                    <div class="row_card">
+
+                        <div class="card" id="Spot_trap_card">
+
+                            <p class="text_on_card_1">Spot trap</p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/resources/img/heroes.jpg" alt="Picture of  heroes" />
+                            </div>
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2">Spot a major mistake in the assignment</p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2">50 cc</p>
+                                </li>
+                            </ul>
+                            <p class="extra">EXTRA QUEST</p>
+                            <button class="editcardbutton" id="Spot_trap_card_b" onclick="editCard()">EDIT CARD</button>
+
+                        </div>
+
+                        <div class="card" id="Taming_a_pet">
+
+                            <p class="text_on_card_1">Taming a pet</p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/resources/img/heroes.jpg" alt="Picture of  heroes" />
+                            </div>
+
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2">Doing a demo about a pet project</p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2">100 cc/ person</p>
+                                </li>
+                            </ul>
+                            <p class="extra">EXTRA QUEST</p>
+                            <button class="editcardbutton" id="Taming_a_pet_b" onclick="editCard()">EDIT CARD</button>
+                        </div>
+
+                        <div class="card">
+                            <p class="text_on_card_1">Recruiting some n00bs</p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/resources/img/heroes.jpg" alt="Picture of  heroes" />
+                            </div>
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2">Taking part in the student screening process </p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2">100 cc/ person</p>
+                                </li>
+                            </ul>
+                            <p class="extra">EXTRA QUEST</p>
+                            <div class="editcardbutton">EDIT CARD</div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row_card">
+
+                        <div class="card">
+
+                            <p class="text_on_card_1">Forging weapons</p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/resources/img/heroes.jpg" alt="Picture of  heroes" />
+                            </div>
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2">Organizing a workshop for other students</p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2">400 cc</p>
+                                </li>
+                            </ul>
+                            <p class="extra">EXTRA QUEST</p>
+                            <div class="editcardbutton">EDIT CARD</div>
+                        </div>
+
+                        <div class="card">
+                            <p class="text_on_card_1">Master the mornings</p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/resources/img/heroes.jpg" alt="Picture of  heroes" />
+                            </div>
+
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2">Attend 1 months without being late</p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2">300 cc</p>
+                                </li>
+                            </ul>
+                            <p class="extra">EXTRA QUEST</p>
+                            <div class="editcardbutton">EDIT CARD</div>
+                        </div>
+
+                        <div class="card">
+                            <p class="text_on_card_1">Fast as an unicorn</p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/resources/img/heroes.jpg" alt="Picture of  heroes" />
+                            </div>
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2">deliver 4 consecutive SI week assignments on time </p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2">500 cc</p>
+                                </li>
+                            </ul>
+                            <p class="extra">EXTRA QUEST</p>
+                            <div class="editcardbutton">EDIT CARD</div>
+                        </div>
+                    </div>
+
+
+                    <div class="row_card">
+
+                        <div class="card">
+
+                            <p class="text_on_card_1">Achiever</p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/resources/img/heroes.jpg" alt="Picture of  heroes" />
+                            </div>
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2">set up a SMART goal accepted by a mentor, then achieve it
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2">500 cc</p>
+                                </li>
+                            </ul>
+                            <p class="extra">EXTRA QUEST</p>
+                            <div class="editcardbutton">EDIT CARD</div>
+                        </div>
+
+                        <div class="card">
+                            <p class="text_on_card_1">Fortune</p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/resources/img/heroes.jpg" alt="Picture of  heroes" />
+                            </div>
+
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2">students choose the best project of the week. Selected
+                                        team scores</p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2">500 cc</p>
+                                </li>
+                            </ul>
+                            <p class="extra">EXTRA QUEST</p>
+                            <div class="editcardbutton">EDIT CARD</div>
+                        </div>
+
+                        <div class="card">
+                            <p class="text_on_card_1">Creat an scroll</p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/resources/img/heroes.jpg" alt="Picture of  heroes" />
+                            </div>
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2">Creating extra material for the current TW/SI topic
+                                        (should be revised by mentors)</p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2">500 cc</p>
+                                </li>
+                            </ul>
+                            <p class="extra">EXTRA QUEST</p>
+                            <div class="editcardbutton">EDIT CARD</div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="row_card">
+                        <div class="card">
+                            <p class="text_on_card_1">Achiever</p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/resources/img/heroes.jpg" alt="Picture of  heroes" />
+                            </div>
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2">set up a SMART goal accepted by a mentor, then achieve it
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2">500 cc</p>
+                                </li>
+                            </ul>
+                            <p class="extra">EXTRA QUEST</p>
+                            <div class="editcardbutton">EDIT CARD</div>
+
+                        </div>
+
+                        <div class="card">
+                            <p class="text_on_card_1">Enter the arena</p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/resources/img/heroes.jpg" alt="Picture of  heroes" />
+                            </div>
+
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2">Do a presentation on a meet-up</p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2">500 cc</p>
+                                </li>
+                            </ul>
+                            <p class="extra">EXTRA QUEST</p>
+                            <div class="editcardbutton">EDIT CARD</div>
+
+                        </div>
+
+                        <div class="card">
+                            <p class="text_on_card_1">Creat an scroll</p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/resources/img/heroes.jpg" alt="Picture of  heroes" />
+                            </div>
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2">Creating extra material for the current TW/SI topic
+                                        (should be revised by mentors)</p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2">500 cc</p>
+                                </li>
+                            </ul>
+                            <p class="extra">EXTRA QUEST</p>
+                            <div class="editcardbutton">EDIT CARD</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <footer>
+            <span id="links">
+                <h3>Find us on Facebook:</h3>
+                <ul>
+                    <li><a href="https://www.facebook.com/profile.php?id=100024050271937" target="_blank">TurboKrzyś</a></li>
+                    <li><a href="https://www.facebook.com/roman.bulinski" target="_blank">TurboRoman</a></li>
+                    <li><a href="https://www.facebook.com/dar.domanski" target="_blank">TurboDaro</a></li>
+                </ul>
+            </span>
+
+            <p id="copyrights">
+                <p>Copyrights&copy; 2018 by TurboSnails, all rights reserved.</p>
+            </p>
+        </footer>
+    </div>
+
+</body>
+<script src="../js/script.js"></script>
+<script src="../js/cards.js"></script>
+
+</html>
