@@ -8,7 +8,8 @@ public interface LoginDAO {
     void addPerson(int id, String login, String password);
     void updatePerson(int id, String value, String valueType);
     void deletePerson(int id);
-
     String getUserTypeById(int userId);
+
+    boolean checkIfUserExists(String login, String password);
 
 }
