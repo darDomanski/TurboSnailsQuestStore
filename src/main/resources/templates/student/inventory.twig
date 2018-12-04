@@ -3,44 +3,45 @@
 
 <head>
     <meta charset="utf-8">
-    <title>QuestStore login</title>
+    <title>Crowfunding</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=MedievalSharp" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/cards.css">
 </head>
 
-<body onload="getCCAmount()">
+<body>
     <div class="page_content">
         <header>
             <div class="title_container">
                 <figure>
-                    <img id="logo" src="../img/logo.png" alt="logo">
+                    <img id="logo" src="/static/img/logo.png" alt="logo">
                 </figure>
 
                 <span id="header_icons">
 
                     <figure class="icon">
-                        <a href="inventory.html">
-                            <img src="../img/backpack.png" class="icon_img" alt="backpack">
+                        <a href="/inventory">
+                            <img src="/static/img/backpack.png" class="icon_img" alt="backpack">
                         </a>
                     </figure>
 
                     <figure class="icon">
-                        <a href="wallet.html">
-                            <img src="../img/wallet.png" class="icon_img" alt="wallet">
-                            <div id="amount_of_coolcoins">100</div>
+                        <a href="/wallet">
+                            <img src="/static/img/wallet.png" class="icon_img" alt="wallet">
+                            <div id="amount_of_coolcoins"> {{% coolcoins_amount %}} </div>
                         </a>
                     </figure>
 
-                    <figure clas="icon">
-                        <img src="../img/star-icon.png" class="icon_img" alt="exp_icon">
+                    <figure class="icon">
+                        <img src="/static/img/star-icon.png" class="icon_img" alt="exp_icon">
                         <div id="exp_level">5</div>
                     </figure>
 
                     <figure class="icon">
-                        <a href="../login.html"><img src="../img/logout.png" class="icon_img" alt="logout"></a>
+                        <a href="/login"><img src="/static/img/logout.png" class="icon_img" alt="logout"></a>
                     </figure>
 
                 </span>
@@ -49,24 +50,42 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="store.html">STORE</a>
+                        <a href="/store">STORE</a>
                     </li>
                     <li>
-                        <a href="crowdfunding.html">CROWDFUNDING</a>
+                        <a href="/crowdfunding">CROWDFUNDING</a>
                     </li>
                     <li>
-                        <a href="artifacts.html">ARTIFACTS</a>
+                        <a href="/artifact">ARTIFACTS</a>
                     </li>
                 </ul>
             </nav>
-
         </header>
-        <div class="main_content">
 
-            <h1>Wallet</h1>
-            <p>You have <span id="actual_cc_amount"> </span>cc</p>
+        <div class="main_content">
+            <h1>Inventory</h1>
+
+            {% for artifact in artifacts %}
+
+            <div class="card_artefacts">
+                <p class="text_on_card_1"> {{% artifact.getTitle() %}}</p>
+                <div>
+                    <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
+                </div>
+                <ul>
+                    <li>
+                        <p class="text_on_card_2"> {{% artifact.getDescription() %}} </p>
+                    </li>
+                    <li>
+                        <p class="text_on_card_2"> {{% artifact.getValue() %}} </p>
+                    </li>
+                </ul>
+
+            </div>
+            {% endfor %}
 
         </div>
+
         <footer>
             <span id="links">
                 <h3>Find us on Facebook:</h3>
@@ -84,7 +103,6 @@
     </div>
 
 </body>
-<script src="../js/script.js"></script>
-<script src="../js/wallet.js"></script>
+<script src="/static/js/script.js"></script>
 
 </html>
