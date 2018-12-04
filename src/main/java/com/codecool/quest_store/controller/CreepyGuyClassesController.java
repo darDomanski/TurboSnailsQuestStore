@@ -11,7 +11,7 @@ import java.io.OutputStream;
 
 
 public class CreepyGuyClassesController implements HttpHandler {
-    DBConnector connectionPool;
+    private DBConnector connectionPool;
 
     public CreepyGuyClassesController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;

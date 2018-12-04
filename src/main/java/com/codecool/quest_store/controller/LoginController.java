@@ -11,7 +11,7 @@ import java.io.OutputStream;
 
 
 public class LoginController implements HttpHandler {
-    DBConnector connectionPool;
+    private DBConnector connectionPool;
 
     public LoginController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;

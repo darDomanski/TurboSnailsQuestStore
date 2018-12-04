@@ -11,7 +11,7 @@ import java.io.OutputStream;
 
 
 public class StudentWalletController implements HttpHandler {
-    DBConnector connectionPool;
+    private DBConnector connectionPool;
 
     public StudentWalletController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;

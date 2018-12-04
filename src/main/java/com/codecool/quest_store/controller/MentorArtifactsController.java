@@ -8,7 +8,7 @@ import java.io.IOException;
 
 
 public class MentorArtifactsController implements HttpHandler {
-    DBConnector connectionPool;
+    private DBConnector connectionPool;
 
     public MentorArtifactsController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;

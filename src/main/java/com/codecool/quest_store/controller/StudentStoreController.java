@@ -8,7 +8,7 @@ import java.io.IOException;
 
 
 public class StudentStoreController implements HttpHandler {
-    DBConnector connectionPool;
+    private DBConnector connectionPool;
 
     public StudentStoreController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;

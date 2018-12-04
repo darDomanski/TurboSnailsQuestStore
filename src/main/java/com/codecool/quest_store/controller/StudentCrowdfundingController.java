@@ -11,7 +11,7 @@ import java.io.OutputStream;
 
 
 public class StudentCrowdfundingController implements HttpHandler {
-    DBConnector connectionPool;
+    private DBConnector connectionPool;
 
     public StudentCrowdfundingController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;

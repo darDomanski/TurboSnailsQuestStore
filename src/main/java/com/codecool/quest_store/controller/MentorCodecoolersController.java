@@ -8,7 +8,7 @@ import java.io.IOException;
 
 
 public class MentorCodecoolersController implements HttpHandler {
-    DBConnector connectionPool;
+    private DBConnector connectionPool;
 
     public MentorCodecoolersController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;

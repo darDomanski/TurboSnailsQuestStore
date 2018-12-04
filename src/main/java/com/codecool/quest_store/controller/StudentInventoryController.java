@@ -11,7 +11,7 @@ import java.io.OutputStream;
 
 
 public class StudentInventoryController implements HttpHandler {
-    DBConnector connectionPool;
+    private DBConnector connectionPool;
 
     public StudentInventoryController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;

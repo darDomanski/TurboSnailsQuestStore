@@ -8,7 +8,7 @@ import java.io.IOException;
 
 
 public class CreepyGuyLevelsController implements HttpHandler {
-    DBConnector connectionPool;
+    private  DBConnector connectionPool;
 
     public CreepyGuyLevelsController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;
