@@ -29,6 +29,33 @@ public class LoginDAOImpl implements LoginDAO {
         return person;
     }
 
+    @Override
+    public String getUserTypeById(int userId) {
+        String userType = "";
+        String query = "SELECT user_type_name FROM user_type " +
+                "INNER JOIN qs_user ON user_type.user_type_id = qs_user.user_type " +
+                "WHERE qs_user.id = ?;";
+
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                userType = resultSet.getString("user_type_name");
+            }
+
+            preparedStatement.close();
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userType;
+    }
+
     private String checkIfIdIsEmpty(String login, String password) {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -41,8 +68,10 @@ public class LoginDAOImpl implements LoginDAO {
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
 
-            resultSet.next();
-            id = resultSet.getString("id");
+//            resultSet.next();
+            while (resultSet.next()) {
+                id = resultSet.getString("id");
+            }
 
             preparedStatement.close();
             resultSet.close();

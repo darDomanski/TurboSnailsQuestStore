@@ -9,4 +9,6 @@ public interface LoginDAO {
     void updatePerson(int id, String value, String valueType);
     void deletePerson(int id);
 
+    String getUserTypeById(int userId);
+
 }
