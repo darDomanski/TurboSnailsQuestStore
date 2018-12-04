@@ -178,4 +178,44 @@ public class QSUserDAO implements PersonDAO {
         }
         return users;
     }
+
+    @Override
+    public Person getPersonById(int userId) {
+        Person person = null;
+        String query = "SELECT qs_user.id, first_name, last_name, email, class_.name AS class_name, " +
+                "user_type.user_type_name AS user_type, " +
+                "user_status.user_status_name AS STATUS " +
+                "FROM qs_user " +
+                "INNER JOIN class_ ON qs_user.class_id = class_.class_id " +
+                "INNER JOIN user_type ON qs_user.user_type = user_type.user_type_id " +
+                "INNER JOIN user_status ON qs_user.STATUS = user_status.user_status_id " +
+                "WHERE qs_user.id = ?";
+
+        Connection connection;
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+
+        try {
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                String email = resultSet.getString("email");
+                String className = resultSet.getString("class_name");
+                String userType = resultSet.getString("user_type");
+                String status = resultSet.getString("status");
+                person = new QSUser(id, firstName, lastName, email, className, userType, status);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return person;
+    }
 }
