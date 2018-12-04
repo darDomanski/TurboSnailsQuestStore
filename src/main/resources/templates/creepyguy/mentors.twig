@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=MedievalSharp" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/mentors.css">
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/mentors.css">
 </head>
 
 <body>
@@ -17,20 +17,20 @@
         <header>
             <div class="title_container">
                 <figure>
-                    <img id="logo" src="../img/logo.png" alt="logo">
+                    <img id="logo" src="/static/img/logo.png" alt="logo">
                 </figure>
-                <a href="../login.html"><img id="logout" src="../img/logout.png" alt="logout"></a>
+                <a href="/login"><img id="logout" src="/static/img/logout.png" alt="logout"></a>
             </div>
             <nav>
                 <ul>
                     <li>
-                        <a href="../creepyguy/classes.html">CLASSES MANAGEMENT</a>
+                        <a href="/classes">CLASSES MANAGEMENT</a>
                     </li>
                     <li>
-                        <a href="../creepyguy/mentors.html">MENTORS MANAGEMENT</a>
+                        <a href="/mentors">MENTORS MANAGEMENT</a>
                     </li>
                     <li>
-                        <a href="../creepyguy/levels.html">LEVELS MANAGEMENT</a>
+                        <a href="/levels">LEVELS MANAGEMENT</a>
                     </li>
                 </ul>
             </nav>
@@ -47,24 +47,18 @@
                     <span class="mentor_class_label">CLASS</span>
                     <span class="mentor_e_mail_label">E-MAIL</span>
                 </li>
+
+                {% for mentor in mentors %}
+
                 <li>
-                    <span class="mentor_id"></span>
-                    <span class="mentor_name">Piotr Tomaszewski</span>
-                    <span class="mentor_class">Web</span>
-                    <span class="mentor_e_mail">piotr@codecool.pl</span>
+                    <span class="mentor_id"> {{ mentor.ID }} </span>
+                    <span class="mentor_name"> {{ mentor.firstName }} {{ mentor.lastName }} </span>
+                    <span class="mentor_class"> {{ mentor.className }} </span>
+                    <span class="mentor_e_mail"> {{ mentor.email }} l</span>
                 </li>
-                <li>
-                    <span class="mentor_id"></span>
-                    <span class="mentor_name">Agnieszka Koszany</span>
-                    <span class="mentor_class">Java</span>
-                    <span class="mentor_e_mail">agnieszka@codecool.pl</span>
-                </li>
-                <li>
-                    <span class="mentor_id"></span>
-                    <span class="mentor_name">Marek Grzybek</span>
-                    <span class="mentor_class">Basics</span>
-                    <span class="mentor_e_mail">marek@codecool.pl</span>
-                </li>
+
+                {% endfor %}
+
             </ul>
             <input type="button" id="add_mentor_option" name="add_mentor_option" value="ADD MENTOR">
             <hr>
@@ -111,8 +105,8 @@
         </div>
         <div id="shade_background"></div>
     </div>
-    <script src="../js/mentors.js"></script>
+    <script src="/static/js/mentors.js"></script>
 </body>
-<script src="../js/script.js"></script>
+<script src="/static/js/script.js"></script>
 
 </html>
