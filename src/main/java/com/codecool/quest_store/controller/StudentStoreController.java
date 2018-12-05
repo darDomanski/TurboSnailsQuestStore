@@ -17,6 +17,7 @@ import java.util.List;
 
 public class StudentStoreController implements HttpHandler {
     private DBConnector connectionPool;
+    private SessionResolver sessionResolver;
 
     public StudentStoreController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;
@@ -24,6 +25,8 @@ public class StudentStoreController implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
+        sessionResolver = new SessionResolver(httpExchange, connectionPool);
+        sessionResolver.checkIfSessionIsValid();
         String response = "";
         String method = httpExchange.getRequestMethod();
 
