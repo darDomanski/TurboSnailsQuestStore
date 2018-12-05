@@ -31,7 +31,6 @@ public class SessionResolver {
             HttpCookie cookie = HttpCookie.parse(cookieStr).get(0);
             int userId = sessionDAO.getUserIdBySession(cookie.getValue());
             String requestURI = httpExchange.getRequestURI().toString();
-            System.out.println(requestURI + "     uRI");
 
             if (userId == 0) {
                 if (!requestURI.contains("creepyguy")) {
