@@ -30,7 +30,7 @@ public class StudentStoreController implements HttpHandler {
         String method = httpExchange.getRequestMethod();
 
         // Probably should be in view
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store_old.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
         JtwigModel model = JtwigModel.newModel();
 
         DBConnector dbConnector = new DBConnector();
