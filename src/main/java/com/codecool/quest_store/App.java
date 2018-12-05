@@ -3,6 +3,7 @@ package com.codecool.quest_store;
 import com.codecool.quest_store.controller.*;
 import com.codecool.quest_store.dao.DBConnector;
 import com.sun.net.httpserver.HttpServer;
+
 import java.net.InetSocketAddress;
 
 
@@ -18,6 +19,7 @@ public class App {
         // set routes
         server.createContext("/", new SessionController(connectionPool));
         server.createContext("/login", new LoginController(connectionPool));
+        server.createContext("/logout", new LogoutController(connectionPool));
 
         server.createContext("/creepyguy/classes", new CreepyGuyClassesController(connectionPool));
         server.createContext("/creepyguy/mentors", new CreepyGuyMentorsController(connectionPool));
