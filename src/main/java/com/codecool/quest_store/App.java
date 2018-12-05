@@ -19,6 +19,7 @@ public class App {
         // set routes
         server.createContext("/", new SessionController(connectionPool));
         server.createContext("/login", new LoginController(connectionPool));
+        server.createContext("/logout", new LogoutController(connectionPool));
 
         server.createContext("/creepyguy/classes", new CreepyGuyClassesController(connectionPool));
         server.createContext("/creepyguy/mentors", new CreepyGuyMentorsController(connectionPool));
