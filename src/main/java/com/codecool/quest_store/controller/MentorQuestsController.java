@@ -27,7 +27,7 @@ public class MentorQuestsController implements HttpHandler {
         JtwigModel model = JtwigModel.newModel();
 
         // Send a form if it wasn't submitted yet.
-        if(method.equals("GET")){
+        if (method.equals("GET")) {
 
             response = template.render(model);
             httpExchange.sendResponseHeaders(200, 0);
@@ -37,7 +37,7 @@ public class MentorQuestsController implements HttpHandler {
         }
 
         // If the form was submitted, retrieve it's content.
-        if(method.equals("POST")){
+        if (method.equals("POST")) {
 
             response = template.render(model);
             httpExchange.sendResponseHeaders(200, 0);

@@ -42,7 +42,7 @@ public class StudentStoreController implements HttpHandler {
 //        }
 
         // Send a form if it wasn't submitted yet.
-        if(method.equals("GET")){
+        if (method.equals("GET")) {
 
             model.with("artifacts", artifacts);
             response = template.render(model);
@@ -54,7 +54,7 @@ public class StudentStoreController implements HttpHandler {
         }
 
         // If the form was submitted, retrieve it's content.
-        if(method.equals("POST")){
+        if (method.equals("POST")) {
 
             model.with("artifacts", artifacts);
             response = template.render(model);
