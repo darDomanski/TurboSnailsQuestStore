@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
-
 public class StudentStoreController implements HttpHandler {
 
     @Override
@@ -30,13 +29,6 @@ public class StudentStoreController implements HttpHandler {
         ItemDAO items = new ArtifactDAO(dbConnector.getConnection());
         List<Item> artifactsBasic = items.getAllBasic();
         List<Item> artifactsExtra = items.getAllExtra();
-
-//        System.out.println(artifacts.size());
-//        for ( int i=0; i < artifacts.size(); i++ ){
-//            System.out.println(artifacts.get(i).getTitle());
-//            System.out.println(artifacts.get(i).getValue());
-//
-//        }
 
         // Send a form if it wasn't submitted yet.
         if(method.equals("GET")){

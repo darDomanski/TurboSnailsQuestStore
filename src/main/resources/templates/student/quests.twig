@@ -65,17 +65,14 @@
 
             <h1>QUESTS</h1>
 
-
-
             <h2>Basic Quests</h2>
 
             <div class="artefacts">
-
                     {% for quest in questsBasic %}
                         <div class="card_artefacts">
                             <p class="text_on_card_1"> {{ quest.getTitle }} </p>
                             <div>
-                                <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
+                                <img class="pictures_on_card" src="/static/img/owlSmall.jpg" alt="Picture of Hero" />
                             </div>
                             <ul>
                                 <li>
@@ -88,15 +85,36 @@
 
                         </div>
                     {% endfor %}
-
             </div>
+
+            <h2>Your Basic Quests</h2>
+
+            <div class="artefacts">
+                    {% for quest in questsBasic %}
+                        <div class="card_from_mentor">
+                            <p class="text_on_card_1"> {{ quest.getTitle }} </p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/img/owlSmall.jpg" alt="Picture of Hero" />
+                            </div>
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2"> {{ quest.description }} </p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2"> {{ quest.value }} </p>
+                                </li>
+                                <div class="valuecoins">{{ quest.value }}</div>
+                            </ul>
+
+                        </div>
+                    {% endfor %}
+            </div>
+
 
             <h2>Extra Quests</h2>
 
                   <div class="artefacts">
-
                           {% for quest in questsExtra %}
-
                               <div class="card_artefacts">
                                   <p class="text_on_card_1"> {{ quest.getTitle }} </p>
                                   <div>
@@ -114,6 +132,34 @@
                               </div>
                           {% endfor %}
                   </div>
+
+            <h2>Your Extra Quests</h2>
+
+                  <div class="artefacts">
+                          {% for quest in questsExtra %}
+                              <div class="card_from_mentor">
+                                  <p class="text_on_card_1"> {{ quest.getTitle }} </p>
+                                  <div>
+                                      <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
+                                  </div>
+                                  <ul>
+                                      <li>
+                                          <p class="text_on_card_2"> {{ quest.description }} </p>
+                                      </li>
+                                      <li>
+                                          <p class="text_on_card_2"> {{ quest.value }} </p>
+                                      </li>
+                                      <div class="valuecoins">{{ quest.value }}</div>
+                                  </ul>
+
+                                  <p class="extra">EXTRA QUEST</p>
+
+                              </div>
+                          {% endfor %}
+                  </div>
+
+
+
         </div>
 
         <footer>
