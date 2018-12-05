@@ -1,5 +1,6 @@
 package com.codecool.quest_store.controller;
 
+import com.codecool.quest_store.dao.ArtifactDAO;
 import com.codecool.quest_store.dao.DBConnector;
 import com.codecool.quest_store.dao.ItemDAO;
 import com.codecool.quest_store.dao.QuestDAO;
@@ -30,8 +31,8 @@ public class StudentStoreController implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
         JtwigModel model = JtwigModel.newModel();
 
-        DBConnector dbConnector = new DBConnector();
-        ItemDAO items = new ArtifactDAO(dbConnector.getConnection());
+//        DBConnector dbConnector = new DBConnector();
+        ItemDAO items = new ArtifactDAO((connectionPool));
         List<Item> artifactsBasic = items.getAllBasic();
         List<Item> artifactsExtra = items.getAllExtra();
 

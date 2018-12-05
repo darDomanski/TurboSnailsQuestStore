@@ -43,14 +43,20 @@ public class ArtifactDAO implements ItemDAO {
 
     @Override
     public List<Item> getAllBasic(){
+        Connection connection = null;
         List<Item> quests = new ArrayList<>();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
-            preparedStatement = this.connection.prepareStatement("SELECT * FROM artifact WHERE artifact_type='basic'  ");
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM artifact WHERE artifact_type='basic'  ");
             resultSet = preparedStatement.executeQuery();
             createArtifacts(resultSet, quests);
+
+            preparedStatement.close();
             resultSet.close();
+            connection.close();
+
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -61,14 +67,22 @@ public class ArtifactDAO implements ItemDAO {
 
     @Override
     public List<Item> getAllExtra(){
+        Connection connection = null;
         List<Item> quests = new ArrayList<>();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
-            preparedStatement = this.connection.prepareStatement("SELECT * FROM artifact WHERE artifact_type='extra'  ");
+
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM artifact WHERE artifact_type='extra'  ");
             resultSet = preparedStatement.executeQuery();
             createArtifacts(resultSet, quests);
+
+            preparedStatement.close();
             resultSet.close();
+            connection.close();
+
+
         }
         catch (Exception exc) {
             exc.printStackTrace();

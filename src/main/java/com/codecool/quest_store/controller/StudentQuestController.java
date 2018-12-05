@@ -1,5 +1,9 @@
 package com.codecool.quest_store.controller;
 
+import com.codecool.quest_store.dao.DBConnector;
+import com.codecool.quest_store.dao.ItemDAO;
+import com.codecool.quest_store.dao.QuestDAO;
+import com.codecool.quest_store.model.Item;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -7,12 +11,13 @@ import org.jtwig.JtwigTemplate;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 
-public class StudentArtifactsController implements HttpHandler {
+public class StudentQuestController implements HttpHandler {
     private DBConnector connectionPool;
 
-    public StudentArtifactsController(DBConnector connectionPool) {
+    public StudentQuestController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;
     }
 
@@ -25,8 +30,8 @@ public class StudentArtifactsController implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/quests.twig");
         JtwigModel model = JtwigModel.newModel();
 
-        DBConnector dbConnector = new DBConnector();
-        ItemDAO items = new QuestDAO(dbConnector.getConnection());
+
+        ItemDAO items = new QuestDAO((connectionPool));
         List<Item> questsBasic = items.getAllBasic();
         List<Item> questsExtra = items.getAllExtra();
 

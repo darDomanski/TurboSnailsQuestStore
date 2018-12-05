@@ -45,14 +45,19 @@ public class QuestDAO implements ItemDAO {
 
     @Override
     public List<Item> getAllBasic(){
+        Connection connection = null;
         List<Item> quests = new ArrayList<>();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
-            preparedStatement = this.connection.prepareStatement("SELECT * FROM quest WHERE quest_type='basic'  ");
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM quest WHERE quest_type='basic'  ");
             resultSet = preparedStatement.executeQuery();
             createQuests(resultSet, quests);
+
+            preparedStatement.close();
             resultSet.close();
+            connection.close();
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -63,14 +68,20 @@ public class QuestDAO implements ItemDAO {
 
     @Override
     public List<Item> getAllExtra(){
+        Connection connection = null;
         List<Item> quests = new ArrayList<>();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
-            preparedStatement = this.connection.prepareStatement("SELECT * FROM quest WHERE quest_type='extra'  ");
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM quest WHERE quest_type='extra'  ");
             resultSet = preparedStatement.executeQuery();
             createQuests(resultSet, quests);
+
+            preparedStatement.close();
             resultSet.close();
+            connection.close();
+
         }
         catch (Exception exc) {
             exc.printStackTrace();

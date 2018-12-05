@@ -1,12 +1,17 @@
 package com.codecool.quest_store;
 
 import com.codecool.quest_store.controller.*;
+import com.codecool.quest_store.dao.DBConnector;
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
 
 
 public class App {
     public static void main(String[] args) throws Exception {
+
+        // Initialize connection pool
+        DBConnector connectionPool = new DBConnector();
+
         // create a server on port 8000
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
 
@@ -24,7 +29,7 @@ public class App {
 
         server.createContext("/student/store", new StudentStoreController(connectionPool));
         server.createContext("/student/crowdfunding", new StudentCrowdfundingController(connectionPool));
-        server.createContext("/student/artifacts", new StudentArtifactsController(connectionPool));
+        server.createContext("/student/quest", new StudentQuestController(connectionPool));
         server.createContext("/student/inventory", new StudentInventoryController(connectionPool));
         server.createContext("/student/wallet", new StudentWalletController(connectionPool));
 
