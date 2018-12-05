@@ -19,6 +19,8 @@ public class StudentCrowdfundingController implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
+        SessionResolver sessionResolver = new SessionResolver(httpExchange, connectionPool);
+        sessionResolver.checkIfSessionIsValid();
         String response = "";
         String method = httpExchange.getRequestMethod();
 
