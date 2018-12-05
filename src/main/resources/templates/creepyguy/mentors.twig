@@ -24,13 +24,13 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="/classes">CLASSES MANAGEMENT</a>
+                        <a href="/creepyguy/classes">CLASSES MANAGEMENT</a>
                     </li>
                     <li>
-                        <a href="/mentors">MENTORS MANAGEMENT</a>
+                        <a href="/creepyguy/mentors">MENTORS MANAGEMENT</a>
                     </li>
                     <li>
-                        <a href="/levels">LEVELS MANAGEMENT</a>
+                        <a href="/creepyguy/levels">LEVELS MANAGEMENT</a>
                     </li>
                 </ul>
             </nav>
@@ -47,17 +47,24 @@
                     <span class="mentor_class_label">CLASS</span>
                     <span class="mentor_e_mail_label">E-MAIL</span>
                 </li>
-
-                {% for mentor in mentors %}
-
                 <li>
-                    <span class="mentor_id"> {{ mentor.ID }} </span>
-                    <span class="mentor_name"> {{ mentor.firstName }} {{ mentor.lastName }} </span>
-                    <span class="mentor_class"> {{ mentor.className }} </span>
-                    <span class="mentor_e_mail"> {{ mentor.email }} l</span>
+                    <span class="mentor_id"></span>
+                    <span class="mentor_name">Piotr Tomaszewski</span>
+                    <span class="mentor_class">Web</span>
+                    <span class="mentor_e_mail">piotr@codecool.pl</span>
                 </li>
-
-                {% endfor %}
+                <li>
+                    <span class="mentor_id"></span>
+                    <span class="mentor_name">Agnieszka Koszany</span>
+                    <span class="mentor_class">Java</span>
+                    <span class="mentor_e_mail">agnieszka@codecool.pl</span>
+                </li>
+                <li>
+                    <span class="mentor_id"></span>
+                    <span class="mentor_name">Marek Grzybek</span>
+                    <span class="mentor_class">Basics</span>
+                    <span class="mentor_e_mail">marek@codecool.pl</span>
+                </li>
 
             </ul>
             <input type="button" id="add_mentor_option" name="add_mentor_option" value="ADD MENTOR">
