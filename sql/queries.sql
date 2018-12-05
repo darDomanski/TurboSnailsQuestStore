@@ -129,11 +129,9 @@ user_id INTEGER,
 session_id TEXT UNIQUE
 );
 
-
 --Default data insertion
-INSERT INTO login_data (login, password)
-VALUES ('admin', 'admin');
 
+-- Create levels, classes, user types and user statuses
 INSERT INTO access_level (level_id, min_lifetime_coins, max_lifetime_coins)
 VALUES (1, 0, 50), (2, 51, 150), (3, 151, 250), (4, 251, 350), (5, 351, null); 
 
@@ -145,3 +143,88 @@ VALUES ('mentor'), ('student');
 
 INSERT INTO user_status (user_status_name)
 VALUES ('active'), ('inactve');
+
+-- Create users
+
+-- Mentors
+INSERT INTO qs_user (first_name, last_name, email, class_id, user_type, status)
+VALUES ('Marek', 'Grzybek', 'marco.funghi@codecool.com', (SELECT class_id FROM class_ WHERE name='progbasic'),
+						(SELECT user_type_id FROM user_type WHERE user_type_name='mentor'),
+						(SELECT user_status_id FROM user_status WHERE user_status_name='active'));
+INSERT INTO qs_user (first_name, last_name, email, class_id, user_type, status)
+VALUES ('Agnieszka', 'Koszany', 'agi.koszany@codecool.com', (SELECT class_id FROM class_ WHERE name='java'),
+						(SELECT user_type_id FROM user_type WHERE user_type_name='mentor'),
+						(SELECT user_status_id FROM user_status WHERE user_status_name='active'));
+INSERT INTO qs_user (first_name, last_name, email, class_id, user_type, status)
+VALUES ('Mateusz', 'Ostafil', 'ojciec.mateusz@codecool.com', (SELECT class_id FROM class_ WHERE name='web'),
+						(SELECT user_type_id FROM user_type WHERE user_type_name='mentor'),
+						(SELECT user_status_id FROM user_status WHERE user_status_name='active'));
+INSERT INTO qs_user (first_name, last_name, email, class_id, user_type, status)
+VALUES ('Wojtek', 'Makieła', 'woy.tech@codecool.com', (SELECT class_id FROM class_ WHERE name='advanced'),
+						(SELECT user_type_id FROM user_type WHERE user_type_name='mentor'),
+						(SELECT user_status_id FROM user_status WHERE user_status_name='active'));
+-- Students
+INSERT INTO qs_user (first_name, last_name, email, class_id, user_type, status)
+VALUES ('Zbyszek', 'Kieliszek', 'zbych.kielon@codecool.com', (SELECT class_id FROM class_ WHERE name='progbasic'),
+						(SELECT user_type_id FROM user_type WHERE user_type_name='student'),
+						(SELECT user_status_id FROM user_status WHERE user_status_name='active'));
+INSERT INTO qs_user (first_name, last_name, email, class_id, user_type, status)
+VALUES ('Marianna', 'Szklanka', 'glass.marie@codecool.com', (SELECT class_id FROM class_ WHERE name='progbasic'),
+						(SELECT user_type_id FROM user_type WHERE user_type_name='student'),
+						(SELECT user_status_id FROM user_status WHERE user_status_name='active'));
+INSERT INTO qs_user (first_name, last_name, email, class_id, user_type, status)
+VALUES ('Janek', 'Wiśniewski', 'johnny.wisnia@codecool.com', (SELECT class_id FROM class_ WHERE name='java'),
+						(SELECT user_type_id FROM user_type WHERE user_type_name='student'),
+						(SELECT user_status_id FROM user_status WHERE user_status_name='active'));
+INSERT INTO qs_user (first_name, last_name, email, class_id, user_type, status)
+VALUES ('Frank', 'Sinatra', 'frank@codecool.com', (SELECT class_id FROM class_ WHERE name='java'),
+						(SELECT user_type_id FROM user_type WHERE user_type_name='student'),
+						(SELECT user_status_id FROM user_status WHERE user_status_name='active'));
+INSERT INTO qs_user (first_name, last_name, email, class_id, user_type, status)
+VALUES ('Karyna', 'Pałka', 'kari.palka@codecool.com', (SELECT class_id FROM class_ WHERE name='web'),
+						(SELECT user_type_id FROM user_type WHERE user_type_name='student'),
+						(SELECT user_status_id FROM user_status WHERE user_status_name='active'));
+INSERT INTO qs_user (first_name, last_name, email, class_id, user_type, status)
+VALUES ('Sebastian', 'Wałek', 'seba.rollo@codecool.com', (SELECT class_id FROM class_ WHERE name='web'),
+						(SELECT user_type_id FROM user_type WHERE user_type_name='student'),
+						(SELECT user_status_id FROM user_status WHERE user_status_name='active'));
+INSERT INTO qs_user (first_name, last_name, email, class_id, user_type, status)
+VALUES ('Krzysztof', 'Krawczyk', 'krawczyk.superstar@codecool.com', (SELECT class_id FROM class_ WHERE name='advanced'),
+						(SELECT user_type_id FROM user_type WHERE user_type_name='student'),
+						(SELECT user_status_id FROM user_status WHERE user_status_name='active'));
+INSERT INTO qs_user (first_name, last_name, email, class_id, user_type, status)
+VALUES ('Roman', 'Buliński', 'boolean@codecool.com', (SELECT class_id FROM class_ WHERE name='advanced'),
+						(SELECT user_type_id FROM user_type WHERE user_type_name='student'),
+						(SELECT user_status_id FROM user_status WHERE user_status_name='active'));
+
+-- Create login accounts
+INSERT INTO login_data (login, password)
+VALUES ('admin', 'admin');
+INSERT INTO login_data (id, login, password)
+VALUES ((SELECT id FROM qs_user WHERE first_name='Marek'), 'marek123', 'marek123');
+INSERT INTO login_data (id, login, password)
+VALUES ((SELECT id FROM qs_user WHERE first_name='Agnieszka'), 'agi123', 'agi123');
+INSERT INTO login_data (id, login, password)
+VALUES ((SELECT id FROM qs_user WHERE first_name='Mateusz'), 'mateusz123', 'mateusz123');
+INSERT INTO login_data (id, login, password)
+VALUES ((SELECT id FROM qs_user WHERE first_name='Wojtek'), 'wojtech123', 'wojtech123');
+INSERT INTO login_data (id, login, password)
+VALUES ((SELECT id FROM qs_user WHERE first_name='Zbyszek'), 'zbyszek123', 'zbyszek123');
+INSERT INTO login_data (id, login, password)
+VALUES ((SELECT id FROM qs_user WHERE first_name='Marianna'), 'marianna123', 'marianna123');
+INSERT INTO login_data (id, login, password)
+VALUES ((SELECT id FROM qs_user WHERE first_name='Janek'), 'janek123', 'janek123');
+INSERT INTO login_data (id, login, password)
+VALUES ((SELECT id FROM qs_user WHERE first_name='Frank'), 'frank123', 'frank123');
+INSERT INTO login_data (id, login, password)
+VALUES ((SELECT id FROM qs_user WHERE first_name='Karyna'), 'karyna123', 'karyna123');
+INSERT INTO login_data (id, login, password)
+VALUES ((SELECT id FROM qs_user WHERE first_name='Sebastian'), 'sebastian123', 'sebastian123');
+INSERT INTO login_data (id, login, password)
+VALUES ((SELECT id FROM qs_user WHERE first_name='Krzysztof'), 'krzysztof123', 'krzysztof123');
+INSERT INTO login_data (id, login, password)
+VALUES ((SELECT id FROM qs_user WHERE first_name='Roman'), 'roman123', 'roman123');
+
+-- Create quests
+
+
