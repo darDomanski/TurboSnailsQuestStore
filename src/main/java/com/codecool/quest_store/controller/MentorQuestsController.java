@@ -1,5 +1,6 @@
 package com.codecool.quest_store.controller;
 
+import com.codecool.quest_store.dao.DBConnector;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -10,6 +11,11 @@ import java.io.OutputStream;
 
 
 public class MentorQuestsController implements HttpHandler {
+    private DBConnector connectionPool;
+
+    public MentorQuestsController(DBConnector connectionPool) {
+        this.connectionPool = connectionPool;
+    }
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
@@ -21,7 +27,7 @@ public class MentorQuestsController implements HttpHandler {
         JtwigModel model = JtwigModel.newModel();
 
         // Send a form if it wasn't submitted yet.
-        if(method.equals("GET")){
+        if (method.equals("GET")) {
 
             response = template.render(model);
             httpExchange.sendResponseHeaders(200, 0);
@@ -31,7 +37,7 @@ public class MentorQuestsController implements HttpHandler {
         }
 
         // If the form was submitted, retrieve it's content.
-        if(method.equals("POST")){
+        if (method.equals("POST")) {
 
             response = template.render(model);
             httpExchange.sendResponseHeaders(200, 0);

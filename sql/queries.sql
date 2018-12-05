@@ -123,6 +123,12 @@ IF NOT EXISTS wallet (
 	lifetime_coins INTEGER
 );
 
+CREATE TABLE
+IF NOT EXISTS session (
+user_id INTEGER,
+session_id TEXT UNIQUE
+);
+
 
 --Default data insertion
 INSERT INTO login_data (login, password)

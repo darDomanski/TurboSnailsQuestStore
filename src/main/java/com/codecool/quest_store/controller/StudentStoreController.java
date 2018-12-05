@@ -1,6 +1,5 @@
 package com.codecool.quest_store.controller;
 
-import com.codecool.quest_store.dao.ArtifactDAO;
 import com.codecool.quest_store.dao.DBConnector;
 import com.codecool.quest_store.dao.ItemDAO;
 import com.codecool.quest_store.dao.QuestDAO;
@@ -14,7 +13,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
+
 public class StudentStoreController implements HttpHandler {
+    private DBConnector connectionPool;
+
+    public StudentStoreController(DBConnector connectionPool) {
+        this.connectionPool = connectionPool;
+    }
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
