@@ -26,13 +26,13 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="/codecoolers">CODECOOLERS</a>
+                        <a href="/mentor/codecoolers">CODECOOLERS</a>
                     </li>
                     <li>
-                        <a href="/quests">QUEST</a>
+                        <a href="/mentor/quests">QUEST</a>
                     </li>
                     <li>
-                        <a href="/artifacts">ARTIFACTS</a>
+                        <a href="/mentor/artifacts">ARTIFACTS</a>
                     </li>
                 </ul>
             </nav>
@@ -47,17 +47,24 @@
                     <span class="student_name_label">NAME</span>
                     <span class="student_wallet_label">WALLET</span>
                 </li>
-
-            {% for codecooler in codecoolers %}
-
                 <li>
-                     <span class="student_id"> {{codecooler.ID }} </span>
-                     <span class="student_name"> {{codecooler.firstName}} {{codecooler.lastName}}</span>
-                     <span class="student_wallet"> piniążki </span>
+                    <span class="student_id"></span>
+                    <span class="student_name">Piotr Tomaszewski</span>
+                    <span class="student_wallet">100</span>
+
                 </li>
+                <li>
+                    <span class="student_id"></span>
+                    <span class="student_name">Agnieszka Koszany</span>
+                    <span class="student_wallet">100</span>
 
+                </li>
+                <li>
+                    <span class="student_id"></span>
+                    <span class="student_name">Marek Grzybek</span>
+                    <span class="student_wallet">100</span>
 
-            {% endfor %}
+                </li>
             </ul>
 
             <input type="button" id="add_student_option" name="add_student_option" value="ADD STUDENT">
