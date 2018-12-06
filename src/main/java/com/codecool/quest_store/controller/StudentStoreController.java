@@ -27,7 +27,6 @@ public class StudentStoreController implements HttpHandler {
     private ItemDAO itemDAO;
 
 
-
     public StudentStoreController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;
     }
@@ -100,13 +99,17 @@ public class StudentStoreController implements HttpHandler {
             int artifactId = Integer.parseInt((String) inputs.get("id"));
             Item artifactToBuy = itemDAO.getById(artifactId);
             boolean isPossibleToBuy = checkIfArtifactIsPossibleToBuy(artifactToBuy.getValue(), studentCoolcoins);
+
+            // action after above checking
             if (!isPossibleToBuy) {
                 model.with("notPossibleToBuy", !isPossibleToBuy);
                 model.with("buyAttemptTitle", artifactToBuy.getTitle());
+            } else {
+                // add to student inventory
+                
+                // decrease coolcoins in student wallet
+                walletDAO.changeCoolcoinsAmount(artifactToBuy.getValue(), "current_coins", userId);
             }
-            // add to inventory
-            // decrease coolcoins
-
 
             model.with("student_level", student_level);
             model.with("artifactsBasic", basicStudentArtifacts);
