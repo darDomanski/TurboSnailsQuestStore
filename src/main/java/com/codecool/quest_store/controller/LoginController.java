@@ -53,6 +53,8 @@ public class LoginController implements HttpHandler {
 
         // If the form was submitted, retrieve it's content.
         if (method.equals("POST")) {
+            removeSessionIfCookieExists(httpExchange);
+
             String context = "";
             InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), StandardCharsets.UTF_8);
             BufferedReader br = new BufferedReader(isr);
@@ -84,6 +86,16 @@ public class LoginController implements HttpHandler {
 
             redirectController.redirect(httpExchange, context);
 
+        }
+
+    }
+
+    private void removeSessionIfCookieExists(HttpExchange httpExchange) {
+        String cookieString = httpExchange.getRequestHeaders().getFirst("Cookie");
+
+        if (cookieString != null) {
+            HttpCookie cookie = HttpCookie.parse(cookieString).get(0);
+            sessionDAO.removeSession(cookie.getValue());
         }
     }
 }
