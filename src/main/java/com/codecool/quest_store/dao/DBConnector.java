@@ -17,7 +17,8 @@ public final class DBConnector {
         dataSource.setPassword("admin");
         dataSource.setMinIdle(5);
         dataSource.setMaxIdle(100);
-        dataSource.setMaxOpenPreparedStatements(100);
+        dataSource.setMaxWaitMillis(2000);
+
     }
 
     public static DBConnector getInstance() {
@@ -29,7 +30,7 @@ public final class DBConnector {
 
     public Connection getConnection() {
         Connection connection = null;
-
+        System.out.println("Active connections: " + dataSource.getNumActive());
         try {
             connection = dataSource.getConnection();
         } catch (SQLException e) {
