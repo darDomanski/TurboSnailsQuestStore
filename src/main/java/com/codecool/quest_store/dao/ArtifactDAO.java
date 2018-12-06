@@ -74,7 +74,7 @@ public class ArtifactDAO implements ItemDAO {
         try {
 
             connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM artifact WHERE artifact_type='extra'  ");
+            preparedStatement = connection.prepareStatement("SELECT * FROM artifact WHERE artifact_type='magic'  ");
             resultSet = preparedStatement.executeQuery();
             createArtifacts(resultSet, quests);
 

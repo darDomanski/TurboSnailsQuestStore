@@ -74,7 +74,7 @@ public class QuestDAO implements ItemDAO {
         ResultSet resultSet = null;
         try {
             connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM quest WHERE quest_type='extra'  ");
+            preparedStatement = connection.prepareStatement("SELECT * FROM quest WHERE quest_type='magic'  ");
             resultSet = preparedStatement.executeQuery();
             createQuests(resultSet, quests);
 
