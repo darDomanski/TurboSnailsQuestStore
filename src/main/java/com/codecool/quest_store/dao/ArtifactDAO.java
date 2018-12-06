@@ -4,6 +4,8 @@ package com.codecool.quest_store.dao;
 import com.codecool.quest_store.model.Artifact;
 import com.codecool.quest_store.model.Item;
 
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -74,7 +76,7 @@ public class ArtifactDAO implements ItemDAO {
         try {
 
             connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM artifact WHERE artifact_type='extra'  ");
+            preparedStatement = connection.prepareStatement("SELECT * FROM artifact WHERE artifact_type='magic'  ");
             resultSet = preparedStatement.executeQuery();
             createArtifacts(resultSet, quests);
 
@@ -92,7 +94,7 @@ public class ArtifactDAO implements ItemDAO {
 
 
     private void createArtifacts(ResultSet resultSet, List<Item> artifacts) {
-        try{
+        try {
             while (resultSet.next()) {
                 Integer id = resultSet.getInt("id");
                 Integer access_level = resultSet.getInt("access_level");
@@ -103,8 +105,8 @@ public class ArtifactDAO implements ItemDAO {
                 Item artifact = new Artifact(id, access_level, title, description, artifact_price, artifact_type);
                 artifacts.add(artifact);
             }
-        }catch(SQLException e ){
-            e.printStackTrace();
+        } catch (SQLException exc) {
+            exc.printStackTrace();
         }
     }
 
@@ -132,7 +134,7 @@ public class ArtifactDAO implements ItemDAO {
 
     private Item createArtifact(ResultSet resultSet) {
         Artifact artifact=null;
-        try{
+        try {
             while (resultSet.next()) {
                 Integer id = resultSet.getInt("id");
                 Integer access_level = resultSet.getInt("access_level");
@@ -142,8 +144,8 @@ public class ArtifactDAO implements ItemDAO {
                 String type = resultSet.getString("artifact_type");
                 artifact = new Artifact(id,access_level,title,description,value,type);
             }
-        }catch(SQLException e ){
-            e.printStackTrace();
+        } catch (SQLException exc) {
+            exc.printStackTrace();
         }
         return artifact;
     }
@@ -173,8 +175,8 @@ public class ArtifactDAO implements ItemDAO {
 
             preparedstatement.close();
             connection.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (SQLException exc) {
+            exc.printStackTrace();
         }
     }
 
@@ -203,6 +205,7 @@ public class ArtifactDAO implements ItemDAO {
         if (attribute.equals("access_level") || attribute.equals("artifact_price")) {
             Integer newIntValue =  typeInt("Type new value ; ");
             try {
+                connection = connectionPool.getConnection();
                 preparedStatementt = connection.prepareStatement(String.format("UPDATE artifact SET %s = ? WHERE id = ? ;", attribute));
                 preparedStatementt.setInt(1, newIntValue);
                 preparedStatementt.setInt(2, id);
