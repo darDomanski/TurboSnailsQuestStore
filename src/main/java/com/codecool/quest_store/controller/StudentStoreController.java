@@ -17,6 +17,12 @@ import java.util.List;
 public class StudentStoreController implements HttpHandler {
     private DBConnector connectionPool;
     private SessionResolver sessionResolver;
+    private SessionDAO sessionDAO;
+    private int userId;
+    private int student_level;
+    private LevelsDAO levelsDAO;
+
+
 
     public StudentStoreController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;
@@ -33,7 +39,21 @@ public class StudentStoreController implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
         JtwigModel model = JtwigModel.newModel();
 
-//        DBConnector dbConnector = new DBConnector();
+        String cookieString = httpExchange.getRequestHeaders().getFirst("Cookie");
+        if (cookieString != null) {
+            HttpCookie cookie = HttpCookie.parse(cookieString).get(0);
+            String sesionNumber = cookie.getValue();
+            sessionDAO = new SessionDAOImpl(connectionPool);
+            userId = sessionDAO.getUserIdBySession( sesionNumber );
+
+            levelsDAO = new LevelsDAOImpl(connectionPool);
+            System.out.println(userId);
+            student_level = levelsDAO.getStudentLevel(userId);
+            System.out.println(student_level);
+        }else {
+            System.out.println("There is no cookie");
+        }
+
         ItemDAO items = new ArtifactDAO(connectionPool);
         LevelsDAOImpl levelsDAO = new LevelsDAOImpl(connectionPool);
 
@@ -48,6 +68,9 @@ public class StudentStoreController implements HttpHandler {
         // Send a form if it wasn't submitted yet.
         if(method.equals("GET")){
 
+            model.with("student_level", student_level);
+            model.with("artifactsBasic", artifactsBasic);
+            model.with("artifactsExtra", artifactsExtra);
             model.with("artifactsBasic", basicStudentArtifacts);
             model.with("artifactsExtra", magicStudentArtifacts);
             response = template.render(model);
@@ -61,6 +84,7 @@ public class StudentStoreController implements HttpHandler {
         // If the form was submitted, retrieve it's content.
         if(method.equals("POST")){
 
+            model.with("student_level", student_level);
             model.with("artifactsBasic", artifactsBasic);
             model.with("artifactsExtra", artifactsExtra);
             response = template.render(model);
