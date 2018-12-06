@@ -3,13 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Crowfunding</title>
+    <title>Inventory</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=MedievalSharp" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/reset.css">
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/cards.css">
+    <link rel="icon" href="/static/img/favicon.ico">
 </head>
 
 <body>
@@ -31,7 +32,7 @@
                     <figure class="icon">
                         <a href="/student/wallet">
                             <img src="/static/img/wallet.png" class="icon_img" alt="wallet">
-                            <div id="amount_of_coolcoins"> {{% coolcoins_amount %}} </div>
+                            <div id="amount_of_coolcoins"> 55 </div>
                         </a>
                     </figure>
 
@@ -66,25 +67,6 @@
 
         <div class="main_content">
             <h1>Inventory</h1>
-
-            {% for artifact in artifacts %}
-
-            <div class="card_artefacts">
-                <p class="text_on_card_1"> {{% artifact.getTitle() %}}</p>
-                <div>
-                    <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
-                </div>
-                <ul>
-                    <li>
-                        <p class="text_on_card_2"> {{% artifact.getDescription() %}} </p>
-                    </li>
-                    <li>
-                        <p class="text_on_card_2"> {{% artifact.getValue() %}} </p>
-                    </li>
-                </ul>
-
-            </div>
-            {% endfor %}
 
         </div>
 
