@@ -133,7 +133,7 @@ session_id TEXT UNIQUE
 
 -- Create levels, classes, user types and user statuses
 INSERT INTO access_level (level_id, min_lifetime_coins, max_lifetime_coins)
-VALUES (1, 0, 50), (2, 51, 150), (3, 151, 250), (4, 251, 350), (5, 351, null); 
+VALUES (1, 0, 50), (2, 51, 150), (3, 151, 250), (4, 251, 350), (5, 351, 1000000); 
 
 INSERT INTO class_ (name)
 VALUES ('progbasic'), ('java'), ('web'), ('advanced');

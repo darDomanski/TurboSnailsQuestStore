@@ -10,6 +10,7 @@ import org.jtwig.JtwigTemplate;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpCookie;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,8 +18,8 @@ public class StudentStoreController implements HttpHandler {
     private DBConnector connectionPool;
     private SessionResolver sessionResolver;
     private SessionDAO sessionDAO;
-    private Integer userId;
-    private Integer student_level;
+    private int userId;
+    private int student_level;
     private LevelsDAO levelsDAO;
 
 
@@ -50,12 +51,19 @@ public class StudentStoreController implements HttpHandler {
             student_level = levelsDAO.getStudentLevel(userId);
             System.out.println(student_level);
         }else {
-            System.out.println("cookie is null");
+            System.out.println("There is no cookie");
         }
 
-        ItemDAO items = new ArtifactDAO((connectionPool));
+        ItemDAO items = new ArtifactDAO(connectionPool);
+        LevelsDAOImpl levelsDAO = new LevelsDAOImpl(connectionPool);
+
         List<Item> artifactsBasic = items.getAllBasic();
         List<Item> artifactsExtra = items.getAllExtra();
+        int userId = getUserIdBySessionId(httpExchange);
+        int studentLevel = levelsDAO.getStudentLevel(userId);
+
+        List<Item> basicStudentArtifacts = getArtifactsByStudentLevel(artifactsBasic, studentLevel);
+        List<Item> magicStudentArtifacts = getArtifactsByStudentLevel(artifactsExtra, studentLevel);
 
         // Send a form if it wasn't submitted yet.
         if(method.equals("GET")){
@@ -63,6 +71,8 @@ public class StudentStoreController implements HttpHandler {
             model.with("student_level", student_level);
             model.with("artifactsBasic", artifactsBasic);
             model.with("artifactsExtra", artifactsExtra);
+            model.with("artifactsBasic", basicStudentArtifacts);
+            model.with("artifactsExtra", magicStudentArtifacts);
             response = template.render(model);
 
             httpExchange.sendResponseHeaders(200, 0);
@@ -85,6 +95,29 @@ public class StudentStoreController implements HttpHandler {
             os.write(response.getBytes());
             os.close();
         }
+    }
+
+    private int getUserIdBySessionId(HttpExchange httpExchange) {
+        String cookieString = httpExchange.getRequestHeaders().getFirst("Cookie");
+        int userId = 0;
+
+        if (cookieString != null) {
+            HttpCookie cookie = HttpCookie.parse(cookieString).get(0);
+            userId = new SessionDAOImpl(connectionPool).getUserIdBySession(cookie.getValue());
+        }
+        return userId;
+    }
+
+    private List<Item> getArtifactsByStudentLevel(List<Item> artifacts, int studentLevel) {
+        List<Item> studentArtifacts = new ArrayList<>();
+
+        for (Item artifact : artifacts) {
+            if (artifact.getAccess_level().intValue() <= studentLevel) {
+                studentArtifacts.add(artifact);
+            }
+        }
+
+        return studentArtifacts;
     }
 
 }
