@@ -19,7 +19,7 @@ public class QuestDAO implements ItemDAO {
         this.connectionPool = connectionPool;
     }
 
-    public List<Item> getStudentBasic(Integer studentID){
+    public List<Item> getStudentBasic(Integer studentID) {
         Connection connection = null;
         List<Item> quests = new ArrayList<>();
         PreparedStatement preparedStatement = null;
@@ -27,9 +27,9 @@ public class QuestDAO implements ItemDAO {
         try {
             connection = connectionPool.getConnection();
             preparedStatement = connection.prepareStatement(" SELECT * FROM public.quest JOIN public.student_quest " +
-                                                                "ON quest.id = student_quest.quest_id " +
-                                                                "AND student_quest.student_id = ? " +
-                                                                "WHERE quest_type='basic' ");
+                    "ON quest.id = student_quest.quest_id " +
+                    "AND student_quest.student_id = ? " +
+                    "WHERE quest_type='basic' ");
             preparedStatement.setInt(1, studentID);
             resultSet = preparedStatement.executeQuery();
             createQuests(resultSet, quests);
@@ -38,15 +38,14 @@ public class QuestDAO implements ItemDAO {
             resultSet.close();
             connection.close();
 
-        }
-        catch (Exception exc) {
+        } catch (Exception exc) {
             exc.printStackTrace();
         }
         return quests;
     }
 
 
-    public List<Item> getStudentExtra(Integer studentID){
+    public List<Item> getStudentExtra(Integer studentID) {
         Connection connection = null;
         List<Item> quests = new ArrayList<>();
         PreparedStatement preparedStatement = null;
@@ -54,9 +53,9 @@ public class QuestDAO implements ItemDAO {
         try {
             connection = connectionPool.getConnection();
             preparedStatement = connection.prepareStatement(" SELECT * FROM public.quest JOIN public.student_quest " +
-                                                                "ON quest.id = student_quest.quest_id " +
-                                                                "AND student_quest.student_id = ? " +
-                                                                "WHERE quest_type='magic' ");
+                    "ON quest.id = student_quest.quest_id " +
+                    "AND student_quest.student_id = ? " +
+                    "WHERE quest_type='magic' ");
 
             preparedStatement.setInt(1, studentID);
             resultSet = preparedStatement.executeQuery();
@@ -66,13 +65,11 @@ public class QuestDAO implements ItemDAO {
             resultSet.close();
             connection.close();
 
-        }
-        catch (Exception exc) {
+        } catch (Exception exc) {
             exc.printStackTrace();
         }
         return quests;
     }
-
 
     @Override
     public List<Item> getAll() {

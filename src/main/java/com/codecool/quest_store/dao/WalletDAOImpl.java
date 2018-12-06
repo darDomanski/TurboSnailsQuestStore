@@ -12,6 +12,7 @@ public class WalletDAOImpl implements WalletDAO {
         this.connectionPool = connectionPool;
     }
 
+
     @Override
     public int getStudentsCoolcoinsAmount(int studentId, String columnName) {
         int coolcoinsAmount = 0;

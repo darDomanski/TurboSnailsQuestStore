@@ -14,9 +14,11 @@ import java.net.HttpCookie;
 public class StudentWalletController implements HttpHandler {
     private DBConnector connectionPool;
     private SessionDAO sessionDAO;
-    private Integer userId;
+    private int userId;
     private Integer student_level;
     private LevelsDAO levelsDAO;
+    private WalletDAO walletDAO;
+    private int coolcoins_amount;
 
     public StudentWalletController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;
@@ -32,29 +34,30 @@ public class StudentWalletController implements HttpHandler {
         // Probably should be in view
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/wallet.twig");
         JtwigModel model = JtwigModel.newModel();
-        model.with("coolcoins_amount", 55);
 
         String cookieString = httpExchange.getRequestHeaders().getFirst("Cookie");
         if (cookieString != null) {
             HttpCookie cookie = HttpCookie.parse(cookieString).get(0);
             String sesionNumber = cookie.getValue();
             sessionDAO = new SessionDAOImpl(connectionPool);
-            userId = sessionDAO.getUserIdBySession( sesionNumber );
+            userId = sessionDAO.getUserIdBySession(sesionNumber);
 
             levelsDAO = new LevelsDAOImpl(connectionPool);
             System.out.println(userId);
             student_level = levelsDAO.getStudentLevel(userId);
             System.out.println(student_level);
-        }else {
+        } else {
             System.out.println("cookie is null");
         }
 
-
+        walletDAO = new WalletDAOImpl(connectionPool);
+        coolcoins_amount = walletDAO.getStudentsCoolcoinsAmount(userId, "current_coins");
 
         // Send a form if it wasn't submitted yet.
         if(method.equals("GET")){
 
             model.with("student_level", student_level);
+            model.with("coolcoins_amount", coolcoins_amount);
             response = template.render(model);
             httpExchange.sendResponseHeaders(200, 0);
             OutputStream os = httpExchange.getResponseBody();
@@ -66,6 +69,7 @@ public class StudentWalletController implements HttpHandler {
         if(method.equals("POST")){
 
             model.with("student_level", student_level);
+            model.with("coolcoins_amount", coolcoins_amount);
             response = template.render(model);
             httpExchange.sendResponseHeaders(200, 0);
             OutputStream os = httpExchange.getResponseBody();
