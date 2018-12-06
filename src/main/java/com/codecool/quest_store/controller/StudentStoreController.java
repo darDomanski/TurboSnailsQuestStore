@@ -23,6 +23,8 @@ public class StudentStoreController implements HttpHandler {
     private int userId;
     private int student_level;
     private LevelsDAO levelsDAO;
+    private WalletDAO walletDAO;
+    private ItemDAO itemDAO;
 
 
 
@@ -56,11 +58,11 @@ public class StudentStoreController implements HttpHandler {
             System.out.println("There is no cookie");
         }
 
-        ItemDAO items = new ArtifactDAO(connectionPool);
+        itemDAO = new ArtifactDAO(connectionPool);
         LevelsDAOImpl levelsDAO = new LevelsDAOImpl(connectionPool);
 
-        List<Item> artifactsBasic = items.getAllBasic();
-        List<Item> artifactsExtra = items.getAllExtra();
+        List<Item> artifactsBasic = itemDAO.getAllBasic();
+        List<Item> artifactsExtra = itemDAO.getAllExtra();
         int userId = getUserIdBySessionId(httpExchange);
         int studentLevel = levelsDAO.getStudentLevel(userId);
 
@@ -91,7 +93,17 @@ public class StudentStoreController implements HttpHandler {
             System.out.println(formData);
             Map inputs = parseFormData(formData);
             System.out.println("artifact id: " + inputs.get("id"));
+
             // check if possible to buy
+            walletDAO = new WalletDAOImpl(connectionPool);
+            int studentCoolcoins = walletDAO.getStudentsCoolcoinsAmount(userId, "current_coins");
+            int artifactId = Integer.parseInt((String) inputs.get("id"));
+            Item artifactToBuy = itemDAO.getById(artifactId);
+            boolean isPossibleToBuy = checkIfArtifactIsPossibleToBuy(artifactToBuy.getValue(), studentCoolcoins);
+            if (!isPossibleToBuy) {
+                model.with("notPossibleToBuy", !isPossibleToBuy);
+                model.with("buyAttemptTitle", artifactToBuy.getTitle());
+            }
             // add to inventory
             // decrease coolcoins
 
@@ -142,6 +154,13 @@ public class StudentStoreController implements HttpHandler {
             map.put(keyValue[0], value);
         }
         return map;
+    }
+
+    private boolean checkIfArtifactIsPossibleToBuy(int artifactValue, int studentCoolcoins) {
+        if (artifactValue <= studentCoolcoins) {
+            return true;
+        }
+        return false;
     }
 
 }

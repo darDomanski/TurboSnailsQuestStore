@@ -68,7 +68,10 @@
         <div class="main_content">
 
             <h1>STORE</h1>
-            <p> </p>
+
+            {% if (notPossibleToBuy) %}
+            <p id="warning">Not enough coolcoins to buy {{ buyAttemptTitle }}!</p>
+            {% endif %}
 
             <h2>Basic Artifact</h2>
 
