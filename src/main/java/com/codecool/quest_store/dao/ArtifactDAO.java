@@ -38,9 +38,7 @@ public class ArtifactDAO implements ItemDAO {
             resultSet.close();
             connection.close();
         } catch (SQLException exc) {
-
-                System.out.println("dupa1");
-
+            exc.printStackTrace();
         }
         return artifacts;
     }
@@ -63,7 +61,7 @@ public class ArtifactDAO implements ItemDAO {
 
         }
         catch (Exception exc) {
-            System.out.println("dupa2");
+            exc.printStackTrace();
         }
         return quests;
     }
@@ -89,14 +87,14 @@ public class ArtifactDAO implements ItemDAO {
 
         }
         catch (Exception exc) {
-            System.out.println("dupa3");
+            exc.printStackTrace();
         }
         return quests;
     }
 
 
     private void createArtifacts(ResultSet resultSet, List<Item> artifacts) {
-        try{
+        try {
             while (resultSet.next()) {
                 Integer id = resultSet.getInt("id");
                 Integer access_level = resultSet.getInt("access_level");
@@ -107,8 +105,8 @@ public class ArtifactDAO implements ItemDAO {
                 Item artifact = new Artifact(id, access_level, title, description, artifact_price, artifact_type);
                 artifacts.add(artifact);
             }
-        }catch(SQLException e ){
-            System.out.println("dupa4");
+        } catch (SQLException exc) {
+            exc.printStackTrace();
         }
     }
 
@@ -129,14 +127,14 @@ public class ArtifactDAO implements ItemDAO {
             resultSet.close();
             connection.close();
         } catch (SQLException exc) {
-            System.out.println("dupa5");
+            exc.printStackTrace();
         }
         return artifact;
     }
 
     private Item createArtifact(ResultSet resultSet) {
         Artifact artifact=null;
-        try{
+        try {
             while (resultSet.next()) {
                 Integer id = resultSet.getInt("id");
                 Integer access_level = resultSet.getInt("access_level");
@@ -146,8 +144,8 @@ public class ArtifactDAO implements ItemDAO {
                 String type = resultSet.getString("artifact_type");
                 artifact = new Artifact(id,access_level,title,description,value,type);
             }
-        }catch(SQLException e ){
-            System.out.println("dupa6");
+        } catch (SQLException exc) {
+            exc.printStackTrace();
         }
         return artifact;
     }
@@ -177,8 +175,8 @@ public class ArtifactDAO implements ItemDAO {
 
             preparedstatement.close();
             connection.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (SQLException exc) {
+            exc.printStackTrace();
         }
     }
 
