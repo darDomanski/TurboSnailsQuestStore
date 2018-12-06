@@ -70,6 +70,31 @@
             <p>Together with your classmates you can buy some artifacts.</p>
 
 
+            {% for key,value in artifactsValuesMap %}
+
+            <div class="crowdfund_item">
+                <div class="card">
+
+                    <span class="text_on_card_1"> {{ value.getTitle() }} </span>
+                    <div>
+                        <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
+                    </div>
+                    <ul>
+                        <li><span class="text_on_card_2"> {{ value.getDescription() }} </span></li>
+                        <li><span class="text_on_card_2"> {{ value.getValue() }} </span></li>
+                    </ul>
+                </div>
+                <p>Yet to collect: <span id="item_price1"> {{ key }} </span> cc</p>
+                <form method="post">
+                    <label for="{{ value.getId() }}">Fund:</label>
+                    <input type="number" name="{{ value.getId() }}" id="fund_input{{ loop.index }}" min="1" max="5" required>
+                    <input type="submit" id="fund_button{{ loop.index }}" value="Donate">
+                </form>
+            </div>
+
+            {% endfor %}
+
+
         </div>
 
         <footer>
