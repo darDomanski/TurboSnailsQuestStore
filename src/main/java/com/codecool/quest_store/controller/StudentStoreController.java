@@ -7,11 +7,13 @@ import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpCookie;
+import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class StudentStoreController implements HttpHandler {
@@ -69,8 +71,6 @@ public class StudentStoreController implements HttpHandler {
         if(method.equals("GET")){
 
             model.with("student_level", student_level);
-            model.with("artifactsBasic", artifactsBasic);
-            model.with("artifactsExtra", artifactsExtra);
             model.with("artifactsBasic", basicStudentArtifacts);
             model.with("artifactsExtra", magicStudentArtifacts);
             response = template.render(model);
@@ -84,9 +84,18 @@ public class StudentStoreController implements HttpHandler {
         // If the form was submitted, retrieve it's content.
         if(method.equals("POST")){
 
+            InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+            BufferedReader br = new BufferedReader(isr);
+            String formData = br.readLine();
+
+            System.out.println(formData);
+            Map inputs = parseFormData(formData);
+            System.out.println("artifact id: " + inputs.get("id"));
+
+
             model.with("student_level", student_level);
-            model.with("artifactsBasic", artifactsBasic);
-            model.with("artifactsExtra", artifactsExtra);
+            model.with("artifactsBasic", basicStudentArtifacts);
+            model.with("artifactsExtra", magicStudentArtifacts);
             response = template.render(model);
 
             response = template.render(model);
@@ -118,6 +127,18 @@ public class StudentStoreController implements HttpHandler {
         }
 
         return studentArtifacts;
+    }
+
+    private static Map<String, String> parseFormData(String formData) throws UnsupportedEncodingException {
+        Map<String, String> map = new HashMap<>();
+        String[] pairs = formData.split("&");
+        for(String pair : pairs){
+            String[] keyValue = pair.split("=");
+            // We have to decode the value because it's urlencoded. see: https://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms
+            String value = new URLDecoder().decode(keyValue[1], "UTF-8");
+            map.put(keyValue[0], value);
+        }
+        return map;
     }
 
 }

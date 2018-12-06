@@ -166,6 +166,14 @@ th {
 td {
     padding: 5% 10% 5% 10%;
 }
+.hide {
+    display: none;
+}
+.buy {
+    width: 50%;
+    margin-left: 25%;
+    background-color: #4CAF50;
+}
 @media screen and (max-width: 1200px) {
     .page_content {
         width: 90%;

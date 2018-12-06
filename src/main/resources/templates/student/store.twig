@@ -88,7 +88,10 @@
                                     <p class="text_on_card_2"> {{ artifact.value }} </p>
                                 </li>
                             </ul>
-                            <button class="buybutton" onclick="buy()">BUY!</button>
+                            <form method="post">
+                                <input class="hide" type="text" name="id" value={{ artifact.id }}>
+                                <input class="buy" type="submit" value="BUY">
+                            </form>
                         </div>
                     {% endfor %}
 
@@ -110,7 +113,10 @@
                                 <p class="text_on_card_2"> {{ artifact.value }} </p>
                             </li>
                         </ul>
-                        <button class="buybutton" onclick="buy()">BUY!</button>
+                        <form method="post">
+                            <input class="hide" type="text" name="id" value={{ artifact.id }}>
+                            <input class="buy" type="submit" value="BUY">
+                        </form>
                     </div>
                     {% endfor %}
 
