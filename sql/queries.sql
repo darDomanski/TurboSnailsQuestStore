@@ -289,9 +289,9 @@ VALUES
 INSERT INTO crowdfunding (artifact_id, money_collected)
 VALUES
 ((SELECT id FROM artifact WHERE id=2), 50),
-((SELECT id FROM artifact WHERE id=3), 50),
-((SELECT id FROM artifact WHERE id=5), 50),
-((SELECT id FROM artifact WHERE id=7),50);
+((SELECT id FROM artifact WHERE id=4), 50),
+((SELECT id FROM artifact WHERE id=7), 50),
+((SELECT id FROM artifact WHERE id=8),50);
 
 -- Fill students wallets
 INSERT INTO wallet (student_id, current_coins, lifetime_coins)
