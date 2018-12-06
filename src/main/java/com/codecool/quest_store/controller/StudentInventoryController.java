@@ -1,6 +1,7 @@
 package com.codecool.quest_store.controller;
 
 import com.codecool.quest_store.dao.DBConnector;
+import com.codecool.quest_store.dao.SessionDAO;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -8,10 +9,12 @@ import org.jtwig.JtwigTemplate;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.HttpCookie;
 
 
 public class StudentInventoryController implements HttpHandler {
     private DBConnector connectionPool;
+    private SessionDAO sessionDAO;
 
     public StudentInventoryController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;
@@ -47,5 +50,16 @@ public class StudentInventoryController implements HttpHandler {
             os.write(response.getBytes());
             os.close();
         }
+    }
+
+    private int getUserIdBySessionId(HttpExchange httpExchange) {
+        String cookieString = httpExchange.getRequestHeaders().getFirst("Cookie");
+        int userId = 0;
+
+        if (cookieString != null) {
+            HttpCookie cookie = HttpCookie.parse(cookieString).get(0);
+            userId = this.sessionDAO.getUserIdBySession(cookie.getValue());
+        }
+        return userId;
     }
 }
