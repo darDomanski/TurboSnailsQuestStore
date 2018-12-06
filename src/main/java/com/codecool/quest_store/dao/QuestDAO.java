@@ -73,7 +73,6 @@ public class QuestDAO implements ItemDAO {
         return quests;
     }
 
-
     @Override
     public List<Item> getAll() {
         Connection connection = null;
