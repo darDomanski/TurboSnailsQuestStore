@@ -1,9 +1,6 @@
 package com.codecool.quest_store.controller;
 
-import com.codecool.quest_store.dao.ArtifactDAO;
-import com.codecool.quest_store.dao.DBConnector;
-import com.codecool.quest_store.dao.ItemDAO;
-import com.codecool.quest_store.dao.QuestDAO;
+import com.codecool.quest_store.dao.*;
 import com.codecool.quest_store.model.Item;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -12,6 +9,8 @@ import org.jtwig.JtwigTemplate;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.HttpCookie;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,15 +34,22 @@ public class StudentStoreController implements HttpHandler {
         JtwigModel model = JtwigModel.newModel();
 
 //        DBConnector dbConnector = new DBConnector();
-        ItemDAO items = new ArtifactDAO((connectionPool));
+        ItemDAO items = new ArtifactDAO(connectionPool);
+        LevelsDAOImpl levelsDAO = new LevelsDAOImpl(connectionPool);
+
         List<Item> artifactsBasic = items.getAllBasic();
         List<Item> artifactsExtra = items.getAllExtra();
+        int userId = getUserIdBySessionId(httpExchange);
+        int studentLevel = levelsDAO.getStudentLevel(userId);
+
+        List<Item> basicStudentArtifacts = getArtifactsByStudentLevel(artifactsBasic, studentLevel);
+        List<Item> magicStudentArtifacts = getArtifactsByStudentLevel(artifactsExtra, studentLevel);
 
         // Send a form if it wasn't submitted yet.
         if(method.equals("GET")){
 
-            model.with("artifactsBasic", artifactsBasic);
-            model.with("artifactsExtra", artifactsExtra);
+            model.with("artifactsBasic", basicStudentArtifacts);
+            model.with("artifactsExtra", magicStudentArtifacts);
             response = template.render(model);
 
             httpExchange.sendResponseHeaders(200, 0);
@@ -65,6 +71,29 @@ public class StudentStoreController implements HttpHandler {
             os.write(response.getBytes());
             os.close();
         }
+    }
+
+    private int getUserIdBySessionId(HttpExchange httpExchange) {
+        String cookieString = httpExchange.getRequestHeaders().getFirst("Cookie");
+        int userId = 0;
+
+        if (cookieString != null) {
+            HttpCookie cookie = HttpCookie.parse(cookieString).get(0);
+            userId = new SessionDAOImpl(connectionPool).getUserIdBySession(cookie.getValue());
+        }
+        return userId;
+    }
+
+    private List<Item> getArtifactsByStudentLevel(List<Item> artifacts, int studentLevel) {
+        List<Item> studentArtifacts = new ArrayList<>();
+
+        for (Item artifact : artifacts) {
+            if (artifact.getAccess_level().intValue() <= studentLevel) {
+                studentArtifacts.add(artifact);
+            }
+        }
+
+        return studentArtifacts;
     }
 
 }
