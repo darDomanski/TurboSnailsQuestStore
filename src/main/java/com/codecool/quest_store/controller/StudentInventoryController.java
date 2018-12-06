@@ -2,6 +2,7 @@ package com.codecool.quest_store.controller;
 
 import com.codecool.quest_store.dao.DBConnector;
 import com.codecool.quest_store.dao.SessionDAO;
+import com.codecool.quest_store.dao.SessionDAOImpl;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -18,6 +19,7 @@ public class StudentInventoryController implements HttpHandler {
 
     public StudentInventoryController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;
+        this.sessionDAO = new SessionDAOImpl(connectionPool);
     }
 
     @Override
