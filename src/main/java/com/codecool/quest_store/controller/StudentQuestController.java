@@ -1,8 +1,6 @@
 package com.codecool.quest_store.controller;
 
-import com.codecool.quest_store.dao.DBConnector;
-import com.codecool.quest_store.dao.ItemDAO;
-import com.codecool.quest_store.dao.QuestDAO;
+import com.codecool.quest_store.dao.*;
 import com.codecool.quest_store.model.Item;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -11,11 +9,14 @@ import org.jtwig.JtwigTemplate;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.HttpCookie;
 import java.util.List;
 
 
 public class StudentQuestController implements HttpHandler {
     private DBConnector connectionPool;
+    private SessionDAO sessionDAO;
+    private Integer userId;
 
     public StudentQuestController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;
@@ -33,16 +34,33 @@ public class StudentQuestController implements HttpHandler {
         JtwigModel model = JtwigModel.newModel();
 
 
+
+        String cookieString = httpExchange.getRequestHeaders().getFirst("Cookie");
+        if (cookieString != null) {
+            HttpCookie cookie = HttpCookie.parse(cookieString).get(0);
+            String sesionNumber = cookie.getValue();
+//            System.out.println("sesion number : "+ sesionNumber );
+//            System.out.println("cookie is ok");
+            sessionDAO = new SessionDAOImpl(connectionPool);
+            userId = sessionDAO.getUserIdBySession( sesionNumber );
+        }else {
+            System.out.println("cookie is null");
+        }
+
         ItemDAO items = new QuestDAO((connectionPool));
         List<Item> questsBasic = items.getAllBasic();
         List<Item> questsExtra = items.getAllExtra();
 
+        List<Item> questsStudentExtra = ((QuestDAO) items).getStudentExtra(userId);
+        List<Item> questsStudentBasic = ((QuestDAO) items).getStudentBasic(userId);
 
         // Send a form if it wasn't submitted yet.
         if(method.equals("GET")){
 
             model.with("questsBasic", questsBasic);
             model.with("questsExtra", questsExtra);
+            model.with("questsStudentExtra", questsStudentExtra);
+            model.with("questsStudentBasic", questsStudentBasic);
             response = template.render(model);
             httpExchange.sendResponseHeaders(200, 0);
             OutputStream os = httpExchange.getResponseBody();
@@ -55,6 +73,8 @@ public class StudentQuestController implements HttpHandler {
 
             model.with("questsBasic", questsBasic);
             model.with("questsExtra", questsExtra);
+            model.with("questsStudentExtra", questsStudentExtra);
+            model.with("questsStudentBasic", questsStudentBasic);
             response = template.render(model);
             httpExchange.sendResponseHeaders(200, 0);
             OutputStream os = httpExchange.getResponseBody();
