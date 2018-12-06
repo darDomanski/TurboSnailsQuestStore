@@ -8,6 +8,7 @@ import java.sql.SQLException;
 public class LevelsDAOImpl implements LevelsDAO {
     private DBConnector connectionPool;
 
+
     public LevelsDAOImpl(DBConnector connectionPool) {
         this.connectionPool = connectionPool;
     }
@@ -46,7 +47,7 @@ public class LevelsDAOImpl implements LevelsDAO {
     }
 
     @Override
-    public void updateLevel(int levelId, int minCoolcoinsAmount, int maxCoolcoinsAmount) {
+    public void updateLevel(int levelId, int minCoolcoinsAmount, int maxCoolcoinsAmoutudent/questnt) {
         String query = "UPDATE access_level " +
                 "SET min_lifetime_coins = ?, " +
                 "max_lifetime_coins = ? " +
