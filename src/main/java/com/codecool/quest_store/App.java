@@ -11,7 +11,7 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         // Initialize connection pool
-        DBConnector connectionPool = new DBConnector();
+        DBConnector connectionPool = DBConnector.getInstance();
 
         // create a server on port 8000
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);

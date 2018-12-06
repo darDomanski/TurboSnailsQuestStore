@@ -51,6 +51,7 @@ public class LoginDAOImpl implements LoginDAO {
 
             preparedStatement.close();
             resultSet.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

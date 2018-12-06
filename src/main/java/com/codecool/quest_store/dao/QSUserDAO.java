@@ -212,6 +212,9 @@ public class QSUserDAO implements PersonDAO {
                 person = new QSUser(id, firstName, lastName, email, className, userType, status);
 
             }
+            connection.close();
+            preparedStatement.close();
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
