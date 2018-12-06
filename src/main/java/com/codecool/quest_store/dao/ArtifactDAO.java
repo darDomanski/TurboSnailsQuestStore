@@ -203,6 +203,7 @@ public class ArtifactDAO implements ItemDAO {
         if (attribute.equals("access_level") || attribute.equals("artifact_price")) {
             Integer newIntValue =  typeInt("Type new value ; ");
             try {
+                connection = connectionPool.getConnection();
                 preparedStatementt = connection.prepareStatement(String.format("UPDATE artifact SET %s = ? WHERE id = ? ;", attribute));
                 preparedStatementt.setInt(1, newIntValue);
                 preparedStatementt.setInt(2, id);
