@@ -19,6 +19,57 @@ public class QuestDAO implements ItemDAO {
         this.connectionPool = connectionPool;
     }
 
+    public List<Item> getStudentBasic(Integer studentID) {
+        Connection connection = null;
+        List<Item> quests = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(" SELECT * FROM public.quest JOIN public.student_quest " +
+                    "ON quest.id = student_quest.quest_id " +
+                    "AND student_quest.student_id = ? " +
+                    "WHERE quest_type='basic' ");
+            preparedStatement.setInt(1, studentID);
+            resultSet = preparedStatement.executeQuery();
+            createQuests(resultSet, quests);
+
+            preparedStatement.close();
+            resultSet.close();
+            connection.close();
+
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return quests;
+    }
+
+
+    public List<Item> getStudentExtra(Integer studentID) {
+        Connection connection = null;
+        List<Item> quests = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(" SELECT * FROM public.quest JOIN public.student_quest " +
+                    "ON quest.id = student_quest.quest_id " +
+                    "AND student_quest.student_id = ? " +
+                    "WHERE quest_type='magic' ");
+
+            preparedStatement.setInt(1, studentID);
+            resultSet = preparedStatement.executeQuery();
+            createQuests(resultSet, quests);
+
+            preparedStatement.close();
+            resultSet.close();
+            connection.close();
+
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return quests;
+    }
 
     @Override
     public List<Item> getAll() {

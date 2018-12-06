@@ -38,7 +38,7 @@
 
                     <figure class="icon">
                         <img src="/static/img/star-icon.png" class="icon_img" alt="exp_icon">
-                        <div id="exp_level">5</div>
+                        <div id="exp_level"> {{ student_level }} </div>
                     </figure>
 
                     <figure class="icon">
@@ -91,7 +91,7 @@
             <h2>Your Basic Quests</h2>
 
             <div class="artefacts">
-                    {% for quest in questsBasic %}
+                    {% for quest in questsStudentBasic %}
                         <div class="card_from_mentor">
                             <p class="text_on_card_1"> {{ quest.getTitle }} </p>
                             <div>
@@ -119,7 +119,7 @@
                               <div class="card_artefacts">
                                   <p class="text_on_card_1"> {{ quest.getTitle }} </p>
                                   <div>
-                                      <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
+                                      <img class="pictures_on_card" src="/static/img/owlSmall.jpg" alt="Picture of Hero" />
                                   </div>
                                   <ul>
                                       <li>
@@ -137,11 +137,11 @@
             <h2>Your Extra Quests</h2>
 
                   <div class="artefacts">
-                          {% for quest in questsExtra %}
+                          {% for quest in questsStudentExtra %}
                               <div class="card_from_mentor">
                                   <p class="text_on_card_1"> {{ quest.getTitle }} </p>
                                   <div>
-                                      <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
+                                      <img class="pictures_on_card" src="/static/img/owlSmall.jpg" alt="Picture of Hero" />
                                   </div>
                                   <ul>
                                       <li>
