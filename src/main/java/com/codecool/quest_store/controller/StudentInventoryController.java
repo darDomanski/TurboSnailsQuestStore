@@ -1,6 +1,7 @@
 package com.codecool.quest_store.controller;
 
 import com.codecool.quest_store.dao.*;
+import com.codecool.quest_store.model.Item;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -9,6 +10,7 @@ import org.jtwig.JtwigTemplate;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpCookie;
+import java.util.List;
 
 
 public class StudentInventoryController implements HttpHandler {
@@ -28,10 +30,15 @@ public class StudentInventoryController implements HttpHandler {
         sessionResolver.checkIfSessionIsValid();
         String response = "";
         String method = httpExchange.getRequestMethod();
+        int userId = getUserIdBySessionId(httpExchange);
+
+        List<Item> inventory = inventoryDAO.getListOfItemsByUserId(userId);
 
         // Probably should be in view
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/inventory.twig");
         JtwigModel model = JtwigModel.newModel();
+        model.with("inventory", inventory);
+
 
         // Send a form if it wasn't submitted yet.
         if(method.equals("GET")){

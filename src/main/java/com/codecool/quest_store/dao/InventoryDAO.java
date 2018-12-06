@@ -6,5 +6,5 @@ import java.util.List;
 
 
 public interface InventoryDAO {
-    List<Item> getListOfItemsByUserId(String userId);
+    List<Item> getListOfItemsByUserId(int userId);
 }

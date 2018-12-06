@@ -68,6 +68,27 @@
         <div class="main_content">
             <h1>Inventory</h1>
 
+            <div class="artefacts">
+
+            {% for artifact in inventory %}
+            <div class="card_artefacts">
+                <p class="text_on_card_1"> {{ artifact.getTitle }} </p>
+                 <div>
+                 <img class="pictures_on_card" src="/static/img/heroes.jpg" alt="Picture of Hero" />
+                 </div>
+                 <ul>
+                     <li>
+                         <p class="text_on_card_2"> {{ artifact.description }} </p>
+                     </li>
+                     <li>
+                         <p class="text_on_card_2"> {{ artifact.value }} </p>
+                     </li>
+                 </ul>
+            </div>
+            {% endfor %}
+
+            </div>
+
         </div>
 
         <footer>

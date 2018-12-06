@@ -271,20 +271,6 @@ VALUES
 ((SELECT id FROM qs_user WHERE id=12), (SELECT id FROM artifact WHERE id=7)),
 ((SELECT id FROM qs_user WHERE id=12), (SELECT id FROM artifact WHERE id=8));
 
--- Assign artifacts to students
-INSERT INTO student_artifact (student_id, artifact_id)
-VALUES
-((SELECT id FROM qs_user WHERE id=7), (SELECT id FROM artifact WHERE id=1)),
-((SELECT id FROM qs_user WHERE id=8), (SELECT id FROM artifact WHERE id=1)),
-((SELECT id FROM qs_user WHERE id=9), (SELECT id FROM artifact WHERE id=1)),
-((SELECT id FROM qs_user WHERE id=9), (SELECT id FROM artifact WHERE id=3)),
-((SELECT id FROM qs_user WHERE id=11), (SELECT id FROM artifact WHERE id=2)),
-((SELECT id FROM qs_user WHERE id=11), (SELECT id FROM artifact WHERE id=4)),
-((SELECT id FROM qs_user WHERE id=12), (SELECT id FROM artifact WHERE id=1)),
-((SELECT id FROM qs_user WHERE id=12), (SELECT id FROM artifact WHERE id=5)),
-((SELECT id FROM qs_user WHERE id=12), (SELECT id FROM artifact WHERE id=7)),
-((SELECT id FROM qs_user WHERE id=12), (SELECT id FROM artifact WHERE id=8));
-
 -- Create croudfund artifacts
 INSERT INTO crowdfunding (artifact_id, money_collected)
 VALUES
