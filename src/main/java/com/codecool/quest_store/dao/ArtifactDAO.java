@@ -4,6 +4,8 @@ package com.codecool.quest_store.dao;
 import com.codecool.quest_store.model.Artifact;
 import com.codecool.quest_store.model.Item;
 
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,7 +38,9 @@ public class ArtifactDAO implements ItemDAO {
             resultSet.close();
             connection.close();
         } catch (SQLException exc) {
-            exc.printStackTrace();
+
+                System.out.println("dupa1");
+
         }
         return artifacts;
     }
@@ -59,7 +63,7 @@ public class ArtifactDAO implements ItemDAO {
 
         }
         catch (Exception exc) {
-            exc.printStackTrace();
+            System.out.println("dupa2");
         }
         return quests;
     }
@@ -85,7 +89,7 @@ public class ArtifactDAO implements ItemDAO {
 
         }
         catch (Exception exc) {
-            exc.printStackTrace();
+            System.out.println("dupa3");
         }
         return quests;
     }
@@ -104,7 +108,7 @@ public class ArtifactDAO implements ItemDAO {
                 artifacts.add(artifact);
             }
         }catch(SQLException e ){
-            e.printStackTrace();
+            System.out.println("dupa4");
         }
     }
 
@@ -125,7 +129,7 @@ public class ArtifactDAO implements ItemDAO {
             resultSet.close();
             connection.close();
         } catch (SQLException exc) {
-            exc.printStackTrace();
+            System.out.println("dupa5");
         }
         return artifact;
     }
@@ -143,7 +147,7 @@ public class ArtifactDAO implements ItemDAO {
                 artifact = new Artifact(id,access_level,title,description,value,type);
             }
         }catch(SQLException e ){
-            e.printStackTrace();
+            System.out.println("dupa6");
         }
         return artifact;
     }
