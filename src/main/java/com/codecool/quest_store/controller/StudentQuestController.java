@@ -20,8 +20,6 @@ public class StudentQuestController implements HttpHandler {
     private Integer student_level;
     private LevelsDAO levelsDAO;
 
-
-
     public StudentQuestController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;
     }
@@ -37,14 +35,10 @@ public class StudentQuestController implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/quests.twig");
         JtwigModel model = JtwigModel.newModel();
 
-
-
         String cookieString = httpExchange.getRequestHeaders().getFirst("Cookie");
         if (cookieString != null) {
             HttpCookie cookie = HttpCookie.parse(cookieString).get(0);
             String sesionNumber = cookie.getValue();
-//            System.out.println("sesion number : "+ sesionNumber );
-//            System.out.println("cookie is ok");
             sessionDAO = new SessionDAOImpl(connectionPool);
             userId = sessionDAO.getUserIdBySession( sesionNumber );
 
@@ -52,7 +46,6 @@ public class StudentQuestController implements HttpHandler {
             System.out.println(userId);
             student_level = levelsDAO.getStudentLevel(userId);
             System.out.println(student_level);
-
         }else {
             System.out.println("cookie is null");
         }
@@ -82,6 +75,7 @@ public class StudentQuestController implements HttpHandler {
         // If the form was submitted, retrieve it's content.
         if(method.equals("POST")){
 
+            model.with("student_level", student_level);
             model.with("questsBasic", questsBasic);
             model.with("questsExtra", questsExtra);
             model.with("questsStudentExtra", questsStudentExtra);

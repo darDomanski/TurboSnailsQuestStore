@@ -1,9 +1,6 @@
 package com.codecool.quest_store.controller;
 
-import com.codecool.quest_store.dao.ArtifactDAO;
-import com.codecool.quest_store.dao.DBConnector;
-import com.codecool.quest_store.dao.ItemDAO;
-import com.codecool.quest_store.dao.QuestDAO;
+import com.codecool.quest_store.dao.*;
 import com.codecool.quest_store.model.Item;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -12,12 +9,19 @@ import org.jtwig.JtwigTemplate;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.HttpCookie;
 import java.util.List;
 
 
 public class StudentStoreController implements HttpHandler {
     private DBConnector connectionPool;
     private SessionResolver sessionResolver;
+    private SessionDAO sessionDAO;
+    private Integer userId;
+    private Integer student_level;
+    private LevelsDAO levelsDAO;
+
+
 
     public StudentStoreController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;
@@ -34,7 +38,21 @@ public class StudentStoreController implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
         JtwigModel model = JtwigModel.newModel();
 
-//        DBConnector dbConnector = new DBConnector();
+        String cookieString = httpExchange.getRequestHeaders().getFirst("Cookie");
+        if (cookieString != null) {
+            HttpCookie cookie = HttpCookie.parse(cookieString).get(0);
+            String sesionNumber = cookie.getValue();
+            sessionDAO = new SessionDAOImpl(connectionPool);
+            userId = sessionDAO.getUserIdBySession( sesionNumber );
+
+            levelsDAO = new LevelsDAOImpl(connectionPool);
+            System.out.println(userId);
+            student_level = levelsDAO.getStudentLevel(userId);
+            System.out.println(student_level);
+        }else {
+            System.out.println("cookie is null");
+        }
+
         ItemDAO items = new ArtifactDAO((connectionPool));
         List<Item> artifactsBasic = items.getAllBasic();
         List<Item> artifactsExtra = items.getAllExtra();
@@ -42,6 +60,7 @@ public class StudentStoreController implements HttpHandler {
         // Send a form if it wasn't submitted yet.
         if(method.equals("GET")){
 
+            model.with("student_level", student_level);
             model.with("artifactsBasic", artifactsBasic);
             model.with("artifactsExtra", artifactsExtra);
             response = template.render(model);
@@ -55,6 +74,7 @@ public class StudentStoreController implements HttpHandler {
         // If the form was submitted, retrieve it's content.
         if(method.equals("POST")){
 
+            model.with("student_level", student_level);
             model.with("artifactsBasic", artifactsBasic);
             model.with("artifactsExtra", artifactsExtra);
             response = template.render(model);

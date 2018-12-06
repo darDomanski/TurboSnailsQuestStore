@@ -17,6 +17,10 @@ public class StudentInventoryController implements HttpHandler {
     private DBConnector connectionPool;
     private SessionDAO sessionDAO;
     private InventoryDAO inventoryDAO;
+    private Integer userId;
+    private Integer student_level;
+    private LevelsDAO levelsDAO;
+
 
     public StudentInventoryController(DBConnector connectionPool) {
         this.connectionPool = connectionPool;
@@ -39,10 +43,25 @@ public class StudentInventoryController implements HttpHandler {
         JtwigModel model = JtwigModel.newModel();
         model.with("inventory", inventory);
 
+        String cookieString = httpExchange.getRequestHeaders().getFirst("Cookie");
+        if (cookieString != null) {
+            HttpCookie cookie = HttpCookie.parse(cookieString).get(0);
+            String sesionNumber = cookie.getValue();
+            sessionDAO = new SessionDAOImpl(connectionPool);
+            userId = sessionDAO.getUserIdBySession( sesionNumber );
+
+            levelsDAO = new LevelsDAOImpl(connectionPool);
+            System.out.println(userId);
+            student_level = levelsDAO.getStudentLevel(userId);
+            System.out.println(student_level);
+        }else {
+            System.out.println("cookie is null");
+        }
 
         // Send a form if it wasn't submitted yet.
         if(method.equals("GET")){
 
+            model.with("student_level", student_level);
             response = template.render(model);
             httpExchange.sendResponseHeaders(200, 0);
             OutputStream os = httpExchange.getResponseBody();
@@ -53,6 +72,7 @@ public class StudentInventoryController implements HttpHandler {
         // If the form was submitted, retrieve it's content.
         if(method.equals("POST")){
 
+            model.with("student_level", student_level);
             response = template.render(model);
             httpExchange.sendResponseHeaders(200, 0);
             OutputStream os = httpExchange.getResponseBody();
