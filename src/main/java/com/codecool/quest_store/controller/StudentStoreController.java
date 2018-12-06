@@ -91,6 +91,9 @@ public class StudentStoreController implements HttpHandler {
             System.out.println(formData);
             Map inputs = parseFormData(formData);
             System.out.println("artifact id: " + inputs.get("id"));
+            // check if possible to buy
+            // add to inventory
+            // decrease coolcoins
 
 
             model.with("student_level", student_level);
