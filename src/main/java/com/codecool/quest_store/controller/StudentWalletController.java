@@ -31,7 +31,6 @@ public class StudentWalletController implements HttpHandler {
         String response = "";
         String method = httpExchange.getRequestMethod();
 
-        // Probably should be in view
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/wallet.twig");
         JtwigModel model = JtwigModel.newModel();
 
@@ -49,7 +48,6 @@ public class StudentWalletController implements HttpHandler {
         walletDAO = new WalletDAOImpl(connectionPool);
         coolcoins_amount = walletDAO.getStudentsCoolcoinsAmount(userId, "current_coins");
 
-        // Send a form if it wasn't submitted yet.
         if(method.equals("GET")){
 
             model.with("student_level", student_level);
@@ -61,7 +59,6 @@ public class StudentWalletController implements HttpHandler {
             os.close();
         }
 
-        // If the form was submitted, retrieve it's content.
         if(method.equals("POST")){
 
             model.with("student_level", student_level);

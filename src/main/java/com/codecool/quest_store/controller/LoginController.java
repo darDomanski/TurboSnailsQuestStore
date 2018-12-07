@@ -37,11 +37,7 @@ public class LoginController implements HttpHandler {
         String response = "";
         String method = httpExchange.getRequestMethod();
 
-        // Probably should be in view
-
-        // Send a form if it wasn't submitted yet.
         if(method.equals("GET")){
-
             JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/login.twig");
             JtwigModel model = JtwigModel.newModel();
             response = template.render(model);
@@ -51,7 +47,6 @@ public class LoginController implements HttpHandler {
             os.close();
         }
 
-        // If the form was submitted, retrieve it's content.
         if (method.equals("POST")) {
             removeSessionIfCookieExists(httpExchange);
 
@@ -71,7 +66,6 @@ public class LoginController implements HttpHandler {
                 httpExchange.getResponseHeaders().add("Set-Cookie", cookie.toString());
                 sessionDAO.addSession(person.getId(), cookie.getValue());
 
-
                 if (person != null) {
                     String userType = loginDAO.getUserTypeById(person.getId());
                     if (userType.equals("mentor")) {
@@ -83,9 +77,7 @@ public class LoginController implements HttpHandler {
             } else {
                 context = "login";
             }
-
             redirectController.redirect(httpExchange, context);
-
         }
 
     }

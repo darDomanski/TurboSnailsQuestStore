@@ -24,13 +24,10 @@ public class MentorCodecoolersController implements HttpHandler {
         String response = "";
         String method = httpExchange.getRequestMethod();
 
-        // Probably should be in view
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/codecoolers.twig");
         JtwigModel model = JtwigModel.newModel();
 
-        // Send a form if it wasn't submitted yet.
         if(method.equals("GET")){
-
             response = template.render(model);
             httpExchange.sendResponseHeaders(200, 0);
             OutputStream os = httpExchange.getResponseBody();
@@ -38,9 +35,7 @@ public class MentorCodecoolersController implements HttpHandler {
             os.close();
         }
 
-        // If the form was submitted, retrieve it's content.
         if(method.equals("POST")){
-
             response = template.render(model);
             httpExchange.sendResponseHeaders(200, 0);
             OutputStream os = httpExchange.getResponseBody();

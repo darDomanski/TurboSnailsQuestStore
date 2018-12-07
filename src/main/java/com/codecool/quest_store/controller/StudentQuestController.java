@@ -31,7 +31,6 @@ public class StudentQuestController implements HttpHandler {
         String response = "";
         String method = httpExchange.getRequestMethod();
 
-        // Probably should be in view
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/quests.twig");
         JtwigModel model = JtwigModel.newModel();
 
@@ -68,7 +67,6 @@ public class StudentQuestController implements HttpHandler {
             os.close();
         }
 
-        // If the form was submitted, retrieve it's content.
         if(method.equals("POST")){
 
             model.with("student_level", student_level);

@@ -38,7 +38,6 @@ public class StudentInventoryController implements HttpHandler {
 
         List<Item> inventory = inventoryDAO.getListOfItemsByUserId(userId);
 
-        // Probably should be in view
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/inventory.twig");
         JtwigModel model = JtwigModel.newModel();
         model.with("inventory", inventory);
@@ -54,7 +53,6 @@ public class StudentInventoryController implements HttpHandler {
             student_level = levelsDAO.getStudentLevel(userId);
         }
 
-        // Send a form if it wasn't submitted yet.
         if(method.equals("GET")){
 
             model.with("student_level", student_level);
@@ -65,7 +63,6 @@ public class StudentInventoryController implements HttpHandler {
             os.close();
         }
 
-        // If the form was submitted, retrieve it's content.
         if(method.equals("POST")){
 
             model.with("student_level", student_level);

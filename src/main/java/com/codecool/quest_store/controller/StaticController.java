@@ -41,14 +41,12 @@ public class StaticController implements HttpHandler {
         String response = "404 (Not Found)\n";
         httpExchange.sendResponseHeaders(404, response.length());
         OutputStream os = httpExchange.getResponseBody();
-        os.write(response.toString().getBytes());
+        os.write(response.getBytes());
         os.close();
     }
 
     private void sendFile(HttpExchange httpExchange, URL fileURL) throws IOException {
-        // get the file
         File file = new File(fileURL.getFile());
-        // we need to find out the mime type of the file, see: https://en.wikipedia.org/wiki/Media_type
         MimeTypeResolver resolver = new MimeTypeResolver(file);
         String mime = resolver.getMimeType();
 
@@ -57,7 +55,6 @@ public class StaticController implements HttpHandler {
 
         OutputStream os = httpExchange.getResponseBody();
 
-        // send the file
         FileInputStream fs = new FileInputStream(file);
         final byte[] buffer = new byte[0x10000];
         int count = 0;

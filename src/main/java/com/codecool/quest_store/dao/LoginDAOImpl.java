@@ -72,7 +72,6 @@ public class LoginDAOImpl implements LoginDAO {
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
 
-//            resultSet.next();
             while (resultSet.next()) {
                 id = resultSet.getString("id");
             }
@@ -100,7 +99,6 @@ public class LoginDAOImpl implements LoginDAO {
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
 
-//            resultSet.next();
             while (resultSet.next()) {
                 userExists = true;
             }

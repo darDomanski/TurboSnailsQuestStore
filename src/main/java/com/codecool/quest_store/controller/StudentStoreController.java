@@ -10,6 +10,7 @@ import org.jtwig.JtwigTemplate;
 import java.io.*;
 import java.net.HttpCookie;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +40,6 @@ public class StudentStoreController implements HttpHandler {
         String response = "";
         String method = httpExchange.getRequestMethod();
 
-        // Probably should be in view
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
         JtwigModel model = JtwigModel.newModel();
 
@@ -65,7 +65,6 @@ public class StudentStoreController implements HttpHandler {
         List<Item> basicStudentArtifacts = getArtifactsByStudentLevel(artifactsBasic, studentLevel);
         List<Item> magicStudentArtifacts = getArtifactsByStudentLevel(artifactsExtra, studentLevel);
 
-        // Send a form if it wasn't submitted yet.
         if(method.equals("GET")){
 
             model.with("student_level", student_level);
@@ -81,10 +80,9 @@ public class StudentStoreController implements HttpHandler {
             os.close();
         }
 
-        // If the form was submitted, retrieve it's content.
         if(method.equals("POST")){
 
-            InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+            InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), StandardCharsets.UTF_8);
             BufferedReader br = new BufferedReader(isr);
             String formData = br.readLine();
 
@@ -153,7 +151,6 @@ public class StudentStoreController implements HttpHandler {
         String[] pairs = formData.split("&");
         for(String pair : pairs){
             String[] keyValue = pair.split("=");
-            // We have to decode the value because it's urlencoded. see: https://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms
             String value = new URLDecoder().decode(keyValue[1], "UTF-8");
             map.put(keyValue[0], value);
         }
@@ -161,10 +158,7 @@ public class StudentStoreController implements HttpHandler {
     }
 
     private boolean checkIfArtifactIsPossibleToBuy(int artifactValue, int studentCoolcoins) {
-        if (artifactValue <= studentCoolcoins) {
-            return true;
-        }
-        return false;
+        return artifactValue <= studentCoolcoins;
     }
 
 }
