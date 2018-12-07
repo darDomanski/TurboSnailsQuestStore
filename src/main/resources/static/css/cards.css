@@ -21,6 +21,9 @@
 }
 
 .card {
+display: flex;
+flex-direction: column;
+justify-content: space-around;
     background-color: rgb(61, 61, 50);
     width: 200px;
     height: 300px;
@@ -211,6 +214,7 @@
     overflow: hidden;
     box-shadow: 2px 2px 1px rgb(56, 56, 56);
 }
+
 
 
 
