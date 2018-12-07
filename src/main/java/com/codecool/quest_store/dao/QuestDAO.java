@@ -298,7 +298,6 @@ public class QuestDAO implements ItemDAO {
 
             preparedStatement.close();
             connection.close();
-            System.out.println( "Quest with id : "+id+" was deleted." );
         } catch (SQLException exc) {
             exc.printStackTrace();
         }

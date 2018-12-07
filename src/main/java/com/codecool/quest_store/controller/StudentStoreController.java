@@ -47,11 +47,7 @@ public class StudentStoreController implements HttpHandler {
             userId = sessionDAO.getUserIdBySession(sesionNumber);
 
             levelsDAO = new LevelsDAOImpl(connectionPool);
-            System.out.println(userId);
             student_level = levelsDAO.getStudentLevel(userId);
-            System.out.println(student_level);
-        } else {
-            System.out.println("There is no cookie");
         }
 
         ItemDAO items = new ArtifactDAO(connectionPool);

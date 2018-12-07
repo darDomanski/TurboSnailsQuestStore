@@ -47,9 +47,7 @@ public class StudentCrowdfundingController implements HttpHandler {
             InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), StandardCharsets.UTF_8);
             BufferedReader br = new BufferedReader(isr);
             String formData = br.readLine();
-            System.out.println(formData);
             Map inputs = redirectController.parseFormData(formData);
-            System.out.println(inputs);
             int artifactId = Integer.parseInt((String) inputs.keySet().toArray()[0]);
             int donation = Integer.parseInt((String) inputs.values().toArray()[0]);
 
@@ -79,8 +77,6 @@ public class StudentCrowdfundingController implements HttpHandler {
             Integer moneyCollected = item.getValue() - crowdfundingDAO.getCollectedMoneyByArtifactId(item.getId());
             artifactsWithCollectedCoolcoins.put(moneyCollected, item);
         }
-
-        System.out.println(artifactsWithCollectedCoolcoins);
         return artifactsWithCollectedCoolcoins;
     }
 
@@ -96,7 +92,6 @@ public class StudentCrowdfundingController implements HttpHandler {
         if (cookieStr != null) {
             cookie = HttpCookie.parse(cookieStr).get(0);
         }
-        System.out.println(sessionDAO.getUserIdBySession(cookie.getValue()) + " userID");
         return sessionDAO.getUserIdBySession(cookie.getValue());
     }
 }

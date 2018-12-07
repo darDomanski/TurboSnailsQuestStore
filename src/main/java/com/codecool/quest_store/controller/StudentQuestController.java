@@ -43,11 +43,7 @@ public class StudentQuestController implements HttpHandler {
             userId = sessionDAO.getUserIdBySession(sesionNumber);
 
             levelsDAO = new LevelsDAOImpl(connectionPool);
-            System.out.println(userId);
             student_level = levelsDAO.getStudentLevel(userId);
-            System.out.println(student_level);
-        } else {
-            System.out.println("cookie is null");
         }
 
         ItemDAO items = new QuestDAO((connectionPool));
