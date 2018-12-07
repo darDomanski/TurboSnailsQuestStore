@@ -101,9 +101,11 @@ public class StudentStoreController implements HttpHandler {
             // action after above checking
             if (!isPossibleToBuy) {
                 model.with("notPossibleToBuy", true);
+                model.with("buyed", false);
                 model.with("buyAttemptTitle", artifactToBuy.getTitle());
             } else {
                 model.with("notPossibleToBuy", false);
+                model.with("buyed", true);
                 model.with("buyAttemptTitle", artifactToBuy.getTitle());
                 // add to student inventory
                 inventoryDAO = new InventoryDAOimpl(connectionPool);
