@@ -71,6 +71,8 @@
 
             {% if (notPossibleToBuy) %}
             <p id="warning">Not enough coolcoins to buy {{ buyAttemptTitle }}!</p>
+            {% else %}
+            <p id="success">{{ buyAttemptTitle }} succesfully buyed!</p>
             {% endif %}
 
             <h2>Basic Artifact</h2>

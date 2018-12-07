@@ -179,6 +179,11 @@ td {
     font-weight: bold;
     color: red;
 }
+#success {
+    font-size: 2em;
+    font-weight: bold;
+    color: green;
+}
 @media screen and (max-width: 1200px) {
     .page_content {
         width: 90%;

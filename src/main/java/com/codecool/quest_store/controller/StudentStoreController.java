@@ -25,6 +25,7 @@ public class StudentStoreController implements HttpHandler {
     private LevelsDAO levelsDAO;
     private WalletDAO walletDAO;
     private ItemDAO itemDAO;
+    private InventoryDAO inventoryDAO;
 
 
     public StudentStoreController(DBConnector connectionPool) {
@@ -74,6 +75,8 @@ public class StudentStoreController implements HttpHandler {
             model.with("student_level", student_level);
             model.with("artifactsBasic", basicStudentArtifacts);
             model.with("artifactsExtra", magicStudentArtifacts);
+            model.with("notPossibleToBuy", false);
+            model.with("buyAttemptTitle", "");
             response = template.render(model);
 
             httpExchange.sendResponseHeaders(200, 0);
@@ -100,21 +103,23 @@ public class StudentStoreController implements HttpHandler {
             Item artifactToBuy = itemDAO.getById(artifactId);
             boolean isPossibleToBuy = checkIfArtifactIsPossibleToBuy(artifactToBuy.getValue(), studentCoolcoins);
 
+            model.with("student_level", student_level);
             // action after above checking
             if (!isPossibleToBuy) {
-                model.with("notPossibleToBuy", !isPossibleToBuy);
+                model.with("notPossibleToBuy", true);
                 model.with("buyAttemptTitle", artifactToBuy.getTitle());
             } else {
+                model.with("notPossibleToBuy", false);
+                model.with("buyAttemptTitle", artifactToBuy.getTitle());
                 // add to student inventory
-                
+                inventoryDAO = new InventoryDAOimpl(connectionPool);
+                inventoryDAO.addArtifactToStudentInventory(userId, artifactToBuy.getId());
                 // decrease coolcoins in student wallet
-                walletDAO.changeCoolcoinsAmount(artifactToBuy.getValue(), "current_coins", userId);
+                int coolcoinsDecreased = walletDAO.getStudentsCoolcoinsAmount(userId, "current_coins") - artifactToBuy.getValue();
+                walletDAO.changeCoolcoinsAmount(coolcoinsDecreased, "current_coins", userId);
             }
-
-            model.with("student_level", student_level);
             model.with("artifactsBasic", basicStudentArtifacts);
             model.with("artifactsExtra", magicStudentArtifacts);
-            response = template.render(model);
 
             response = template.render(model);
             httpExchange.sendResponseHeaders(200, 0);

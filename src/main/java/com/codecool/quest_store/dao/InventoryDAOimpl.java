@@ -60,4 +60,24 @@ public class InventoryDAOimpl implements InventoryDAO {
         }
         return inventory;
     }
+
+    @Override
+    public void addArtifactToStudentInventory(int studentId, int artifactId) {
+        String query = "INSERT INTO student_artifact (student_id, artifact_id) " +
+                "VALUES ((SELECT id FROM qs_user WHERE id = ?), (SELECT id FROM artifact WHERE id = ?))";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, studentId);
+            preparedStatement.setInt(2, artifactId);
+            preparedStatement.execute();
+
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException exc) {
+            exc.printStackTrace();
+        }
+    }
 }

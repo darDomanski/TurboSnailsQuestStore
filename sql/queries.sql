@@ -1,19 +1,19 @@
 --Database reset
 DROP DATABASE quest_store;
-DROP USER ADMIN;
+DROP USER admin;
 
 --User creation
-CREATE USER ADMIN WITH ENCRYPTED PASSWORD 'admin';
+CREATE USER admin WITH ENCRYPTED PASSWORD 'admin';
 
 --Database creation
-CREATE DATABASE quest_store WITH OWNER = ADMIN;
-GRANT CONNECT ON DATABASE quest_store TO ADMIN;
+CREATE DATABASE quest_store WITH OWNER = admin;
+GRANT CONNECT ON DATABASE quest_store TO admin;
 --GRANT USAGE ON SCHEMA public to admin;
 --GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO admin;
 --GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO admin;
 
 --Connection to new created database
-\c quest_store ADMIN localhost
+\c quest_store admin localhost
 
 --Tables creation
 CREATE TABLE
@@ -60,7 +60,7 @@ IF NOT EXISTS qs_user (
 	email VARCHAR(320),
 	class_id INTEGER REFERENCES class_(class_id),
 	user_type INTEGER REFERENCES user_type(user_type_id),
-STATUS INTEGER REFERENCES user_status(user_status_id)
+	status INTEGER REFERENCES user_status(user_status_id)
 );
 
 CREATE TABLE
@@ -133,7 +133,9 @@ session_id TEXT UNIQUE
 
 -- Create levels, classes, user types and user statuses
 INSERT INTO access_level (level_id, min_lifetime_coins, max_lifetime_coins)
-VALUES(1, 0, 50),(2, 51, 150),(3, 151, 250),(4, 251, 350),(5, 351, 1000000);INSERT INTO class_(name)
+VALUES (1, 0, 50), (2, 51, 150), (3, 151, 250), (4, 251, 350), (5, 351, null); 
+
+INSERT INTO class_ (name)
 VALUES ('progbasic'), ('java'), ('web'), ('advanced');
 
 INSERT INTO user_type (user_type_name)
@@ -144,7 +146,8 @@ VALUES ('active'), ('inactve');
 
 -- Create users
 
--- Mentors INSERT INTO qs_user(first_name, last_name, email, class_id, user_type, STATUS)
+-- Mentors
+INSERT INTO qs_user (first_name, last_name, email, class_id, user_type, status)
 VALUES
 ('Marek', 'Grzybek', 'marco.funghi@codecool.com', (SELECT class_id FROM class_ WHERE name='progbasic'),
 						(SELECT user_type_id FROM user_type WHERE user_type_name='mentor'),
@@ -274,16 +277,16 @@ VALUES
 ((SELECT id FROM artifact WHERE id=2), 50),
 ((SELECT id FROM artifact WHERE id=4), 50),
 ((SELECT id FROM artifact WHERE id=7), 50),
-((SELECT id FROM artifact WHERE id=8),50);
+((SELECT id FROM artifact WHERE id=8), 50);
 
 -- Fill students wallets
 INSERT INTO wallet (student_id, current_coins, lifetime_coins)
 VALUES
 ((SELECT id FROM qs_user WHERE id=5), 50, 100),
-((SELECT id FROM qs_user WHERE id=6), 300, 150),
-((SELECT id FROM qs_user WHERE id=7), 100, 50),
-((SELECT id FROM qs_user WHERE id=8), 300, 0),
+((SELECT id FROM qs_user WHERE id=6), 150, 300),
+((SELECT id FROM qs_user WHERE id=7), 50, 100),
+((SELECT id FROM qs_user WHERE id=8), 0, 300),
 ((SELECT id FROM qs_user WHERE id=9), 800, 1200),
 ((SELECT id FROM qs_user WHERE id=10), 500, 3000),
-((SELECT id FROM qs_user WHERE id=11), 7000, 1000),
+((SELECT id FROM qs_user WHERE id=11), 1000, 7000),
 ((SELECT id FROM qs_user WHERE id=12), 30000, 30000);
