@@ -39,6 +39,9 @@ public class ArtifactDAO implements ItemDAO {
             connection.close();
         } catch (SQLException exc) {
             exc.printStackTrace();
+            System.out.println("Connection problem with data base!");
+        } catch (NullPointerException e) {
+
         }
         return artifacts;
     }
