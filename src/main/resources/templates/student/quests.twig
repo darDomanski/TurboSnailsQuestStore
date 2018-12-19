@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Quests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=MedievalSharp" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/cards.css">
+    <link rel="icon" href="/static/img/favicon.ico">
+</head>
+
+<body>
+    <div class="page_content">
+        <header>
+            <div class="title_container">
+                <figure>
+                    <img id="logo" src="/static/img/logo.png" alt="logo">
+                </figure>
+
+                <span id="header_icons">
+
+                    <figure class="icon">
+                        <a href="/student/inventory">
+                            <img src="/static/img/backpack.png" class="icon_img" alt="backpack">
+                        </a>
+                    </figure>
+
+                    <figure class="icon">
+                        <a href="/student/wallet">
+                            <img src="/static/img/wallet.png" class="icon_img" alt="wallet">
+                            <div id="amount_of_coolcoins">100</div>
+                        </a>
+                    </figure>
+
+                    <figure class="icon">
+                        <img src="/static/img/star-icon.png" class="icon_img" alt="exp_icon">
+                        <div id="exp_level"> {{ student_level }} </div>
+                    </figure>
+
+                    <figure class="icon">
+                        <a href="/logout"><img src="/static/img/logout.png" class="icon_img" alt="logout"></a>
+                    </figure>
+
+                </span>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/student/store">STORE</a>
+                    </li>
+                    <li>
+                        <a href="/student/crowdfunding"> CROWDFUNDING</a>
+                    </li>
+                    <li>
+                        <a href="/student/quest">QUESTS</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="main_content">
+
+            <h1>QUESTS</h1>
+
+            <h2>Basic Quests</h2>
+
+            <div class="artefacts">
+                    {% for quest in questsBasic %}
+                        <div class="card_artefacts">
+                            <p class="text_on_card_1"> {{ quest.getTitle }} </p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/img/owlSmall.jpg" alt="Picture of Hero" />
+                            </div>
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2"> {{ quest.description }} </p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2"> {{ quest.value }} </p>
+                                </li>
+                            </ul>
+
+                        </div>
+                    {% endfor %}
+            </div>
+
+            <h2>Your Basic Quests</h2>
+
+            <div class="artefacts">
+                    {% for quest in questsStudentBasic %}
+                        <div class="card_from_mentor">
+                            <p class="text_on_card_1"> {{ quest.getTitle }} </p>
+                            <div>
+                                <img class="pictures_on_card" src="/static/img/owlSmall.jpg" alt="Picture of Hero" />
+                            </div>
+                            <ul>
+                                <li>
+                                    <p class="text_on_card_2"> {{ quest.description }} </p>
+                                </li>
+                                <li>
+                                    <p class="text_on_card_2"> {{ quest.value }} </p>
+                                </li>
+                                <div class="valuecoins">{{ quest.value }}</div>
+                            </ul>
+
+                        </div>
+                    {% endfor %}
+            </div>
+
+
+            <h2>Extra Quests</h2>
+
+                  <div class="artefacts">
+                          {% for quest in questsExtra %}
+                              <div class="card_artefacts">
+                                  <p class="text_on_card_1"> {{ quest.getTitle }} </p>
+                                  <div>
+                                      <img class="pictures_on_card" src="/static/img/owlSmall.jpg" alt="Picture of Hero" />
+                                  </div>
+                                  <ul>
+                                      <li>
+                                          <p class="text_on_card_2"> {{ quest.description }} </p>
+                                      </li>
+                                      <li>
+                                          <p class="text_on_card_2"> {{ quest.value }} </p>
+                                      </li>
+                                  </ul>
+                                  <p class="extra">EXTRA QUEST</p>
+                              </div>
+                          {% endfor %}
+                  </div>
+
+            <h2>Your Extra Quests</h2>
+
+                  <div class="artefacts">
+                          {% for quest in questsStudentExtra %}
+                              <div class="card_from_mentor">
+                                  <p class="text_on_card_1"> {{ quest.getTitle }} </p>
+                                  <div>
+                                      <img class="pictures_on_card" src="/static/img/owlSmall.jpg" alt="Picture of Hero" />
+                                  </div>
+                                  <ul>
+                                      <li>
+                                          <p class="text_on_card_2"> {{ quest.description }} </p>
+                                      </li>
+                                      <li>
+                                          <p class="text_on_card_2"> {{ quest.value }} </p>
+                                      </li>
+                                      <div class="valuecoins">{{ quest.value }}</div>
+                                  </ul>
+
+                                  <p class="extra">EXTRA QUEST</p>
+
+                              </div>
+                          {% endfor %}
+                  </div>
+
+
+
+        </div>
+
+        <footer>
+            <span id="links">
+                <h3>Find us on Facebook:</h3>
+                <ul>
+                    <li><a href="https://www.facebook.com/profile.php?id=100024050271937" target="_blank">TurboKrzyś</a></li>
+                    <li><a href="https://www.facebook.com/roman.bulinski" target="_blank">TurboRoman</a></li>
+                    <li><a href="https://www.facebook.com/dar.domanski" target="_blank">TurboDaro</a></li>
+                </ul>
+            </span>
+
+            <span id="copyrights">
+                <p>Copyrights&copy; 2018 by TurboSnails, all rights reserved.</p>
+            </span>
+        </footer>
+    </div>
+</body>
+
+</html>

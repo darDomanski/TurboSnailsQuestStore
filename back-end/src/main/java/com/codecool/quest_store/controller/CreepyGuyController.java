@@ -1,4 +1,0 @@
-package com.codecool.quest_store.controller;
-
-public class CreepyGuyController implements UserController {
-}
