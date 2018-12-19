@@ -40,8 +40,10 @@ public class ArtifactDAO implements ItemDAO {
         } catch (SQLException exc) {
             exc.printStackTrace();
             System.out.println("Connection problem with data base!");
-        } catch (NullPointerException e) {
 
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            System.out.println("Connection problem with data base!");
         }
         return artifacts;
     }
@@ -155,12 +157,6 @@ public class ArtifactDAO implements ItemDAO {
 
     @Override
     public void add( Item item ) {
-        Integer id = item.getId();
-        Integer access_level = item.getAccess_level();
-        String title = item.getTitle();
-        String description = item.getDescription();
-        Integer artifact_price = item.getValue();
-        String artifact_type =  item.getType();
 
         Connection connection = null;
         PreparedStatement preparedstatement = null;
@@ -168,6 +164,14 @@ public class ArtifactDAO implements ItemDAO {
             connection = connectionPool.getConnection();
             preparedstatement = connection.prepareStatement("INSERT INTO quest ( ID,access_level,title,description,artifact_price,artifact_type ) " +
                     "VALUES(?,?,?,?,?,?)");
+
+            Integer id = item.getId();
+            Integer access_level = item.getAccess_level();
+            String title = item.getTitle();
+            String description = item.getDescription();
+            Integer artifact_price = item.getValue();
+            String artifact_type =  item.getType();
+
             preparedstatement.setInt(1, id);
             preparedstatement.setInt(2, access_level);
             preparedstatement.setString(3, title);
@@ -180,6 +184,9 @@ public class ArtifactDAO implements ItemDAO {
             connection.close();
         } catch (SQLException exc) {
             exc.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            System.out.println("Item can't be null!");
         }
     }
 
