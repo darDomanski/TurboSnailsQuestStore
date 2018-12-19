@@ -61,12 +61,7 @@ public class QSUserDAO implements PersonDAO {
 
     @Override
     public void insert(Person person) {
-        String firstName = person.getFirstName();
-        String lastName = person.getLastName();
-        String email = person.getEmail();
-        String classId = person.getClassName();
-        String userType = person.getUserType();
-        String userStatus = person.getStatus();
+
         String query = "INSERT INTO qs_user (first_name, last_name, email, class_id, user_type, status) " +
                 "VALUES (?, ?, ?, (SELECT class_id FROM class_ where name=?), " +
                 "(SELECT user_type_id FROM user_type WHERE user_type_name = ?), " +
@@ -76,6 +71,12 @@ public class QSUserDAO implements PersonDAO {
         PreparedStatement preparedStatement = null;
 
         try {
+            String firstName = person.getFirstName();
+            String lastName = person.getLastName();
+            String email = person.getEmail();
+            String classId = person.getClassName();
+            String userType = person.getUserType();
+            String userStatus = person.getStatus();
             connection = connectionPool.getConnection();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, firstName);
@@ -92,6 +93,9 @@ public class QSUserDAO implements PersonDAO {
         } catch (SQLException e) {
             System.err.println("Can't add object to database!");
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            System.out.println("Can't add null to database!");
         }
     }
 
